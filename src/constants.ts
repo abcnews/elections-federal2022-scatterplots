@@ -13,6 +13,12 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
+    id: 'age',
+    source: 'ABS',
+    label: 'Age in Ten Year Groups',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  },
+  {
     id: 'engagement',
     source: 'ABS',
     label: 'Engagement in Employment, Education and Training',
