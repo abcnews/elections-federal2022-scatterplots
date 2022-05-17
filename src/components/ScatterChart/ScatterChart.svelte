@@ -3,7 +3,7 @@
   import type { Graph } from '../store';
   import ScatterPlot from "./ScatterPlot.svelte";
   import { fetchAbsData } from '../../lib/abs';
-  import { calcScatterData } from '../../lib/model';
+  import { calcScatterData, determineXAxisLabel } from '../../lib/model';
 
   import { Y_AXIS_METHODS, PARTY_COLOURS, FOCUS_ORANGE, DATASETS, RESULTS_SOURCE_LABEL } from '../../constants';
 
@@ -27,18 +27,6 @@
   //
   // Graph Labels
   //
-  const determineXAxisLabel = (opts: Graph) => {
-    if (opts.xAxisLabelOverride) {
-      return opts.xAxisLabelOverride;
-    }
-
-    if (opts.xAxisFields.length === 1 && !opts.xAxisInverse) {
-      return `${$graph.xAxisFields[0]} (% of electorate)`;
-    }
-
-    return 'X Axis Label Override Needed!';
-  };
-
   $: xLabel = determineXAxisLabel($graph);
   $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
 </script>

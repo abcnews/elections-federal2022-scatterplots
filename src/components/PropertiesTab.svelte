@@ -10,6 +10,7 @@
   import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 
   import { fetchAbsData } from '../lib/abs';
+  import { determineXAxisLabel } from '../lib/model';
   import { DATASETS, Y_AXIS_METHODS } from '../constants';
 
   import { getContext } from 'svelte';
@@ -73,6 +74,8 @@
       <TextInput
         bind:value={$graph.xAxisLabelOverride}
         labelText="X Axis Custom Label"
+        invalid={determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
+        invalidText="Required"
       />
 
       <Select
@@ -153,7 +156,7 @@
     margin-bottom: 1rem;
   }
 
-  :global(.bx--text-input) {
+  :global(.bx--text-input-wrapper) {
     margin-bottom: 1rem;
   }
 

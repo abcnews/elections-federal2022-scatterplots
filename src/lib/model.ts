@@ -4,6 +4,18 @@ import type { Graph } from '../store';
 import { Y_AXIS_METHODS, PARTY_COLOURS, DEFAULT_PRIMARY_COLOUR } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
+export const determineXAxisLabel = (opts: Graph) => {
+  if (opts.xAxisLabelOverride) {
+    return opts.xAxisLabelOverride;
+  }
+
+  if (opts.xAxisFields.length === 1 && !opts.xAxisInverse) {
+    return `${opts.xAxisFields[0]} (% of electorate)`;
+  }
+
+  return 'X Axis Label Override Needed!';
+};
+
 //
 // Combine election results data with demographic data
 //
