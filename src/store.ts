@@ -5,7 +5,10 @@ export interface Graph {
   dataset: string;
   yAxisMethod: string,
   targetField: null | string;
+
   partyColours: boolean;
+  trendline: boolean;
+  smoothingBandwidth: number;
 }
 
 export interface GraphStore extends Writable<Graph> {
@@ -20,7 +23,10 @@ const INITIAL_GRAPH = {
   dataset: 'religion',
   targetField: null,
   yAxisMethod: 'swing',
-  partyColours: true,
+
+  partyColours: false,
+  trendline: true,
+  smoothingBandwidth: 4,
 };
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

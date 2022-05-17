@@ -43,7 +43,7 @@
       };
       
       if (yAxisMethod === 'margin') {
-        val.y = result.margin;
+        val.y = parseFloat(result.margin);
       } else if (yAxisMethod === 'swing') {
         const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
 
@@ -64,6 +64,7 @@
   };
 
   let graph = getContext<Graph>('graph');
+  // The election results from news-web
   export let results;
 
   let data = [];
@@ -84,4 +85,6 @@
   xLabel={$graph.targetField || 'No target field selected'}
   yLabel={yLabel}
   data={data}
+  trendline={$graph.trendline}
+  smoothingBandwidth={$graph.smoothingBandwidth}
 />

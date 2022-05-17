@@ -4,10 +4,10 @@
   import Select from 'carbon-components-svelte/src/Select/Select.svelte';
   import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 
-  // import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
-  // import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
   import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
+  import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
   // import Tile from 'carbon-components-svelte/src/Tile/Tile.svelte';
+  // import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 
   import { fetchAbsData } from '../lib/abs';
   import { DATASETS, Y_AXIS_METHODS } from '../constants';
@@ -67,6 +67,19 @@
         labelText="Enable Party Colours"
       />
     </AccordionItem>
+    <AccordionItem title="Trendline" open>
+      <NumberInput
+        min={2}
+        max={10}
+        step={1}
+        bind:value={$graph.smoothingBandwidth}
+        label="Smoothing"
+      />
+      <Checkbox
+        bind:checked={$graph.trendline}
+        labelText="Enable"
+      />
+    </AccordionItem>
   </Accordion>
 </div>
 
@@ -88,6 +101,10 @@
   }
 
   :global(.bx--select) {
+    margin-bottom: 1rem;
+  }
+
+  :global(.bx--number) {
     margin-bottom: 1rem;
   }
 </style>
