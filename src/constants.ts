@@ -52,12 +52,16 @@ export const DATASETS = [
 
 export const Y_AXIS_METHODS = [
   {
-    id: 'swing',
+    id: 'swing-from-lnp',
     label: 'Swing away from Coalition',
   },
   {
-    id: 'margin',
-    label: 'Margin',
+    id: 'swing-to-lnp',
+    label: 'Swing to Coalition',
+  },
+  {
+    id: '2cp-vote-lnp',
+    label: 'Two-Candidate-Preferred Vote for Coalition',
   },
 ];
 

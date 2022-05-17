@@ -3,12 +3,10 @@
   import AccordionItem from 'carbon-components-svelte/src/Accordion/AccordionItem.svelte';
   import MultiSelect from 'carbon-components-svelte/src/MultiSelect/MultiSelect.svelte';
   import Select from 'carbon-components-svelte/src/Select/Select.svelte';
-  import Select from 'carbon-components-svelte/src/Select/Select.svelte';
   import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 
   import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
   import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
-  // import Tile from 'carbon-components-svelte/src/Tile/Tile.svelte';
   import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 
   import { fetchAbsData } from '../lib/abs';
@@ -25,6 +23,22 @@
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
   }
+
+  let ELECTORATE_CATEGORIES = [
+    'Inner Metro',
+    'Outer Metro',
+    'Regional Seats',
+    'Rural',
+  ];
+  let ELECTORATE_CLOSENESS = [
+    'Marginal',
+    'Safe',
+    'Very Safe',
+  ];
+  let ELECTORATE_HELD_BY = [
+    'Liberal',
+    'Labor',
+  ];
 </script>
 
 
@@ -49,10 +63,7 @@
 
       <MultiSelect
         titleText="X Axis Field Selection"
-        selectedIds={$graph.xAxisFields}
-        on:select={e => {
-          $graph.xAxisFields = e.detail.selectedIds;
-        }}
+        bind:selectedIds={$graph.xAxisFields}
         disabled={datasetFields.length === 0}
         label={datasetFields.length === 0 ? 'Loading...' : ''}
         items={datasetFields.map(d => ({ id: d, text: d }))}
@@ -87,9 +98,33 @@
       />
     </AccordionItem>
 
-    <AccordionItem title="Trendline" open>
+    <AccordionItem title="Filters" open>
+      <MultiSelect
+        titleText="Geo Category"
+        bind:selectedIds={$graph.categoryFilters}
+        items={ELECTORATE_CATEGORIES.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <MultiSelect
+        titleText="Held By"
+        bind:selectedIds={$graph.heldByFilters}
+        items={ELECTORATE_HELD_BY.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <MultiSelect
+        titleText="Closeness"
+        bind:selectedIds={$graph.closenessFilters}
+        items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+    </AccordionItem>
+
+    <AccordionItem title="Trendline">
       <NumberInput
-        min={2}
+        min={1}
         max={10}
         step={1}
         bind:value={$graph.smoothingBandwidth}
@@ -100,6 +135,7 @@
         labelText="Enable"
       />
     </AccordionItem>
+
   </Accordion>
 </div>
 

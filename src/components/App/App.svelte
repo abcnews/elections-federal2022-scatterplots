@@ -70,7 +70,7 @@
       margin: 0;
       border-top: 0;
       border-left: 2px solid #e0e0e0;
-      max-width: 27rem;
+      max-width: 32rem;
       max-height: 100vh;
       overflow-x: hidden;
       overflow-y: scroll;

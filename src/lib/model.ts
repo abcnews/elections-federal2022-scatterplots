@@ -2,6 +2,7 @@ import { sum, range, min, max } from 'd3';
 
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, PARTY_COLOURS, DEFAULT_PRIMARY_COLOUR } from '../constants';
+import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
 //
 // Combine election results data with demographic data
@@ -13,6 +14,9 @@ export const calcScatterData = (
   yAxisMethod: string,
   partyColours: boolean,
   xAxisInverse: boolean,
+  heldByFilters: string[],
+  closenessFilters: string[],
+  categoryFilters: string[],
 ) => {
   if (!results || !demographics) {
     return [];
@@ -21,10 +25,34 @@ export const calcScatterData = (
   const electorates = results.map(result => {
     // Get the demographic data for the electorate
     const demo = demographics.find(d => d.Electorate === result.name);
-    // Ignore electorates with incomplete data
+    // Get the categories for the electorate
+    const categories = ELECTORATE_CATEGORIES.find(c => c.Electorate === result.name);
 
-    if (!demo || xAxisFields.length === 0) {
+    // Ignore electorates with incomplete data
+    if (!demo || xAxisFields.length === 0 || !categories) {
       return null;
+    }
+
+    // Apply filters
+    if (heldByFilters.length > 0) {
+      if (heldByFilters.indexOf(categories["Held By"]) === -1) {
+        return null;
+      }
+
+      // Special case to handle "LNP" in data
+      if (heldByFilters.indexOf("Liberal") > -1 && categories["Held By"] === "LNP") {
+        return null;
+      }
+    }
+    if (closenessFilters.length > 0) {
+      if (closenessFilters.indexOf(categories["Closeness"]) === -1) {
+        return null;
+      }
+    }
+    if (categoryFilters.length > 0) {
+      if (categoryFilters.indexOf(categories["Category"]) === -1) {
+        return null;
+      }
     }
 
     // const isSafe = result.predicted?.predictionString?.startsWith('SAFE');
@@ -50,19 +78,37 @@ export const calcScatterData = (
 // Calculate the vote measure for the Y Axis
 //
 const yAxis = (result: any, method: string): number | null => {
-  if (method === 'margin') {
-    return parseFloat(result.margin);
-  } else if (method === 'swing') {
-    const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
+  const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
 
+  if (method === 'swing-from-lnp') {
     // TODO: What do we do when there's no Gov candidate involved?
     if (!coalitionRes) {
       return null;
     }
 
-    // positive means away from gov
+    // positive means away from LNP
     const swing = -1 * parseFloat(coalitionRes.predicted2CP.swing);
     return swing;
+  }
+
+  if (method === 'swing-to-lnp') {
+    // TODO: What do we do when there's no Gov candidate involved?
+    if (!coalitionRes) {
+      return null;
+    }
+
+    // positive means to LNP
+    const swing = parseFloat(coalitionRes.predicted2CP.swing);
+    return swing;
+  }
+
+  if (method === '2cp-vote-lnp') {
+    if (!coalitionRes) {
+      return null;
+    }
+
+    const pct = parseFloat(coalitionRes.predicted2CP.pct);
+    return pct;
   }
 
   return null;

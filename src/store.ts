@@ -15,6 +15,10 @@ export interface Graph {
 
   trendline: boolean;
   smoothingBandwidth: number;
+
+  heldByFilters: string[];
+  closenessFilters: string[];
+  categoryFilters: string[];
 }
 
 export interface GraphStore extends Writable<Graph> {
@@ -28,7 +32,7 @@ export interface GraphStore extends Writable<Graph> {
 const INITIAL_GRAPH = {
   dataset: 'religion',
 
-  yAxisMethod: 'swing',
+  yAxisMethod: 'swing-from-lnp',
 
   xAxisFields: [],
   xAxisInverse: false,
@@ -39,6 +43,10 @@ const INITIAL_GRAPH = {
 
   trendline: true,
   smoothingBandwidth: 2,
+
+  heldByFilters: [],
+  closenessFilters: [],
+  categoryFilters: [],
 };
 
 export function createGraphStore(initial: Partial<Graph> = {}) {
