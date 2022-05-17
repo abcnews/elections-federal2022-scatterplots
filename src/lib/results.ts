@@ -48,7 +48,7 @@ const liveResultsElectoratesPromises: {
   [key: string]: Promise<LiveResultsElectorate[]>;
 } = {};
 
-export const fetchLiveResultsElectoratesReal = async () => {
+export const fetchLiveResultsElectoratesLive = async () => {
   const url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(LIVE_RESULTS_PROPS)}`;
 
   if (!liveResultsElectoratesPromises[url]) {
@@ -61,7 +61,7 @@ export const fetchLiveResultsElectoratesReal = async () => {
 };
 
 export const fetchLiveResultsElectorates = async () => {
-  const url = '/results2019.json';
+  const url = `${__webpack_public_path__}/results2019.json`;
 
   if (!liveResultsElectoratesPromises[url]) {
     liveResultsElectoratesPromises[url] = fetch(url)
