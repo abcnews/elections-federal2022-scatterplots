@@ -19,7 +19,6 @@
   let datasetFields: string[] = [];
   $: {
     fetchAbsData($graph.dataset).then(demographics => {
-      // $graph.targetField = null;
       datasetFields = Object.keys(demographics[0] || {})
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
@@ -28,10 +27,16 @@
 
 <div>
   <Accordion>
-    <AccordionItem title="Graph" open>
+    <AccordionItem title="Dataset Builder" open>
       <Select
         labelText="Dataset"
-        bind:selected={$graph.dataset}
+        selected={$graph.dataset}
+        on:change={e => {
+          if (e.detail !== $graph.dataset) {
+            $graph.dataset = e.detail;
+            $graph.targetField = null;
+          }
+        }}
       >
         {#each DATASETS as dataset}
           <SelectItem value={dataset.id} text={dataset.label} />
@@ -39,7 +44,7 @@
       </Select>
 
       <Select
-        labelText="Target Field"
+        labelText="X Axis"
         bind:selected={$graph.targetField}
       >
         <SelectItem text="Not Selected" />
