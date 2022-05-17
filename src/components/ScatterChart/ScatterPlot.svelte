@@ -3,15 +3,15 @@
   import Axis from "./Axis.svelte";
 
   const margin = { top: 15, bottom: 50, left: 50, right: 20 };
-  const width = 900;
+  const width = 700;
   const height = 600;
 
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
 
-  export let xLabel;
-  export let yLabel;
-  export let data;
+  export let xLabel: string;
+  export let yLabel: string;
+  export let data: any;
 
   $: xScale = scaleLinear()
     .domain(extent(data, (d) => d.x))
@@ -31,7 +31,7 @@
       <text transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
         {yLabel} (%)
       </text>
-      <text x={innerWidth / 2} y={innerHeight + 35}>
+      <text x={innerWidth / 3} y={innerHeight + 35}>
         {xLabel} (% of electorate)
       </text>
 

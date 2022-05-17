@@ -79,7 +79,7 @@
       demographics = d;
     });
   }
-  $: data = calcScatterData(results, demographics, $graph.targetField, $graph.yAxisMethod);
+  $: data = calcScatterData(results, demographics, $graph.targetField, $graph.yAxisMethod, $graph.partyColours);
 </script>
 
 <ScatterPlot

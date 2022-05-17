@@ -6,7 +6,7 @@
 
   // import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
   // import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
-  // import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
+  import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
   // import Tile from 'carbon-components-svelte/src/Tile/Tile.svelte';
 
   import { fetchAbsData } from '../lib/abs';
@@ -55,6 +55,11 @@
           <SelectItem value={method.id} text={method.label} />
         {/each}
       </Select>
+
+      <Checkbox
+        bind:checked={$graph.partyColours}
+        labelText="Enable Party Colours"
+      />
     </AccordionItem>
   </Accordion>
 </div>

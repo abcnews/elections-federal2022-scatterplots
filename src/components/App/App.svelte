@@ -45,7 +45,6 @@
     justify-content: center;
     align-items: stretch;
     min-height: 100vh;
-    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   }
 
   article {
