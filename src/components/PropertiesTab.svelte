@@ -161,7 +161,7 @@
     margin-bottom: 0.5rem;
   }
 
-  :global(.bx--multi-select) {
+  :global(.bx--multi-select__wrapper) {
     margin-bottom: 1rem;
   }
 
