@@ -17,23 +17,21 @@
         return null;
       }
 
-      // const hasCountingBegan = electorate.counted !== '0.0';
-      // const allocation = electorate.leadingCandidate?.party.code;
-      // const prediction = electorate.predicted?.predictionString;
-      // const isSafe = prediction ? prediction.startsWith('SAFE') : false;
-
-      const isSafe = result.predicted?.predictionString?.startsWith('SAFE');
+      // const isSafe = result.predicted?.predictionString?.startsWith('SAFE');
       // Ignore electorates that haven't been called
       // if (!isSafe) {
       //   return null;
       // }
 
       const winningParty = result.leadingCandidate?.party.code;
+      
+      // From ABC Datawrapper colour palette
       const colourMap = {
         LIB: '#0A52BF',
         NAT: '#0A52BF',
         ALP: '#E11F30',
         GRN: '#51A802',
+        OTH: '#757575',
       };
       const DEFAULT_COLOUR = '#007BC7';
 
@@ -41,7 +39,7 @@
         x: 100 * demo[targetField] / demo.Total,
         y: 0,
         electorate: result.name,
-        colour: partyColours ? colourMap[winningParty] : DEFAULT_COLOUR, 
+        colour: partyColours ? (colourMap[winningParty] || colourMap.OTH) : DEFAULT_COLOUR, 
       };
       
       if (yAxisMethod === 'margin') {
@@ -54,8 +52,8 @@
           return null;
         }
 
-        // +pve means towards gov
-        const swing = parseFloat(coalitionRes.predicted2CP.swing);
+        // positive means away from gov
+        const swing = -1 * parseFloat(coalitionRes.predicted2CP.swing);
         val.y = swing;
       }
 

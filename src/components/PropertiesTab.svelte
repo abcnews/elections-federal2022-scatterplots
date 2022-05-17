@@ -19,6 +19,7 @@
   let datasetFields: string[] = [];
   $: {
     fetchAbsData($graph.dataset).then(demographics => {
+      // $graph.targetField = null;
       datasetFields = Object.keys(demographics[0] || {})
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });

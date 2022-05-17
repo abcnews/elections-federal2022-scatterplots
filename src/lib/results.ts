@@ -61,7 +61,7 @@ export const fetchLiveResultsElectoratesLive = async () => {
 };
 
 export const fetchLiveResultsElectorates = async () => {
-  const url = `${__webpack_public_path__}/results2019.json`;
+  const url = `${__webpack_public_path__ || '/'}results2019.json`;
 
   if (!liveResultsElectoratesPromises[url]) {
     liveResultsElectoratesPromises[url] = fetch(url)

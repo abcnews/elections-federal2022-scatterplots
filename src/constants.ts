@@ -18,6 +18,6 @@ export const Y_AXIS_METHODS = [
   },
   {
     id: 'swing',
-    label: 'Swing to Coalition',
+    label: 'Swing away from Coalition',
   },
 ];

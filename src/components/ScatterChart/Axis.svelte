@@ -21,8 +21,11 @@
         axis = axisLeft(scale).tickSizeOuter(0);
         transform = `translate(0, 0)`;
     }
-    select(g).call(axis);
+    select(g).call(axis).attr('color', '#69788C');
   }
 </script>
 
 <g class="axis" bind:this={g} {transform} />
+
+<style>
+</style>

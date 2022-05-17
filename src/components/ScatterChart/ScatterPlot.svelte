@@ -37,12 +37,21 @@
 
       {#each data as point, i}
         <circle
+          class="scatter-dot"k
           cx={xScale(point.x)}
           cy={yScale(point.y)}
-          r="5"
-          style={`fill:${point.colour || 'red'}`}
+          r="4"
+          color={point.colour}
         />
       {/each}
     </g>
   </svg>
 </main>
+
+<style>
+  .scatter-dot {
+    fill: currentColor;
+    fill-opacity: 0.6;
+    stroke: currentColor;
+  }
+</style>
