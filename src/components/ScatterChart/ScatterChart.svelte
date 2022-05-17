@@ -5,7 +5,7 @@
   import { fetchAbsData } from '../../lib/abs';
   import { calcScatterData } from '../../lib/model';
 
-  import { Y_AXIS_METHODS, PARTY_COLOURS, FOCUS_ORANGE } from '../../constants';
+  import { Y_AXIS_METHODS, PARTY_COLOURS, FOCUS_ORANGE, DATASETS, RESULTS_SOURCE_LABEL } from '../../constants';
 
   // The election results from news-web
   export let results;
@@ -14,12 +14,32 @@
   let demographics = [];
   let graph = getContext<Graph>('graph');
 
+  //
+  // Data Fetching / Calcs
+  //
   $: {
     fetchAbsData($graph.dataset).then(d => {
       demographics = d;
     });
   }
-  $: data = calcScatterData(results, demographics, $graph.targetField, $graph.yAxisMethod, $graph.partyColours);
+  $: data = calcScatterData(results, demographics, $graph.xAxisFields, $graph.yAxisMethod, $graph.partyColours, $graph.xAxisInverse);
+
+  //
+  // Graph Labels
+  //
+  const determineXAxisLabel = (opts: Graph) => {
+    if (opts.xAxisLabelOverride) {
+      return opts.xAxisLabelOverride;
+    }
+
+    if (opts.xAxisFields.length === 1 && !opts.xAxisInverse) {
+      return `${$graph.xAxisFields[0]} (% of electorate)`;
+    }
+
+    return 'X Axis Label Override Needed!';
+  };
+
+  $: xLabel = determineXAxisLabel($graph);
   $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
 </script>
 
@@ -48,7 +68,7 @@
 {/if}
 
 <ScatterPlot
-  xLabel={$graph.targetField || 'No target field selected'}
+  xLabel={xLabel}
   yLabel={yLabel}
   data={data}
 
@@ -57,6 +77,11 @@
   trendlineColour={$graph.partyColours ? 'black' : 'black'}
   smoothingBandwidth={$graph.smoothingBandwidth}
 />
+
+<p class="data-source">
+  Source: {DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}, {RESULTS_SOURCE_LABEL}
+</p>
+
 
 <style>
   .scatter-key > svg {
@@ -78,6 +103,18 @@
     line-height: 13px;
     letter-spacing: 0em;
     text-align: left;
+  }
+
+  .data-source {
+    align-items: center;
+    color: #888;
+    display: flex;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    justify-content: space-between;
+    line-height: 18px;
+    text-decoration: none;
   }
 
 </style>

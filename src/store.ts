@@ -3,8 +3,12 @@ import { writable } from 'svelte/store';
 
 export interface Graph {
   dataset: string;
+
   yAxisMethod: string,
-  targetField: null | string;
+
+  xAxisFields: string[];
+  xAxisInverse: boolean;
+  xAxisLabelOverride: null | string,
 
   partyColours: boolean;
   grid: boolean;
@@ -23,8 +27,12 @@ export interface GraphStore extends Writable<Graph> {
 
 const INITIAL_GRAPH = {
   dataset: 'religion',
-  targetField: null,
+
   yAxisMethod: 'swing',
+
+  xAxisFields: [],
+  xAxisInverse: false,
+  xAxisLabelOverride: null,
 
   partyColours: false,
   grid: true,

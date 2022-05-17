@@ -9,9 +9,10 @@ import { Y_AXIS_METHODS, PARTY_COLOURS, DEFAULT_PRIMARY_COLOUR } from '../consta
 export const calcScatterData = (
   results: any,
   demographics: any,
-  targetField: string,
+  xAxisFields: string[],
   yAxisMethod: string,
-  partyColours: boolean
+  partyColours: boolean,
+  xAxisInverse: boolean,
 ) => {
   if (!results || !demographics) {
     return [];
@@ -21,7 +22,8 @@ export const calcScatterData = (
     // Get the demographic data for the electorate
     const demo = demographics.find(d => d.Electorate === result.name);
     // Ignore electorates with incomplete data
-    if (!demo || !targetField) {
+
+    if (!demo || xAxisFields.length === 0) {
       return null;
     }
 
@@ -34,7 +36,7 @@ export const calcScatterData = (
     const winningParty = result.leadingCandidate?.party.code;
 
     return {
-      x: xAxis(demo, targetField),
+      x: xAxis(demo, xAxisFields, xAxisInverse),
       y: yAxis(result, yAxisMethod),
       electorate: result.name,
       colour: partyColours ? PARTY_COLOURS[winningParty] || PARTY_COLOURS.OTH : DEFAULT_PRIMARY_COLOUR
@@ -69,9 +71,17 @@ const yAxis = (result: any, method: string): number | null => {
 //
 // Calculate the demographic as a % of the total population of the electorate
 //
-// TODO: Handle multiple target fields?
-const xAxis = (demo: any, targetField: string): number => {
-  return (100 * demo[targetField]) / demo.Total;
+const xAxis = (demo: any, xAxisFields: string[], inverse: boolean): number => {
+  const selectedValues = xAxisFields.reduce(
+    (acc, field) => acc + parseInt(demo[field]),
+    0
+  );
+
+  let val = (100 * selectedValues) / demo.Total;
+  if (inverse) {
+    val = 100 - val;
+  }
+  return val;
 };
 
 //

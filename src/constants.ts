@@ -1,3 +1,4 @@
+export const RESULTS_SOURCE_LABEL = 'Australian Electoral Commission (AEC)';
 export const DATASETS = [
   {
     id: 'religion',
@@ -40,6 +41,12 @@ export const DATASETS = [
     source: 'ABS',
     label: 'Unpaid Domestic Work',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  },
+  {
+    id: 'vote_compass',
+    source: 'Vote Compass',
+    label: 'Vote Compass',
+    sourceLabel: 'ABC Vote Compass',
   },
 ];
 

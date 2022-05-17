@@ -30,13 +30,14 @@
   $: trendlinePath = line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
-        (calcSmoothedLine(data, smoothingBandwidth));
+        (calcSmoothedLine(data, smoothingBandwidth))
+
 </script>
 
 <main>
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
-      {#if grid}
+      {#if (grid && data.length !== 0)}
         <Grid {innerHeight} {innerWidth} scale={xScale} position="bottom" />
         <Grid {innerHeight} {innerWidth} scale={yScale} position="left" />
       {/if}
@@ -47,7 +48,7 @@
         {yLabel} (%)
       </text>
       <text class="axis-label" x={innerWidth / 2} y={innerHeight + 35}>
-        {xLabel} (% of electorate)
+        {xLabel}
       </text>
 
       {#if trendline}

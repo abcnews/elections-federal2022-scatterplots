@@ -1,13 +1,15 @@
 <script lang="ts">
   import Accordion from 'carbon-components-svelte/src/Accordion/Accordion.svelte';
   import AccordionItem from 'carbon-components-svelte/src/Accordion/AccordionItem.svelte';
+  import MultiSelect from 'carbon-components-svelte/src/MultiSelect/MultiSelect.svelte';
+  import Select from 'carbon-components-svelte/src/Select/Select.svelte';
   import Select from 'carbon-components-svelte/src/Select/Select.svelte';
   import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
 
   import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
   import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
   // import Tile from 'carbon-components-svelte/src/Tile/Tile.svelte';
-  // import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
+  import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 
   import { fetchAbsData } from '../lib/abs';
   import { DATASETS, Y_AXIS_METHODS } from '../constants';
@@ -25,16 +27,18 @@
   }
 </script>
 
+
 <div>
   <Accordion>
-    <AccordionItem title="Dataset Builder" open>
+    <AccordionItem title="General" open>
       <Select
         labelText="Dataset"
         selected={$graph.dataset}
         on:change={e => {
           if (e.detail !== $graph.dataset) {
             $graph.dataset = e.detail;
-            $graph.targetField = null;
+            $graph.xAxisFields = [];
+            datasetFields = [];
           }
         }}
       >
@@ -43,15 +47,22 @@
         {/each}
       </Select>
 
-      <Select
-        labelText="X Axis"
-        bind:selected={$graph.targetField}
-      >
-        <SelectItem text="Not Selected" />
-        {#each datasetFields as field}
-          <SelectItem value={field} text={field} />
-        {/each}
-      </Select>
+      <MultiSelect
+        titleText="X Axis Field Selection"
+        selectedIds={$graph.xAxisFields}
+        on:select={e => {
+          $graph.xAxisFields = e.detail.selectedIds;
+        }}
+        disabled={datasetFields.length === 0}
+        label={datasetFields.length === 0 ? 'Loading...' : ''}
+        items={datasetFields.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <TextInput
+        bind:value={$graph.xAxisLabelOverride}
+        labelText="X Axis Custom Label"
+      />
 
       <Select
         labelText="Y Axis"
@@ -70,7 +81,12 @@
         bind:checked={$graph.grid}
         labelText="Enable Grid"
       />
+      <Checkbox
+        bind:checked={$graph.xAxisInverse}
+        labelText="Invert X Axis Selection"
+      />
     </AccordionItem>
+
     <AccordionItem title="Trendline" open>
       <NumberInput
         min={2}
@@ -95,6 +111,14 @@
   :global(.bx--checkbox-wrapper) {
     flex-direction: row;
     margin-bottom: 0.5rem;
+  }
+
+  :global(.bx--multi-select) {
+    margin-bottom: 1rem;
+  }
+
+  :global(.bx--text-input) {
+    margin-bottom: 1rem;
   }
 
   :global(.bx--checkbox-label) {
