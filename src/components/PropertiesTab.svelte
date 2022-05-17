@@ -12,6 +12,7 @@
   import { fetchAbsData } from '../lib/abs';
   import { determineXAxisLabel } from '../lib/model';
   import { DATASETS, Y_AXIS_METHODS } from '../constants';
+  import ELECTORATES from '../electorate_categories.json';
 
   import { getContext } from 'svelte';
   import type { Graph } from '../store';
@@ -68,13 +69,15 @@
         disabled={datasetFields.length === 0}
         label={datasetFields.length === 0 ? 'Loading...' : ''}
         items={datasetFields.map(d => ({ id: d, text: d }))}
+        invalid={datasetFields.length > 0 && $graph.xAxisFields.length === 0}
+        invalidText="Required"
         sortItem={() => {}}
       />
 
       <TextInput
         bind:value={$graph.xAxisLabelOverride}
         labelText="X Axis Custom Label"
-        invalid={determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
+        invalid={datasetFields.length > 0 && $graph.xAxisFields.length > 0 && determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
         invalidText="Required"
       />
 
@@ -86,6 +89,14 @@
           <SelectItem value={method.id} text={method.label} />
         {/each}
       </Select>
+
+      <MultiSelect
+        titleText="Highlight Electorates"
+        filterable
+        bind:selectedIds={$graph.electorateHighlights}
+        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        sortItem={() => {}}
+      />
 
       <Checkbox
         bind:checked={$graph.partyColours}
@@ -122,9 +133,7 @@
         items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
         sortItem={() => {}}
       />
-
     </AccordionItem>
-
     <AccordionItem title="Trendline">
       <NumberInput
         min={1}

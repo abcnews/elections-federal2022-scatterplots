@@ -19,6 +19,8 @@ export interface Graph {
   heldByFilters: string[];
   closenessFilters: string[];
   categoryFilters: string[];
+
+  electorateHighlights: string[];
 }
 
 export interface GraphStore extends Writable<Graph> {
@@ -47,6 +49,8 @@ const INITIAL_GRAPH = {
   heldByFilters: [],
   closenessFilters: [],
   categoryFilters: [],
+
+  electorateHighlights: [],
 };
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

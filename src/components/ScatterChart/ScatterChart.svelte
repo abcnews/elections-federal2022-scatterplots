@@ -64,6 +64,8 @@
   trendline={$graph.trendline}
   trendlineColour={$graph.partyColours ? 'black' : 'black'}
   smoothingBandwidth={$graph.smoothingBandwidth}
+
+  electorateHighlights={$graph.electorateHighlights}
 />
 
 <p class="data-source">

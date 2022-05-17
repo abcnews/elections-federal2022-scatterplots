@@ -17,6 +17,7 @@
   export let grid: boolean;
   export let smoothingBandwidth: number;
   export let trendlineColour: string;
+  export let electorateHighlights: string[];
   export let data: any;
 
   $: xScale = scaleLinear()
@@ -31,7 +32,6 @@
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data, smoothingBandwidth))
-
 </script>
 
 <main>
@@ -56,12 +56,16 @@
       {/if}
       
       {#each data as point}
+        {#if electorateHighlights.indexOf(point.electorate) > -1}
+          <text x={xScale(point.x) + 5} y={yScale(point.y)}>{point.electorate}</text>
+        {/if}
+
         <circle
           class="scatter-dot"
           cx={xScale(point.x)}
           cy={yScale(point.y)}
           r="4"
-          color={point.colour}
+          color={electorateHighlights.indexOf(point.electorate) > -1 ? 'black' : point.colour}
         />
       {/each}
     </g>
