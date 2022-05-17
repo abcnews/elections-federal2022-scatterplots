@@ -66,6 +66,10 @@
         bind:checked={$graph.partyColours}
         labelText="Enable Party Colours"
       />
+      <Checkbox
+        bind:checked={$graph.grid}
+        labelText="Enable Grid"
+      />
     </AccordionItem>
     <AccordionItem title="Trendline" open>
       <NumberInput
@@ -90,6 +94,7 @@
 
   :global(.bx--checkbox-wrapper) {
     flex-direction: row;
+    margin-bottom: 0.5rem;
   }
 
   :global(.bx--checkbox-label) {

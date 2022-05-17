@@ -3,75 +3,16 @@
   import type { Graph } from '../store';
   import ScatterPlot from "./ScatterPlot.svelte";
   import { fetchAbsData } from '../../lib/abs';
+  import { calcScatterData } from '../../lib/model';
 
-  import { Y_AXIS_METHODS } from '../../constants';
+  import { Y_AXIS_METHODS, PARTY_COLOURS, FOCUS_ORANGE } from '../../constants';
 
-  const calcScatterData = (results: any, demographics: any, targetField: string, yAxisMethod: string, partyColours: boolean) => {
-    if (!results || !demographics) {
-      return [];
-    }
-
-    const electorates = results.map((result) => {
-      const demo = demographics.find((d) => d.Electorate === result.name);
-      if (!demo || !targetField) {
-        return null;
-      }
-
-      // const isSafe = result.predicted?.predictionString?.startsWith('SAFE');
-      // Ignore electorates that haven't been called
-      // if (!isSafe) {
-      //   return null;
-      // }
-
-      const winningParty = result.leadingCandidate?.party.code;
-      
-      // From ABC Datawrapper colour palette
-      const colourMap = {
-        LIB: '#0A52BF',
-        NAT: '#0A52BF',
-        ALP: '#E11F30',
-        GRN: '#51A802',
-        OTH: '#757575',
-      };
-      const DEFAULT_COLOUR = '#007BC7';
-
-      const val = {
-        x: 100 * demo[targetField] / demo.Total,
-        y: 0,
-        electorate: result.name,
-        colour: partyColours ? (colourMap[winningParty] || colourMap.OTH) : DEFAULT_COLOUR, 
-      };
-      
-      if (yAxisMethod === 'margin') {
-        val.y = parseFloat(result.margin);
-      } else if (yAxisMethod === 'swing') {
-        const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
-
-        // TODO: What do we do when there's no Gov candidate involved?
-        if (!coalitionRes) {
-          return null;
-        }
-
-        // positive means away from gov
-        const swing = -1 * parseFloat(coalitionRes.predicted2CP.swing);
-        val.y = swing;
-      }
-
-      return val;
-    });
-
-    return electorates.filter((e) => !!e);
-  };
-
-  let graph = getContext<Graph>('graph');
   // The election results from news-web
   export let results;
 
   let data = [];
   let demographics = [];
-
-  let yLabel;
-  $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
+  let graph = getContext<Graph>('graph');
 
   $: {
     fetchAbsData($graph.dataset).then(d => {
@@ -79,12 +20,64 @@
     });
   }
   $: data = calcScatterData(results, demographics, $graph.targetField, $graph.yAxisMethod, $graph.partyColours);
+  $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
 </script>
+
+{#if $graph.partyColours}
+  <div class="scatter-key">
+    <svg viewBox="0 0 20 20">
+      <circle stroke={PARTY_COLOURS.LIB} fill={PARTY_COLOURS.LIB} cx="10" cy="10" r="8"/>
+    </svg>
+    <span>Liberal/National</span>
+
+    <svg viewBox="0 0 20 20">
+      <circle stroke={PARTY_COLOURS.ALP} fill={PARTY_COLOURS.ALP} cx="10" cy="10" r="8"/>
+    </svg>
+    <span>Labor</span>
+
+    <svg viewBox="0 0 20 20">
+      <circle stroke={PARTY_COLOURS.GRN} fill={PARTY_COLOURS.GRN} cx="10" cy="10" r="8"/>
+    </svg>
+    <span>Greens</span>
+
+    <svg viewBox="0 0 20 20">
+      <circle stroke={PARTY_COLOURS.OTH} fill={PARTY_COLOURS.OTH} cx="10" cy="10" r="8"/>
+    </svg>
+    <span>Others</span>
+  </div>
+{/if}
 
 <ScatterPlot
   xLabel={$graph.targetField || 'No target field selected'}
   yLabel={yLabel}
   data={data}
+
+  grid={$graph.grid}
   trendline={$graph.trendline}
+  trendlineColour={$graph.partyColours ? 'black' : 'black'}
   smoothingBandwidth={$graph.smoothingBandwidth}
 />
+
+<style>
+  .scatter-key > svg {
+    width: 0.75em;
+    height: 0.75em;
+  }
+  .scatter-key > svg > circle {
+    stroke-width: 2px;
+    fill-opacity: 0.6;
+  }
+  .scatter-key > span {
+    padding-right: 0.5em;
+  }
+
+  .scatter-key {
+    font-family: ABC Sans Nova;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+</style>

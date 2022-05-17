@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { extent, scaleLinear, sum, range, min, max, line } from "d3";
+  import { extent, scaleLinear, line } from "d3";
   import Axis from "./Axis.svelte";
+  import Grid from "./Grid.svelte";
+  import { calcSmoothedLine } from '../../lib/model';
 
   const margin = { top: 15, bottom: 50, left: 50, right: 20 };
   const width = 700;
@@ -12,30 +14,10 @@
   export let xLabel: string;
   export let yLabel: string;
   export let trendline: boolean;
-  export let smoothingBandwidth: number | undefined;
+  export let grid: boolean;
+  export let smoothingBandwidth: number;
+  export let trendlineColour: string;
   export let data: any;
-
-  // https://bl.ocks.org/rpgove/073d6cb996d7de1d52935790139c4240
-  const gaussian = (target: number, source: number, bandwidth: number) => {
-    return Math.exp(-Math.pow(target - source, 2) / (2*bandwidth*bandwidth));
-  };
-
-  // Compute estimated value at each target x coordinate using the
-  // source particles (the samples).
-  const calcSmoothedLine = (data, bandwidth: number) => {
-    const targets = range(min(data, s => s.x), max(data, s => s.x), 0.5);
-    return targets.map(x => {
-      const numerator = sum(data, s => gaussian(s.x, x, bandwidth) * s.y);
-      const denominator = sum(data, s => gaussian(s.x, x, bandwidth));
-
-      return {
-        x,
-        y: numerator / denominator
-      };
-    });
-  };
-
-  $: smoothedData = calcSmoothedLine(data, smoothingBandwidth || 4);
 
   $: xScale = scaleLinear()
     .domain(extent(data, (d) => d.x))
@@ -48,40 +30,33 @@
   $: trendlinePath = line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
-        (smoothedData);
-
-  $: console.log(min(data, d => d.y));
-  $: console.log(yScale(max(data, d => d.y)));
-  $: console.log(yScale(min(data, d => d.y)));
-  $: {
-    data.map(d => {
-      if (d.y > 9) {
-        console.log(d, yScale(d.y));
-      }
-    });
-  }
+        (calcSmoothedLine(data, smoothingBandwidth));
 </script>
 
 <main>
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
+      {#if grid}
+        <Grid {innerHeight} {innerWidth} scale={xScale} position="bottom" />
+        <Grid {innerHeight} {innerWidth} scale={yScale} position="left" />
+      {/if}
       <Axis {innerHeight} scale={xScale} position="bottom" />
       <Axis {innerHeight} scale={yScale} position="left" />
 
-      <text transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
+      <text class="axis-label" transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
         {yLabel} (%)
       </text>
-      <text x={innerWidth / 3} y={innerHeight + 35}>
+      <text class="axis-label" x={innerWidth / 2} y={innerHeight + 35}>
         {xLabel} (% of electorate)
       </text>
 
       {#if trendline}
-        <path class="trendline" d={trendlinePath} />
+        <path class="trendline" stroke={trendlineColour} d={trendlinePath} />
       {/if}
       
-      {#each data as point, i}
+      {#each data as point}
         <circle
-          class="scatter-dot"k
+          class="scatter-dot"
           cx={xScale(point.x)}
           cy={yScale(point.y)}
           r="4"
@@ -101,7 +76,10 @@
 
   .trendline {
     fill: none;
-    stroke: #E52A00;
     stroke-width: 3px;
+  }
+
+  .axis-label {
+    text-anchor: middle;
   }
 </style>

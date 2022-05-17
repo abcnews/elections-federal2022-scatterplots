@@ -1,9 +1,10 @@
 <script lang="ts">
   import { select } from "d3-selection";
   import { axisBottom, axisLeft } from "d3-axis";
-  import { AXIS_COLOUR } from '../../constants';
+  import { GRID_COLOUR } from '../../constants';
 
   export let innerHeight: number;
+  export let innerWidth: number;
   export let position: "bottom" | "left";
   export let scale;
 
@@ -12,18 +13,21 @@
 
   $: {
     select(g).selectAll("*").remove();
-    let axis;
+    let grid;
     switch (position) {
       case "bottom":
-        axis = axisBottom(scale).tickSizeOuter(0);
+        grid = axisBottom(scale).tickSize(-1 * innerHeight).tickFormat("");
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":
-        axis = axisLeft(scale).tickSizeOuter(0);
+        grid = axisLeft(scale).tickSize(-1 * innerWidth).tickFormat("");
         transform = `translate(0, 0)`;
     }
-    select(g).call(axis).attr('color', AXIS_COLOUR);
+    select(g).call(grid).attr('color', GRID_COLOUR);
   }
 </script>
 
-<g class="axis" bind:this={g} {transform} />
+<g class="grid" bind:this={g} {transform} />
+
+<style>
+</style>

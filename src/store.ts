@@ -7,6 +7,8 @@ export interface Graph {
   targetField: null | string;
 
   partyColours: boolean;
+  grid: boolean;
+
   trendline: boolean;
   smoothingBandwidth: number;
 }
@@ -25,8 +27,10 @@ const INITIAL_GRAPH = {
   yAxisMethod: 'swing',
 
   partyColours: false,
+  grid: true,
+
   trendline: true,
-  smoothingBandwidth: 4,
+  smoothingBandwidth: 2,
 };
 
 export function createGraphStore(initial: Partial<Graph> = {}) {
