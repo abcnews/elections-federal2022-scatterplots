@@ -73,7 +73,41 @@
       </Select>
 
       <MultiSelect
-        titleText="X Axis Field Selection"
+        titleText="Labelled Electorates"
+        filterable
+        bind:selectedIds={$graph.electorateHighlights}
+        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        sortItem={() => {}}
+      />
+
+      <Checkbox
+        bind:checked={$graph.partyColours}
+        labelText="Enable Party Colours"
+      />
+      <Checkbox
+        bind:checked={$graph.grid}
+        labelText="Enable Grid"
+      />
+
+      <!-- TODO -->
+      <!-- <Checkbox -->
+      <!--   bind:checked={$graph.darkModePreview} -->
+      <!--   labelText="Dark Mode Preview" -->
+      <!-- /> -->
+    </AccordionItem>
+
+    <AccordionItem title="Axes" open>
+      <Select
+        labelText="Y Axis"
+        bind:selected={$graph.yAxisMethod}
+      >
+        {#each Y_AXIS_METHODS as method}
+          <SelectItem value={method.id} text={method.label} />
+        {/each}
+      </Select>
+
+      <MultiSelect
+        titleText="X Axis"
         bind:selectedIds={$graph.xAxisFields}
         disabled={datasetFields.length === 0}
         label={datasetFields.length === 0 ? 'Loading...' : ''}
@@ -90,41 +124,11 @@
         invalidText="Required"
       />
 
-      <Select
-        labelText="Y Axis"
-        bind:selected={$graph.yAxisMethod}
-      >
-        {#each Y_AXIS_METHODS as method}
-          <SelectItem value={method.id} text={method.label} />
-        {/each}
-      </Select>
-
-      <MultiSelect
-        titleText="Highlight Electorates"
-        filterable
-        bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
-        sortItem={() => {}}
-      />
-
-      <!-- TODO -->
-      <!-- <Checkbox -->
-      <!--   bind:checked={$graph.darkModePreview} -->
-      <!--   labelText="Dark Mode Preview" -->
-      <!-- /> -->
-
-      <Checkbox
-        bind:checked={$graph.partyColours}
-        labelText="Enable Party Colours"
-      />
-      <Checkbox
-        bind:checked={$graph.grid}
-        labelText="Enable Grid"
-      />
       <Checkbox
         bind:checked={$graph.xAxisInverse}
         labelText="Invert X Axis Selection"
       />
+
     </AccordionItem>
 
     <AccordionItem title="Filters" open>
