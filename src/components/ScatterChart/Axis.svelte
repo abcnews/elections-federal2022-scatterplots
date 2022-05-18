@@ -1,10 +1,11 @@
 <script lang="ts">
   import { select } from "d3-selection";
   import { axisBottom, axisLeft } from "d3-axis";
-  import { AXIS_COLOUR } from '../../constants';
+  import { COLOURS } from '../../constants';
 
   export let innerHeight: number;
   export let position: "bottom" | "left";
+  export let isDarkMode: boolean;
   export let scale;
 
   let transform: string;
@@ -22,7 +23,7 @@
         axis = axisLeft(scale).tickSizeOuter(0);
         transform = `translate(0, 0)`;
     }
-    select(g).call(axis).attr('color', AXIS_COLOUR);
+    select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
   }
 </script>
 

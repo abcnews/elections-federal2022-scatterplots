@@ -1,38 +1,40 @@
 <script lang="ts">
-  import { setContext, onMount } from 'svelte';
   import Tabs from 'carbon-components-svelte/src/Tabs/Tabs.svelte';
   import Tab from 'carbon-components-svelte/src/Tabs/Tab.svelte';
   import TabContent from 'carbon-components-svelte/src/Tabs/TabContent.svelte';
-  import { createGraphStore } from '../../store';
 
-  // import MarkersTab from '../MarkersTab.svelte';
+  import MarkersTab from '../MarkersTab.svelte';
   import PropertiesTab from '../PropertiesTab.svelte';
   import ScatterChart from '../ScatterChart/ScatterChart.svelte';
 
-  import { fetchLiveResultsElectorates } from '../../lib/results';
+  import { createGraphStore } from '../../store';
+  import { graphToUrlQuery, urlQueryToPartialGraph } from '../../lib/encode';
+  import { setContext } from 'svelte';
 
-  const graph = createGraphStore();
-
-  let results;
-
-  onMount(async () => {
-    results = await fetchLiveResultsElectorates();
-  });
-
+  const initialPartialGraph = urlQueryToPartialGraph(String(window.location.search));
+  const graph = createGraphStore(initialPartialGraph);
   setContext('graph', graph);
+
+  $: history.replaceState(
+     { graph: $graph },
+     document.title,
+     graphToUrlQuery($graph) || String(document.location.href).split('?')[0]
+   );
 </script>
 
 <main>
   <article>
     <figure>
-      <ScatterChart results={results} />
+      <ScatterChart />
     </figure>
   </article>
   <aside>
     <Tabs autoWidth>
       <Tab label="Properties" />
+      <Tab label="Markers" />
       <svelte:fragment slot="content">
         <TabContent><PropertiesTab /></TabContent>
+        <TabContent><MarkersTab /></TabContent>
       </svelte:fragment>
     </Tabs>
   </aside>

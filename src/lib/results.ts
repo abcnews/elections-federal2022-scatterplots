@@ -28,9 +28,8 @@ const FEDERAL_2022_LIVE_RESULTS_PROPS = {
   }
 };
 
-const LIVE_RESULTS_PROPS = FEDERAL_2019_LIVE_RESULTS_PROPS; // TODO: update to 2022 when available
-
 export interface LiveResultsElectorate {
+  name: string;
   code: string;
   counted: string;
   leadingCandidate?: {
@@ -48,25 +47,22 @@ const liveResultsElectoratesPromises: {
   [key: string]: Promise<LiveResultsElectorate[]>;
 } = {};
 
-export const fetchLiveResultsElectoratesLive = async () => {
-  const url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(LIVE_RESULTS_PROPS)}`;
-
-  if (!liveResultsElectoratesPromises[url]) {
-    liveResultsElectoratesPromises[url] = fetch(url)
-      .then(response => response.json())
-      .then(({ results }) => results.electorates as LiveResultsElectorate[]);
+export const fetchLiveResultsElectorates = async (year: string) => {
+  let props;
+  let url;
+  if (year === '2019') {
+    url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(FEDERAL_2019_LIVE_RESULTS_PROPS)}`;
+  } else if (year === '2022') {
+    url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(FEDERAL_2019_LIVE_RESULTS_PROPS)}`;
+  } else if (year === '2019-local') {
+    url = `${__webpack_public_path__ || '/'}results2019.json`;
   }
 
-  return liveResultsElectoratesPromises[url];
-};
-
-export const fetchLiveResultsElectorates = async () => {
-  const url = `${__webpack_public_path__ || '/'}results2019.json`;
-
   if (!liveResultsElectoratesPromises[url]) {
     liveResultsElectoratesPromises[url] = fetch(url)
       .then(response => response.json())
-      .then(({ results }) => results.electorates as LiveResultsElectorate[]);
+      .then(({ results }) => results.electorates as LiveResultsElectorate[])
+      .then(electorates => electorates.map(e => ({ ...e, name: e.name.replace(/[^a-z \-']/gi, '').trim() })));
   }
 
   return liveResultsElectoratesPromises[url];

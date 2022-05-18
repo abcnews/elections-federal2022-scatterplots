@@ -1,22 +1,39 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import type { Graph } from '../store';
-  import ScatterPlot from "./ScatterPlot.svelte";
+  import type { GraphStore } from '../../store';
+
   import { fetchAbsData } from '../../lib/abs';
+  import { fetchLiveResultsElectorates } from '../../lib/results';
   import { calcScatterData, determineXAxisLabel } from '../../lib/model';
+  import { Y_AXIS_METHODS, DATASETS } from '../../constants';
 
-  import { Y_AXIS_METHODS, PARTY_COLOURS, FOCUS_ORANGE, DATASETS, RESULTS_SOURCE_LABEL } from '../../constants';
+  import ScatterPlot from "./ScatterPlot.svelte";
+  import Legend from "./Legend.svelte";
 
-  // The election results from news-web
-  export let results;
-
+  let graph = getContext<GraphStore>('graph');
   let data = [];
   let demographics = [];
-  let graph = getContext<Graph>('graph');
+  let results;
+
+  const parentUrl =
+    window.location !== window.parent.location
+      ? document.referrer
+      : document.location.href;
+
+  const newsWebDarkMode = parentUrl?.includes("newsapp") &&
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  $: isDarkMode = newsWebDarkMode || $graph.darkModePreview;
 
   //
   // Data Fetching / Calcs
   //
+  $: {
+    fetchLiveResultsElectorates($graph.resultsYear).then(r => {
+      results = r;
+    });
+  }
   $: {
     fetchAbsData($graph.dataset).then(d => {
       demographics = d;
@@ -31,74 +48,38 @@
   $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
 </script>
 
-{#if $graph.partyColours}
-  <div class="scatter-key">
-    <svg viewBox="0 0 20 20">
-      <circle stroke={PARTY_COLOURS.LIB} fill={PARTY_COLOURS.LIB} cx="10" cy="10" r="8"/>
-    </svg>
-    <span>Liberal/National</span>
+<div class="wrapper">
+  {#if $graph.partyColours}
+    <Legend {isDarkMode} />
+  {/if}
 
-    <svg viewBox="0 0 20 20">
-      <circle stroke={PARTY_COLOURS.ALP} fill={PARTY_COLOURS.ALP} cx="10" cy="10" r="8"/>
-    </svg>
-    <span>Labor</span>
+  <ScatterPlot
+    {xLabel}
+    {yLabel}
+    {data}
 
-    <svg viewBox="0 0 20 20">
-      <circle stroke={PARTY_COLOURS.GRN} fill={PARTY_COLOURS.GRN} cx="10" cy="10" r="8"/>
-    </svg>
-    <span>Greens</span>
+    grid={$graph.grid}
+    trendline={$graph.trendline}
+    smoothingBandwidth={$graph.smoothingBandwidth}
 
-    <svg viewBox="0 0 20 20">
-      <circle stroke={PARTY_COLOURS.OTH} fill={PARTY_COLOURS.OTH} cx="10" cy="10" r="8"/>
-    </svg>
-    <span>Others</span>
-  </div>
-{/if}
+    isDarkMode={isDarkMode}
+    electorateHighlights={$graph.electorateHighlights}
+  />
 
-<ScatterPlot
-  xLabel={xLabel}
-  yLabel={yLabel}
-  data={data}
-
-  grid={$graph.grid}
-  trendline={$graph.trendline}
-  trendlineColour={$graph.partyColours ? 'black' : 'black'}
-  smoothingBandwidth={$graph.smoothingBandwidth}
-
-  electorateHighlights={$graph.electorateHighlights}
-/>
-
-<p class="data-source">
-  Source: {DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}, {RESULTS_SOURCE_LABEL}
-</p>
+  <p class="data-source">
+    Source: {DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}, <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>
+  </p>
+</div>
 
 
 <style>
-  .scatter-key > svg {
-    width: 0.75em;
-    height: 0.75em;
-  }
-  .scatter-key > svg > circle {
-    stroke-width: 2px;
-    fill-opacity: 0.6;
-  }
-  .scatter-key > span {
-    padding-right: 0.5em;
-  }
-
-  .scatter-key {
-    font-family: ABC Sans Nova;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 13px;
-    letter-spacing: 0em;
-    text-align: left;
+  .wrapper {
+    background: white;
   }
 
   .data-source {
     align-items: center;
     color: #888;
-    display: flex;
     font-size: 12px;
     font-style: italic;
     font-weight: 400;

@@ -48,6 +48,15 @@
   <Accordion>
     <AccordionItem title="General" open>
       <Select
+        labelText="Results"
+        bind:selected={$graph.resultsYear}
+      >
+        <SelectItem value="2019-local" text="2019 (dev)" />
+        <SelectItem value="2019" text="2019" />
+        <SelectItem value="2022" text="2022" />
+      </Select>
+
+      <Select
         labelText="Dataset"
         selected={$graph.dataset}
         on:change={e => {
@@ -97,6 +106,12 @@
         items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
         sortItem={() => {}}
       />
+
+      <!-- TODO -->
+      <!-- <Checkbox -->
+      <!--   bind:checked={$graph.darkModePreview} -->
+      <!--   labelText="Dark Mode Preview" -->
+      <!-- /> -->
 
       <Checkbox
         bind:checked={$graph.partyColours}

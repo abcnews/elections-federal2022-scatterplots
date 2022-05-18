@@ -1,7 +1,7 @@
 import { sum, range, min, max } from 'd3';
 
 import type { Graph } from '../store';
-import { Y_AXIS_METHODS, PARTY_COLOURS, DEFAULT_PRIMARY_COLOUR } from '../constants';
+import { Y_AXIS_METHODS, COLOURS } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
 export const determineXAxisLabel = (opts: Graph) => {
@@ -30,7 +30,7 @@ export const calcScatterData = (
   closenessFilters: string[],
   categoryFilters: string[],
 ) => {
-  if (!results || !demographics) {
+  if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
     return [];
   }
 
@@ -42,27 +42,34 @@ export const calcScatterData = (
 
     // Ignore electorates with incomplete data
     if (!demo || xAxisFields.length === 0 || !categories) {
+      if (xAxisFields.length > 0) {
+        console.log('Incomplete data:', result.name);
+      }
       return null;
     }
 
     // Apply filters
     if (heldByFilters.length > 0) {
       if (heldByFilters.indexOf(categories["Held By"]) === -1) {
+        console.log('Filtered:', result.name);
         return null;
       }
 
       // Special case to handle "LNP" in data
       if (heldByFilters.indexOf("Liberal") > -1 && categories["Held By"] === "LNP") {
+        console.log('Filtered:', result.name);
         return null;
       }
     }
     if (closenessFilters.length > 0) {
       if (closenessFilters.indexOf(categories["Closeness"]) === -1) {
+        console.log('Filtered:', result.name);
         return null;
       }
     }
     if (categoryFilters.length > 0) {
       if (categoryFilters.indexOf(categories["Category"]) === -1) {
+        console.log('Filtered:', result.name);
         return null;
       }
     }
@@ -79,7 +86,7 @@ export const calcScatterData = (
       x: xAxis(demo, xAxisFields, xAxisInverse),
       y: yAxis(result, yAxisMethod),
       electorate: result.name,
-      colour: partyColours ? PARTY_COLOURS[winningParty] || PARTY_COLOURS.OTH : DEFAULT_PRIMARY_COLOUR
+      colour: partyColours ? COLOURS().PARTIES[winningParty] || COLOURS().PARTIES.OTH : COLOURS().PRIMARY,
     };
   });
 

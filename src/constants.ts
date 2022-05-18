@@ -1,4 +1,3 @@
-export const RESULTS_SOURCE_LABEL = 'Australian Electoral Commission (AEC)';
 export const DATASETS = [
   {
     id: 'religion',
@@ -74,16 +73,39 @@ export const Y_AXIS_METHODS = [
 //
 // From ABC Datawrapper colour palette
 //
-export const PARTY_COLOURS = {
+const PARTY_COLOURS = {
   LIB: '#0A52BF',
   NAT: '#0A52BF',
   ALP: '#E11F30',
   GRN: '#51A802',
   OTH: '#757575',
 };
-// export const DEFAULT_PRIMARY_COLOUR = '#007BC7'; // blue
-export const DEFAULT_PRIMARY_COLOUR = '#664CB3'; // purple
-export const FOCUS_ORANGE = '#E52A00';
+const DEFAULT_PRIMARY_COLOUR = '#664CB3'; // purple
+const TEXT_COLOUR = 'black';
 
-export const AXIS_COLOUR = '#69788C';
-export const GRID_COLOUR = '#D6DDE4';
+const AXIS_COLOUR = '#69788C';
+const GRID_COLOUR = '#D6DDE4';
+
+//
+// From ABC Datawrapper darkmode colour palette
+//
+const PARTY_COLOURS_DM = {
+  LIB: '#166EF3',
+  NAT: '#166EF3',
+  ALP: '#E11F30',
+  GRN: '#51A802',
+  OTH: '#757575',
+};
+const DEFAULT_PRIMARY_COLOUR_DM = '#AB96EB'; // purple
+const TEXT_COLOUR_DM = 'white';
+
+const AXIS_COLOUR_DM = '#838FA0';
+const GRID_COLOUR_DM = '#31363C';
+
+export const COLOURS = (isDarkMode?: boolean) => ({
+  PARTIES: isDarkMode ? PARTY_COLOURS_DM : PARTY_COLOURS,
+  PRIMARY: isDarkMode ? DEFAULT_PRIMARY_COLOUR_DM : DEFAULT_PRIMARY_COLOUR,
+  TEXT: isDarkMode ? TEXT_COLOUR_DM : TEXT_COLOUR,
+  AXIS: isDarkMode ? AXIS_COLOUR_DM : AXIS_COLOUR,
+  GRID: isDarkMode ? GRID_COLOUR_DM : GRID_COLOUR,
+});
