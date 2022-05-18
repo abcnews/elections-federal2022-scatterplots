@@ -1,55 +1,56 @@
 export const DATASETS = [
   {
     id: 'religion',
-    source: 'ABS',
     label: 'Religious Affiliation',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'education',
-    source: 'ABS',
     label: 'Level of Highest Educational Achievement',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'age',
-    source: 'ABS',
     label: 'Age in Ten Year Groups',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'engagement',
-    source: 'ABS',
     label: 'Engagement in Employment, Education and Training',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'income',
-    source: 'ABS',
     label: 'Total Personal Income',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'languages',
-    source: 'ABS',
     label: 'Language Spoken At Home',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'occupation',
-    source: 'ABS',
     label: 'Occupation',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
     id: 'unpaid_domestic_work',
-    source: 'ABS',
     label: 'Unpaid Domestic Work',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
   },
   {
+    id: '2019_results',
+    label: '2019 Federal Election Results',
+    sourceLabel: '',
+  },
+  {
+    id: 'housing_stress',
+    label: 'Rental and Mortgage Stress (Do not use)',
+    sourceLabel: 'Digital Finance Analytics',
+  },
+  {
     id: 'vote_compass',
-    source: 'Vote Compass',
     label: 'Vote Compass',
     sourceLabel: 'ABC Vote Compass',
   },

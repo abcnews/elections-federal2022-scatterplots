@@ -96,7 +96,7 @@ export const calcScatterData = (
 //
 // Calculate the vote measure for the Y Axis
 //
-const yAxis = (result: any, method: string): number | null => {
+export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
 
   if (method === 'swing-from-lnp') {
