@@ -28,8 +28,8 @@
   let mouseX, mouseY;
 
   const setMousePosition = function(event) {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
+    mouseX = event.layerX;
+    mouseY = event.layerY;
   }
 
   $: xScale = (isLog ? scaleLog() : scaleLinear())
@@ -44,18 +44,20 @@
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data, smoothingBandwidth))
+
+  $: numTicks = innerWidth / 60;
 </script>
 
-<main>
+<main class="graphic">
 
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-        <Grid {innerHeight} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
-        <Grid {innerHeight} {innerWidth} {isDarkMode} scale={yScale} position="left" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={yScale} position="left" />
       {/if}
-      <Axis {innerHeight} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {isDarkMode} unit="%" scale={yScale} position="left" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" scale={yScale} position="left" />
 
       <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label" transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
         {yLabel}
@@ -73,7 +75,7 @@
           class="scatter-dot"
           cx={xScale(point.x)}
           cy={yScale(point.y)}
-          r="4"
+          r="3"
           color={electorateHighlights.indexOf(point.electorate) > -1 ? 'black' : point.colour}
           data-electorate={point.electorate}
           on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
@@ -103,6 +105,10 @@
 
 
 <style>
+  .graphic {
+    position: relative;
+  }
+
   .scatter-dot {
     fill: currentColor;
     fill-opacity: 0.6;
@@ -111,6 +117,8 @@
 
   .dot-label {
     font-weight: 700;
+    font-size: 13px;
+
     fill: black;
     fill-opacity: 1;
     stroke: white;
@@ -135,5 +143,6 @@
   .axis-label {
     text-anchor: middle;
     font-weight: 700;
+    font-size: 13px;
   }
 </style>

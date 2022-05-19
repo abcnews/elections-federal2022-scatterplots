@@ -8,6 +8,7 @@
   export let position: "bottom" | "left";
   export let isDarkMode: boolean;
   export let scale;
+  export let numTicks: number;
 
   let transform: string;
   let g;
@@ -17,11 +18,11 @@
     let grid;
     switch (position) {
       case "bottom":
-        grid = axisBottom(scale).tickSize(-1 * innerHeight).tickFormat("");
+        grid = axisBottom(scale).ticks(numTicks).tickSize(-1 * innerHeight).tickFormat("");
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":
-        grid = axisLeft(scale).tickSize(-1 * innerWidth).tickFormat("");
+        grid = axisLeft(scale).ticks(numTicks).tickSize(-1 * innerWidth).tickFormat("");
         transform = `translate(0, 0)`;
     }
     select(g).call(grid).attr('color', COLOURS(isDarkMode).GRID);

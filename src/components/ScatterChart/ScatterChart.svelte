@@ -50,6 +50,7 @@
   $: xLabel = determineXAxisLabel($graph);
   $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
   $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
+  $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
 </script>
 
 <div bind:clientWidth={width} class="wrapper">
@@ -81,7 +82,7 @@
   />
 
   <p class="data-source">
-    Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
+    {author}Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
   </p>
 </div>
 
@@ -94,7 +95,7 @@
 
   .scatter-title {
     font-weight: 900;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .scatter-desc {

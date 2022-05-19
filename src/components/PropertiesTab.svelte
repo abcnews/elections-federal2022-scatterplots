@@ -49,11 +49,15 @@
     <AccordionItem title="General" open>
       <TextInput
         bind:value={$graph.title}
-        labelText="Graph Title"
+        labelText="Chart Title"
       />
       <TextInput
         bind:value={$graph.description}
-        labelText="Graph Description"
+        labelText="Chart Description"
+      />
+      <TextInput
+        bind:value={$graph.chartAuthor}
+        labelText="Chart Author"
       />
 
       <MultiSelect
@@ -97,6 +101,7 @@
           if (e.detail !== $graph.dataset) {
             $graph.dataset = e.detail;
             $graph.xAxisFields = [];
+            $graph.xAxisLabelOverride = '';
             datasetFields = [];
           }
         }}
@@ -174,7 +179,7 @@
         label="Smoothing"
       />
       <Checkbox
-        bind:checked={$graph.trendline}
+        bind:checked={$graph.trendlineEnabled}
         labelText="Enable"
       />
     </AccordionItem>

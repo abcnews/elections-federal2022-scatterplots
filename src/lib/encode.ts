@@ -3,7 +3,7 @@ import {
   ACTO_KEYS_TO_NAMES,
   NAMES_TO_ACTO_KEYS,
   INITIAL_GRAPH,
-  ARRAY_FIELDS,
+  ENCODED_FIELDS,
 } from '../store';
 import type { Graph } from '../store';
 
@@ -39,7 +39,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
       return graph;
     }
 
-    if (ARRAY_FIELDS.indexOf(inputName) > -1) {
+    if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       graph[inputName] = decode(actoObject[actoKey]).split(',');
     } else {
       graph[inputName] = String(actoObject[actoKey]);
@@ -64,7 +64,7 @@ export const graphToAlternatingCase = (graph: Graph): string =>
 
     alternatingCase += NAMES_TO_ACTO_KEYS[inputName].toUpperCase();
 
-    if (ARRAY_FIELDS.indexOf(inputName) > -1) {
+    if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       alternatingCase += encode(value);
     } else {
       alternatingCase += value;
@@ -87,7 +87,7 @@ export const urlQueryToPartialGraph = (urlQuery: string): Partial<Graph> => {
 
   return Object.keys(parsedUrlQuery).reduce((graph, inputName) => {
     if (inputName in INITIAL_GRAPH) {
-      if (ARRAY_FIELDS.indexOf(inputName) > -1) {
+      if (ENCODED_FIELDS.indexOf(inputName) > -1) {
         graph[inputName] = decode(parsedUrlQuery[inputName]).split(',');
       } else {
         graph[inputName] = parsedUrlQuery[inputName];
@@ -109,7 +109,7 @@ export const graphToUrlQuery = (graph: Graph, existingUrlQuery?: string): string
     }
 
     urlQuery += (urlQuery.length > 0 ? '&' : '?') + inputName + '=';
-    if (ARRAY_FIELDS.indexOf(inputName) > -1) {
+    if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       urlQuery += encode(value);
     } else {
       urlQuery += value; // will encode numbers, strings and nulls

@@ -4,6 +4,7 @@ import { writable } from 'svelte/store';
 export interface Graph {
   title: string;
   description: string;
+  chartAuthor: string;
 
   resultsYear: string;
   dataset: string;
@@ -41,6 +42,7 @@ export interface GraphStore extends Writable<Graph> {
 export const INITIAL_GRAPH = {
   title: '',
   description: '',
+  chartAuthor: '',
 
   resultsYear: '2019-local',
   dataset: 'religion',
@@ -67,7 +69,7 @@ export const INITIAL_GRAPH = {
   electorateHighlights: []
 };
 
-export const ARRAY_FIELDS = [
+export const ENCODED_FIELDS = [
   'xAxisFields',
   'heldByFilters',
   'closenessFilters',
@@ -76,6 +78,7 @@ export const ARRAY_FIELDS = [
   'title',
   'description',
   'xAxisLabelOverride',
+  'author',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {
