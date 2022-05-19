@@ -41,6 +41,8 @@
     'Liberal',
     'Labor',
   ];
+
+  $: console.log($graph.xAxisFields);
 </script>
 
 
@@ -93,16 +95,32 @@
         {/each}
       </Select>
 
-      <MultiSelect
-        titleText="X Axis"
-        bind:selectedIds={$graph.xAxisFields}
-        disabled={datasetFields.length === 0}
-        label={datasetFields.length === 0 ? 'Loading...' : ''}
-        items={datasetFields.map(d => ({ id: d, text: d }))}
-        invalid={datasetFields.length > 0 && $graph.xAxisFields.length === 0}
-        invalidText="Required"
-        sortItem={() => {}}
-      />
+      {#if DATASETS.find(d => d.id === $graph.dataset)?.canCombine}
+        <MultiSelect
+          titleText="X Axis"
+          bind:selectedIds={$graph.xAxisFields}
+          disabled={datasetFields.length === 0}
+          label={datasetFields.length === 0 ? 'Loading...' : ''}
+          items={datasetFields.map(d => ({ id: d, text: d }))}
+          invalid={datasetFields.length > 0 && $graph.xAxisFields.length === 0}
+          invalidText="Required"
+          sortItem={() => {}}
+        />
+      {:else}
+        <Select
+          labelText="X Axis"
+          selected={$graph.xAxisFields[0]}
+          on:change={e => {
+            if (e.detail && e.detail !== $graph.xAxisFields[0]) {
+              $graph.xAxisFields = [e.detail];
+            }
+          }}
+        >
+          {#each datasetFields as field}
+            <SelectItem value={field} text={field} />
+          {/each}
+        </Select>
+      {/if}
 
       <TextInput
         bind:value={$graph.xAxisLabelOverride}

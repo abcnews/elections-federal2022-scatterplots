@@ -139,7 +139,7 @@ export const yAxis = (result: any, method: string): number | null => {
 //
 const xAxis = (demo: any, xAxisFields: string[]): number => {
   const selectedValues = xAxisFields.reduce(
-    (acc, field) => acc + parseInt(demo[field]),
+    (acc, field) => acc + parseFloat(demo[field]),
     0
   );
 

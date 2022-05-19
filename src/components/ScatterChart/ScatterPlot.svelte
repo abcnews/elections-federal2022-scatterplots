@@ -32,8 +32,6 @@
     mouseY = event.layerY;
   }
 
-  $: console.log(data);
-
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
     .range([0, innerWidth]);
@@ -59,26 +57,47 @@
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={yScale} position="left" />
       {/if}
       <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" scale={yScale} position="left" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
       {/if}
 
       {#each data as point}
-        <circle
-          class="scatter-dot"
-          cx={xScale(point.x)}
-          cy={yScale(point.y)}
-          r="3"
-          color={point.colour(isDarkMode)}
-          stroke={electorateHighlights.indexOf(point.electorate) > -1 ? COLOURS(isDarkMode).TEXT : point.colour(isDarkMode)}
-          data-electorate={point.electorate}
-          on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-          on:mouseout={() => {selectedPoint = undefined;}}
-          on:blur={() => ({})}
-          on:focus={() => ({})}
-        />
+        {#if electorateHighlights.indexOf(point.electorate) === -1}
+          <circle
+            class="scatter-dot"
+            cx={xScale(point.x)}
+            cy={yScale(point.y)}
+            r="3"
+            color={point.colour(isDarkMode)}
+            stroke={point.colour(isDarkMode)}
+            data-electorate={point.electorate}
+            on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
+            on:mouseout={() => {selectedPoint = undefined;}}
+            on:blur={() => ({})}
+            on:focus={() => ({})}
+          />
+        {/if}
+      {/each}
+
+      <!-- Put the highlighted points after the non-highlighted so they sit on top -->
+      {#each data as point}
+        {#if electorateHighlights.indexOf(point.electorate) > -1}
+          <circle
+            class="scatter-dot highlight"
+            cx={xScale(point.x)}
+            cy={yScale(point.y)}
+            r="3"
+            color={point.colour(isDarkMode)}
+            stroke={COLOURS(isDarkMode).TEXT}
+            data-electorate={point.electorate}
+            on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
+            on:mouseout={() => {selectedPoint = undefined;}}
+            on:blur={() => ({})}
+            on:focus={() => ({})}
+          />
+        {/if}
       {/each}
 
       {#each data as point}
@@ -116,6 +135,9 @@
     fill: currentColor;
     fill-opacity: 0.6;
     stroke-width: 1.5px;
+  }
+  .scatter-dot.highlight {
+    stroke-width: 2px;
   }
 
   .dot-label {
