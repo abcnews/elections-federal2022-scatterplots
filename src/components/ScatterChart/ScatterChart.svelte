@@ -55,7 +55,7 @@
 
 <div bind:clientWidth={width} class="wrapper">
   {#if $graph.chartTitle}
-    <h4 class="scatter-title">{$graph.chartTitle}</h4>
+    <h1 class="scatter-title">{$graph.chartTitle}</h1>
   {/if}
   {#if $graph.chartDescription}
     <p class="scatter-desc">{$graph.chartDescription}</p>
@@ -95,11 +95,12 @@
 
   .scatter-title {
     font-weight: 900;
-    font-size: 18px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .scatter-desc {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
   }
 

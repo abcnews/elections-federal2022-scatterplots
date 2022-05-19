@@ -59,17 +59,10 @@
       <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
       <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" scale={yScale} position="left" />
 
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={5} y={margin.top}>
-        {yLabel}
-      </text>
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 5}>
-        {xLabel}
-      </text>
-
       {#if trendline}
         <path class="trendline" stroke={'black'} d={trendlinePath} />
       {/if}
-      
+
       {#each data as point}
         <circle
           class="scatter-dot"
@@ -88,11 +81,18 @@
 
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <text class="dot-label" x={xScale(point.x)} y={yScale(point.y) - 10} text-anchor="middle">
+          <text class="dot-label" style={`fill:${point.colour === COLOURS(isDarkMode).PRIMARY ? 'black' : point.colour}`} x={xScale(point.x)} y={yScale(point.y) - 10} text-anchor="middle">
             {point.electorate}
           </text>
         {/if}
       {/each}
+
+      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={10} y={margin.top}>
+        {yLabel}
+      </text>
+      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+        {xLabel}
+      </text>
     </g>
   </svg>
 
@@ -118,9 +118,8 @@
 
   .dot-label {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
 
-    fill: black;
     fill-opacity: 1;
     stroke: white;
     stroke-opacity: 0.75;
@@ -129,6 +128,7 @@
   }
 
   .tooltip {
+    font-size: 12px;
     background: rgba(237, 240, 242, 0.9);
     box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.05);
     position: absolute;
@@ -144,11 +144,11 @@
   .axis-label-x {
     text-anchor: end;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
   }
   .axis-label-y {
     text-anchor: start;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
   }
 </style>
