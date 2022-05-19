@@ -6,6 +6,7 @@
   export let innerHeight: number;
   export let position: "bottom" | "left";
   export let isDarkMode: boolean;
+  export let unit: string;
   export let scale;
 
   let transform: string;
@@ -16,11 +17,11 @@
     let axis;
     switch (position) {
       case "bottom":
-        axis = axisBottom(scale).tickSizeOuter(0);
+        axis = axisBottom(scale).tickSizeOuter(0).tickFormat(t => `${t}${unit || ''}`);
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":
-        axis = axisLeft(scale).tickSizeOuter(0);
+        axis = axisLeft(scale).tickSizeOuter(0).tickFormat(t => `${t}${unit || ''}`);
         transform = `translate(0, 0)`;
     }
     select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);

@@ -21,8 +21,15 @@ export const fetchAbsData = async (dataset: string) => {
 
   const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
   const parsed = Papa.parse(raw, { header: true }).data;
-  datasets[dataset] = parsed;
-  return parsed;
+  const normalised = parsed.map(row => {
+    const res = { Electorate: row.Electorate };
+    return Object.keys(row)
+      .filter(k => k !== 'Electorate' && k !== 'Total')
+      .reduce((acc, k) => ({ ...acc, [k]: 100 * row[k] / row.Total }), res);
+  });
+
+  datasets[dataset] = normalised;
+  return normalised;
 };
 
 
@@ -39,7 +46,6 @@ export const fetchErads = async () => {
       'Swing Away From Coalition': yAxis(e, 'swing-from-lnp'),
       'Swing To Coalition': yAxis(e, 'swing-to-lnp'),
       'Coalition 2CP Vote': yAxis(e, '2cp-vote-lnp'),
-      Total: 100,
     };
   });
 };
@@ -83,11 +89,10 @@ export const fetchGeo = async () => {
 
     return {
       Electorate: e.properties.Elect_div,
-      "Area (Sq/km)": e.properties.Area_SqKm / MAX_SIZE * 100,
-      "Distance from Nearest Capital (km)": distanceToCity / MAX_DISTANCE * 100,
-      "Area (Sq/km) (log scale)": logScale(e.properties.Area_SqKm, MAX_SIZE) ,
-      "Distance from Nearest Capital (km) (log scale)": logScale(distanceToCity, MAX_DISTANCE),
-      Total: 100,
+      // "Area (Sq/km)": logScale(e.properties.Area_SqKm, MAX_SIZE) ,
+      // "Distance from Nearest Capital (km)": logScale(distanceToCity, MAX_DISTANCE),
+      "Area": e.properties.Area_SqKm,
+      "Distance from Nearest Capital": distanceToCity,
     };
   });
 };

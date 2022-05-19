@@ -47,6 +47,40 @@
 <div>
   <Accordion>
     <AccordionItem title="General" open>
+      <TextInput
+        bind:value={$graph.title}
+        labelText="Graph Title"
+      />
+      <TextInput
+        bind:value={$graph.description}
+        labelText="Graph Description"
+      />
+
+      <MultiSelect
+        titleText="Labelled Electorates"
+        filterable
+        bind:selectedIds={$graph.electorateHighlights}
+        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        sortItem={() => {}}
+      />
+
+      <Checkbox
+        bind:checked={$graph.partyColours}
+        labelText="Enable Party Colours"
+      />
+      <Checkbox
+        bind:checked={$graph.grid}
+        labelText="Enable Grid"
+      />
+
+      <!-- TODO -->
+      <!-- <Checkbox -->
+      <!--   bind:checked={$graph.darkModePreview} -->
+      <!--   labelText="Dark Mode Preview" -->
+      <!-- /> -->
+    </AccordionItem>
+
+    <AccordionItem title="Data" open>
       <Select
         labelText="Results"
         bind:selected={$graph.resultsYear}
@@ -72,28 +106,6 @@
         {/each}
       </Select>
 
-      <MultiSelect
-        titleText="Labelled Electorates"
-        filterable
-        bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
-        sortItem={() => {}}
-      />
-
-      <Checkbox
-        bind:checked={$graph.partyColours}
-        labelText="Enable Party Colours"
-      />
-      <Checkbox
-        bind:checked={$graph.grid}
-        labelText="Enable Grid"
-      />
-
-      <!-- TODO -->
-      <!-- <Checkbox -->
-      <!--   bind:checked={$graph.darkModePreview} -->
-      <!--   labelText="Dark Mode Preview" -->
-      <!-- /> -->
     </AccordionItem>
 
     <AccordionItem title="Axes" open>
@@ -125,8 +137,8 @@
       />
 
       <Checkbox
-        bind:checked={$graph.xAxisInverse}
-        labelText="Invert X Axis Selection"
+        bind:checked={$graph.xAxisUseLog}
+        labelText="X Axis Log Scale"
       />
 
     </AccordionItem>

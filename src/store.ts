@@ -2,6 +2,9 @@ import type { Subscriber, Unsubscriber, Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
 export interface Graph {
+  title: string;
+  description: string;
+
   resultsYear: string;
   dataset: string;
 
@@ -10,11 +13,12 @@ export interface Graph {
   xAxisFields: string[];
   xAxisInverse: boolean;
   xAxisLabelOverride: null | string;
+  xAxisUseLog: boolean;
 
   partyColours: boolean;
   grid: boolean;
 
-  trendline: boolean;
+  trendlineEnabled: boolean;
   smoothingBandwidth: number;
 
   heldByFilters: string[];
@@ -35,6 +39,9 @@ export interface GraphStore extends Writable<Graph> {
 }
 
 export const INITIAL_GRAPH = {
+  title: '',
+  description: '',
+
   resultsYear: '2019-local',
   dataset: 'religion',
 
@@ -43,13 +50,14 @@ export const INITIAL_GRAPH = {
   xAxisFields: [],
   xAxisInverse: false,
   xAxisLabelOverride: null,
+  xAxisUseLog: false,
 
   darkModePreview: false,
 
   partyColours: false,
   grid: true,
 
-  trendline: true,
+  trendlineEnabled: true,
   smoothingBandwidth: 2,
 
   heldByFilters: [],
@@ -64,7 +72,10 @@ export const ARRAY_FIELDS = [
   'heldByFilters',
   'closenessFilters',
   'categoryFilters',
-  'electorateHighlights'
+  'electorateHighlights',
+  'title',
+  'description',
+  'xAxisLabelOverride',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

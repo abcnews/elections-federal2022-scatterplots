@@ -10,7 +10,11 @@ module.exports = {
   type: 'svelte',
   build: {
     // extractCSS: true,
-    includedDependencies
+    includedDependencies,
+    entry: [
+      "index",
+      "embed"
+    ],
   },
   webpack: config => {
     // De-dupe svelte

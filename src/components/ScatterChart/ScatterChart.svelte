@@ -15,6 +15,9 @@
   let demographics = [];
   let results;
 
+  // Set responsively to the width of the div the chart is placed in
+  let width: number;
+
   const parentUrl =
     window.location !== window.parent.location
       ? document.referrer
@@ -46,20 +49,31 @@
   //
   $: xLabel = determineXAxisLabel($graph);
   $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
+  $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
 </script>
 
-<div class="wrapper">
+<div bind:clientWidth={width} class="wrapper">
+  {#if $graph.title}
+    <h4 class="scatter-title">{$graph.title}</h4>
+  {/if}
+  {#if $graph.description}
+    <p class="scatter-desc">{$graph.description}</p>
+  {/if}
+
   {#if $graph.partyColours}
     <Legend {isDarkMode} />
   {/if}
 
   <ScatterPlot
+    {width}
     {xLabel}
     {yLabel}
     {data}
+    xUnit={DATASETS.find(d => d.id === $graph.dataset)?.unit || ''}
+    isLog={$graph.xAxisUseLog}
 
     grid={$graph.grid}
-    trendline={$graph.trendline}
+    trendline={$graph.trendlineEnabled}
     smoothingBandwidth={$graph.smoothingBandwidth}
 
     isDarkMode={isDarkMode}
@@ -67,14 +81,25 @@
   />
 
   <p class="data-source">
-    Source: {DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}, <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>
+    Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
   </p>
 </div>
 
 
 <style>
   .wrapper {
-    background: white;
+    width: 100%;
+    margin: 0.5rem;
+  }
+
+  .scatter-title {
+    font-weight: 900;
+    font-size: 20px;
+  }
+
+  .scatter-desc {
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .data-source {

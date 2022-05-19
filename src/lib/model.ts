@@ -10,7 +10,7 @@ export const determineXAxisLabel = (opts: Graph) => {
   }
 
   if (opts.xAxisFields.length === 1 && !opts.xAxisInverse) {
-    return `${opts.xAxisFields[0]} (% of electorate)`;
+    return opts.xAxisFields[0];
   }
 
   return 'X Axis Label Override Needed!';
@@ -83,7 +83,7 @@ export const calcScatterData = (
     const winningParty = result.leadingCandidate?.party.code;
 
     return {
-      x: xAxis(demo, xAxisFields, xAxisInverse),
+      x: xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
       electorate: result.name,
       colour: partyColours ? COLOURS().PARTIES[winningParty] || COLOURS().PARTIES.OTH : COLOURS().PRIMARY,
@@ -136,17 +136,13 @@ export const yAxis = (result: any, method: string): number | null => {
 //
 // Calculate the demographic as a % of the total population of the electorate
 //
-const xAxis = (demo: any, xAxisFields: string[], inverse: boolean): number => {
+const xAxis = (demo: any, xAxisFields: string[]): number => {
   const selectedValues = xAxisFields.reduce(
     (acc, field) => acc + parseInt(demo[field]),
     0
   );
 
-  let val = (100 * selectedValues) / demo.Total;
-  if (inverse) {
-    val = 100 - val;
-  }
-  return val;
+  return selectedValues;
 };
 
 //

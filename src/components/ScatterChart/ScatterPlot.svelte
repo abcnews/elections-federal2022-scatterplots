@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { extent, scaleLinear, line } from "d3";
+  import { extent, scaleLinear, scaleLog, line } from "d3";
   import Axis from "./Axis.svelte";
   import Grid from "./Grid.svelte";
   import { COLOURS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
 
   const margin = { top: 15, bottom: 50, left: 50, right: 20 };
-  const width = 700;
-  const height = 600;
 
-  const innerHeight = height - margin.top - margin.bottom;
-  const innerWidth = width - margin.left - margin.right;
+  // Responsively sized dimensions
+  export let width: number;
+  $: height = width * 0.8;
+  $: innerHeight = height - margin.top - margin.bottom;
+  $: innerWidth = width - margin.left - margin.right;
 
   export let xLabel: string;
   export let yLabel: string;
@@ -18,8 +19,10 @@
   export let grid: boolean;
   export let smoothingBandwidth: number;
   export let electorateHighlights: string[];
+  export let xUnit: string;
   export let isDarkMode: boolean;
   export let data: any;
+  export let isLog: boolean;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -29,7 +32,7 @@
     mouseY = event.clientY;
   }
 
-  $: xScale = scaleLinear()
+  $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
     .range([0, innerWidth]);
 
@@ -51,11 +54,11 @@
         <Grid {innerHeight} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
         <Grid {innerHeight} {innerWidth} {isDarkMode} scale={yScale} position="left" />
       {/if}
-      <Axis {innerHeight} {isDarkMode} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {isDarkMode} scale={yScale} position="left" />
+      <Axis {innerHeight} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {isDarkMode} unit="%" scale={yScale} position="left" />
 
       <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label" transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
-        {yLabel} (%)
+        {yLabel}
       </text>
       <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label" x={innerWidth / 2} y={innerHeight + 35}>
         {xLabel}
