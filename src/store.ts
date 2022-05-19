@@ -2,8 +2,8 @@ import type { Subscriber, Unsubscriber, Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
 export interface Graph {
-  title: string;
-  description: string;
+  chartTitle: string;
+  chartDescription: string;
   chartAuthor: string;
 
   resultsYear: string;
@@ -40,8 +40,8 @@ export interface GraphStore extends Writable<Graph> {
 }
 
 export const INITIAL_GRAPH = {
-  title: '',
-  description: '',
+  chartTitle: '',
+  chartDescription: '',
   chartAuthor: '',
 
   resultsYear: '2019local',
@@ -75,10 +75,10 @@ export const ENCODED_FIELDS = [
   'closenessFilters',
   'categoryFilters',
   'electorateHighlights',
-  'title',
-  'description',
   'xAxisLabelOverride',
   'chartAuthor',
+  'chartTitle',
+  'chartDescription',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

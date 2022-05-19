@@ -48,11 +48,11 @@
   <Accordion>
     <AccordionItem title="General" open>
       <TextInput
-        bind:value={$graph.title}
+        bind:value={$graph.chartTitle}
         labelText="Chart Title"
       />
       <TextInput
-        bind:value={$graph.description}
+        bind:value={$graph.chartDescription}
         labelText="Chart Description"
       />
       <TextInput

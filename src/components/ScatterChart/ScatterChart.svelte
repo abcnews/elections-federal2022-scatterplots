@@ -54,11 +54,11 @@
 </script>
 
 <div bind:clientWidth={width} class="wrapper">
-  {#if $graph.title}
-    <h4 class="scatter-title">{$graph.title}</h4>
+  {#if $graph.chartTitle}
+    <h4 class="scatter-title">{$graph.chartTitle}</h4>
   {/if}
-  {#if $graph.description}
-    <p class="scatter-desc">{$graph.description}</p>
+  {#if $graph.chartDescription}
+    <p class="scatter-desc">{$graph.chartDescription}</p>
   {/if}
 
   {#if $graph.partyColours}
