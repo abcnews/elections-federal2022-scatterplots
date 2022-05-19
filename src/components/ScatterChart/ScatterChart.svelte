@@ -90,7 +90,6 @@
 <style>
   .wrapper {
     width: 100%;
-    margin: 0.5rem;
   }
 
   .scatter-title {
