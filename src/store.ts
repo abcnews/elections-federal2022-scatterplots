@@ -78,7 +78,7 @@ export const ENCODED_FIELDS = [
   'title',
   'description',
   'xAxisLabelOverride',
-  'author',
+  'chartAuthor',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {
