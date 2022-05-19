@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf'
+import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
 import { fetchLiveResultsElectorates } from './results';
 import { yAxis } from './model';
@@ -19,6 +20,10 @@ export const fetchAbsData = async (dataset: string) => {
     return fetchGeo();
   }
 
+  if (dataset === 'campaignvisits') {
+    return fetchCampaignVisits();
+  }
+
   const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
   const parsed = Papa.parse(raw, { header: true }).data;
   const normalised = parsed.map(row => {
@@ -32,15 +37,62 @@ export const fetchAbsData = async (dataset: string) => {
   return normalised;
 };
 
+// Data from:
+//
+// https://github.com/abcnews/elections-federal2022-campaign-heatmap/blob/master/src/components/App/index.tsx
+const fetchCampaignVisits = async () => {
+  if (datasets.visits) {
+    return datasets.visits;
+  }
 
-export const fetchErads = async () => {
+  const dataUrl = 'https://abcnewsdata.sgp1.cdn.digitaloceanspaces.com/elections-federal2022-campaign-heatmap/travel.txt';
+  const parties = [
+    { id: 'LNP', name: 'Coalition', colour: 'ptyblue', leaders: ['Scott Morrison', 'Barnaby Joyce'] },
+    { id: 'ALP', name: 'Labor', colour: 'ptyred', leaders: ['Anthony Albanese', 'Richard Marles'] },
+  ];
+  const ZERO_VISITS = {
+    "Visits by Labor": 0,
+    "Visits by Coalition": 0,
+    "Visits by Anthony Albanese": 0,
+    "Visits by Scott Morrison": 0,
+    "Visits by Barnaby Joyce": 0,
+    "Visits by Richard Marles": 0,
+  };
+
+  const raw = await fetch(dataUrl).then(r => r.text());
+  const rows = raw.trim().split('\n').map(line => line.split('\t'));
+
+  const visits = rows.reduce((acc, row) => {
+    if (row.length !== 3) {
+      return acc;
+    }
+
+    const [date, leader, electorate] = row;
+    const party = parties.find(party => party.leaders.includes(leader))?.name;
+
+    acc[electorate] = acc[electorate] || { ...ZERO_VISITS };
+    acc[electorate][`Visits by ${party}`] += 1;
+    acc[electorate][`Visits by ${leader}`] += 1;
+    return acc;
+  }, {});
+
+  datasets.visits = ELECTORATE_CATEGORIES.map(({ Electorate }) => ({
+    Electorate,
+    ...ZERO_VISITS,
+    ...visits[Electorate],
+  }));
+  return datasets.visits;
+};
+
+
+const fetchErads = async () => {
   if (datasets.erads) {
     return datasets.erads;
   }
 
   const rawResults = await fetchLiveResultsElectorates('2019local');
   // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
-  return rawResults.map(e => {
+  datasets.erads = rawResults.map(e => {
     return {
       Electorate: e.name,
       'Swing Away From Coalition': yAxis(e, 'swing-from-lnp'),
@@ -48,6 +100,7 @@ export const fetchErads = async () => {
       'Coalition 2CP Vote': yAxis(e, '2cp-vote-lnp'),
     };
   });
+  return datasets.erads;
 };
 
 const CAPITAL_CITIES = [
@@ -74,18 +127,17 @@ const logScale = (x: number, maxVal: number): number => {
 }
 
 
-export const fetchGeo = async () => {
+const fetchGeo = async () => {
   if (datasets.geo) {
     return datasets.geo;
   }
 
   const rawRes = await fetch(`${__webpack_public_path__ || '/'}electorate_geo.json`);
   const rawData = await rawRes.json();
-  return rawData.features.map(e => {
+  datasets.geo = rawData.features.map(e => {
     const electorateCenter = centroid(e.geometry);
     const nearestCity = nearestPoint(electorateCenter, featureCollection(CAPITAL_CITIES));
-    const distanceToCity = distance(electorateCenter, nearestCity);
-    // TODO: how to present as not a percentage 
+    const distanceToCity = Math.max(1, distance(electorateCenter, nearestCity));
 
     return {
       Electorate: e.properties.Elect_div,
@@ -95,4 +147,6 @@ export const fetchGeo = async () => {
       "Distance from Nearest Capital": distanceToCity,
     };
   });
+  console.log(datasets.geo);
+  return datasets.geo;
 };

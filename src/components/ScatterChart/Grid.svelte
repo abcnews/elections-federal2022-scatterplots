@@ -25,8 +25,16 @@
         grid = axisLeft(scale).ticks(numTicks).tickSize(-1 * innerWidth).tickSizeOuter(0).tickFormat("");
         transform = `translate(0, 0)`;
     }
-    select(g).call(grid).attr('color', COLOURS(isDarkMode).GRID);
+    select(g)
+      .call(grid)
+      .attr('color', COLOURS(isDarkMode).GRID);
   }
 </script>
 
 <g class="grid" bind:this={g} {transform} />
+
+{#if position === 'left'}
+  <g class="tick origin" opacity="1" transform={`translate(0,${scale(0)})`}>
+    <line stroke={COLOURS(isDarkMode).AXIS} x2="580"></line>
+  </g>
+{/if}

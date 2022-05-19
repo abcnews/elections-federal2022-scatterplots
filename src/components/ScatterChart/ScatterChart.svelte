@@ -53,7 +53,7 @@
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
 </script>
 
-<div bind:clientWidth={width} class="wrapper">
+<div bind:clientWidth={width} class={`wrapper ${isDarkMode ? 'dark' : ''}`}>
   {#if $graph.chartTitle}
     <h1 class="scatter-title">{$graph.chartTitle}</h1>
   {/if}
@@ -70,7 +70,7 @@
     {xLabel}
     {yLabel}
     {data}
-    xUnit={DATASETS.find(d => d.id === $graph.dataset)?.unit || ''}
+    xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit : $graph.xAxisUnitOverride} 
     isLog={$graph.xAxisUseLog}
 
     grid={$graph.grid}
@@ -90,6 +90,15 @@
 <style>
   .wrapper {
     width: 100%;
+  }
+  .wrapper.dark {
+    width: 100%;
+    background: black;
+  }
+  .wrapper.dark {
+    width: 100%;
+    background: black;
+    color: white;
   }
 
   .scatter-title {

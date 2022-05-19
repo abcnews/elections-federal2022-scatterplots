@@ -6,6 +6,7 @@
   export let innerHeight: number;
   export let position: "bottom" | "left";
   export let isDarkMode: boolean;
+  export let isLog: boolean;
   export let unit: string;
   export let scale;
   export let numTicks: number;
@@ -13,12 +14,23 @@
   let transform: string;
   let g;
 
+  const LOG_SCALE = [
+    10,
+    100,
+    1000,
+  ];
+
   $: {
     select(g).selectAll("*").remove();
     let axis;
     switch (position) {
       case "bottom":
-        axis = axisBottom(scale).ticks(numTicks).tickSize(0).tickFormat(t => `${t}${unit || ''}`);
+        axis = axisBottom(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
+          if (isLog && LOG_SCALE.indexOf(t) === -1) {
+            return '';
+          }
+          return `${t}${unit || ''}`;
+        });
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":

@@ -80,13 +80,14 @@ export const calcScatterData = (
     //   return null;
     // }
 
-    const winningParty = result.leadingCandidate?.party.code;
+    const winningParty = result.leadingCandidate?.party.code === 'LNP' ? 'LIB' : result.leadingCandidate?.party.code;
 
     return {
       x: xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
       electorate: result.name,
-      colour: partyColours ? COLOURS().PARTIES[winningParty] || COLOURS().PARTIES.OTH : COLOURS().PRIMARY,
+      colour: (isDM) => partyColours ? COLOURS(isDM).PARTIES[winningParty] || COLOURS(isDM).PARTIES.OTH : COLOURS(isDM).PRIMARY,
+      labelColour: (isDM) => partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] || COLOURS(isDM).PARTY_LABELS.OTH : COLOURS(isDM).TEXT,
     };
   });
 

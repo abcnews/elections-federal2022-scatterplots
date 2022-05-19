@@ -15,6 +15,7 @@ export interface Graph {
   xAxisInverse: boolean;
   xAxisLabelOverride: null | string;
   xAxisUseLog: boolean;
+  xAxisUnitOverride: null | string;
 
   partyColours: boolean;
   grid: boolean;
@@ -45,7 +46,7 @@ export const INITIAL_GRAPH = {
   chartAuthor: '',
 
   resultsYear: '2019local',
-  dataset: 'religion',
+  dataset: 'votecompass',
 
   yAxisMethod: 'swing-from-lnp',
 
@@ -53,6 +54,7 @@ export const INITIAL_GRAPH = {
   xAxisInverse: false,
   xAxisLabelOverride: null,
   xAxisUseLog: false,
+  xAxisUnitOverride: null,
 
   darkModePreview: false,
 
@@ -76,6 +78,7 @@ export const ENCODED_FIELDS = [
   'categoryFilters',
   'electorateHighlights',
   'xAxisLabelOverride',
+  'xAxisUnitOverride',
   'chartAuthor',
   'chartTitle',
   'chartDescription',

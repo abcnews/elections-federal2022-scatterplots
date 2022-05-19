@@ -46,44 +46,6 @@
 
 <div>
   <Accordion>
-    <AccordionItem title="General" open>
-      <TextInput
-        bind:value={$graph.chartTitle}
-        labelText="Chart Title"
-      />
-      <TextInput
-        bind:value={$graph.chartDescription}
-        labelText="Chart Description"
-      />
-      <TextInput
-        bind:value={$graph.chartAuthor}
-        labelText="Chart Author"
-      />
-
-      <MultiSelect
-        titleText="Labelled Electorates"
-        filterable
-        bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
-        sortItem={() => {}}
-      />
-
-      <Checkbox
-        bind:checked={$graph.partyColours}
-        labelText="Enable Party Colours"
-      />
-      <Checkbox
-        bind:checked={$graph.grid}
-        labelText="Enable Grid"
-      />
-
-      <!-- TODO -->
-      <!-- <Checkbox -->
-      <!--   bind:checked={$graph.darkModePreview} -->
-      <!--   labelText="Dark Mode Preview" -->
-      <!-- /> -->
-    </AccordionItem>
-
     <AccordionItem title="Data" open>
       <Select
         labelText="Results"
@@ -110,6 +72,14 @@
           <SelectItem value={dataset.id} text={dataset.label} />
         {/each}
       </Select>
+
+      <MultiSelect
+        titleText="Labelled Electorates"
+        filterable
+        bind:selectedIds={$graph.electorateHighlights}
+        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        sortItem={() => {}}
+      />
 
     </AccordionItem>
 
@@ -141,6 +111,12 @@
         invalidText="Required"
       />
 
+      <TextInput
+        bind:value={$graph.xAxisUnitOverride}
+        labelText="X Axis Unit"
+      />
+
+
       <Checkbox
         bind:checked={$graph.xAxisUseLog}
         labelText="X Axis Log Scale"
@@ -170,6 +146,36 @@
         sortItem={() => {}}
       />
     </AccordionItem>
+
+    <AccordionItem title="General" open>
+      <TextInput
+        bind:value={$graph.chartTitle}
+        labelText="Chart Title"
+      />
+      <TextInput
+        bind:value={$graph.chartDescription}
+        labelText="Chart Description"
+      />
+      <TextInput
+        bind:value={$graph.chartAuthor}
+        labelText="Chart Author"
+      />
+
+      <Checkbox
+        bind:checked={$graph.partyColours}
+        labelText="Enable Party Colours"
+      />
+      <Checkbox
+        bind:checked={$graph.grid}
+        labelText="Enable Grid"
+      />
+
+      <Checkbox
+        bind:checked={$graph.darkModePreview}
+        labelText="Dark Mode Preview"
+      />
+    </AccordionItem>
+
     <AccordionItem title="Trendline">
       <NumberInput
         min={1}

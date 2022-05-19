@@ -23,7 +23,7 @@
 </script>
 
 <main>
-  <article>
+  <article class={`${$graph.darkModePreview ? 'darkmode' : ''}`}>
     <figure>
       <ScatterChart />
     </figure>
@@ -49,11 +49,17 @@
     min-height: 100vh;
   }
 
+  .darkmode {
+    background: black;
+    color: white;
+  }
+
   article {
     flex: 0 0 auto;
     margin: auto;
     width: 100%;
     max-width: 42rem;
+    padding: 3rem;
   }
 
   figure {

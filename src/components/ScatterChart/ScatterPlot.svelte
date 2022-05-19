@@ -32,6 +32,8 @@
     mouseY = event.layerY;
   }
 
+  $: console.log(data);
+
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
     .range([0, innerWidth]);
@@ -56,11 +58,11 @@
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={yScale} position="left" />
       {/if}
-      <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} {isLog} scale={xScale} position="bottom" />
       <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" scale={yScale} position="left" />
 
       {#if trendline}
-        <path class="trendline" stroke={'black'} d={trendlinePath} />
+        <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
       {/if}
 
       {#each data as point}
@@ -69,8 +71,8 @@
           cx={xScale(point.x)}
           cy={yScale(point.y)}
           r="3"
-          color={point.colour}
-          stroke={electorateHighlights.indexOf(point.electorate) > -1 ? 'black' : point.colour}
+          color={point.colour(isDarkMode)}
+          stroke={electorateHighlights.indexOf(point.electorate) > -1 ? COLOURS(isDarkMode).TEXT : point.colour(isDarkMode)}
           data-electorate={point.electorate}
           on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
           on:mouseout={() => {selectedPoint = undefined;}}
@@ -81,16 +83,16 @@
 
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <text class="dot-label" style={`fill:${point.colour === COLOURS(isDarkMode).PRIMARY ? 'black' : point.colour}`} x={xScale(point.x)} y={yScale(point.y) - 10} text-anchor="middle">
+          <text class="dot-label" style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`} x={xScale(point.x)} y={yScale(point.y) - 10} text-anchor="middle">
             {point.electorate}
           </text>
         {/if}
       {/each}
 
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={10} y={margin.top}>
+      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={10} y={margin.top}>
         {yLabel}
       </text>
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
         {xLabel}
       </text>
     </g>
@@ -121,7 +123,6 @@
     font-size: 12px;
 
     fill-opacity: 1;
-    stroke: white;
     stroke-opacity: 0.75;
     stroke-width: 2px;
     paint-order: stroke;

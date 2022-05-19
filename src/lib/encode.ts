@@ -104,7 +104,7 @@ export const graphToUrlQuery = (graph: Graph, existingUrlQuery?: string): string
     const value = graph[inputName];
 
     // We never export defaults
-    if (String(INITIAL_GRAPH[inputName]) === String(value)) {
+    if (String(INITIAL_GRAPH[inputName]) === String(value) || String(value).length === 0) {
       return urlQuery;
     }
 
