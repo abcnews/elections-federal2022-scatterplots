@@ -19,6 +19,7 @@
 
   import type { GraphStore } from '../store';
   import { alternatingCaseToPartialGraph, graphToAlternatingCase } from '../lib/encode';
+  import { generateFallback } from '../lib/fallbacks';
 
   let graph = getContext<GraphStore>('graph');
 
@@ -51,6 +52,17 @@
   >
     Import marker
   </Button>
+
+  <Button
+    size="field"
+    tooltipAlignment="end"
+    on:click={() => {
+      generateFallback($graph);
+    }}
+  >
+    Download Fallback Image
+  </Button>
+
   {#each markersData as { label, note, text }}
     <h4>{label}</h4>
     {#if note}
