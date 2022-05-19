@@ -94,7 +94,7 @@
 
   .scatter-title {
     font-weight: 900;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
   }
 
