@@ -42,13 +42,13 @@ export const DATASETS = [
     unit: '%',
   },
   {
-    id: 'unpaid_domestic_work',
+    id: 'unpaiddomesticwork',
     label: 'Unpaid Domestic Work',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
     unit: '%',
   },
   {
-    id: '2019_results',
+    id: '2019results',
     label: '2019 Federal Election Results',
     sourceLabel: '',
     unit: '%',
@@ -60,13 +60,13 @@ export const DATASETS = [
     unit: 'km',
   },
   {
-    id: 'housing_stress',
+    id: 'housingstress',
     label: 'Rental and Mortgage Stress (Do not use)',
     sourceLabel: 'Digital Finance Analytics',
     unit: '%',
   },
   {
-    id: 'vote_compass',
+    id: 'votecompass',
     label: 'Vote Compass',
     sourceLabel: 'ABC Vote Compass',
     unit: '%',

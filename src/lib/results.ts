@@ -54,7 +54,7 @@ export const fetchLiveResultsElectorates = async (year: string) => {
     url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(FEDERAL_2019_LIVE_RESULTS_PROPS)}`;
   } else if (year === '2022') {
     url = `${LIVE_RESULTS_URL_PREFIX}${JSON.stringify(FEDERAL_2019_LIVE_RESULTS_PROPS)}`;
-  } else if (year === '2019-local') {
+  } else if (year === '2019local') {
     url = `${__webpack_public_path__ || '/'}results2019.json`;
   }
 

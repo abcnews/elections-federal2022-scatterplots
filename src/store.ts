@@ -44,7 +44,7 @@ export const INITIAL_GRAPH = {
   description: '',
   chartAuthor: '',
 
-  resultsYear: '2019-local',
+  resultsYear: '2019local',
   dataset: 'religion',
 
   yAxisMethod: 'swing-from-lnp',

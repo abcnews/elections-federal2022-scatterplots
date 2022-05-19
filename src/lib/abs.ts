@@ -11,7 +11,7 @@ export const fetchAbsData = async (dataset: string) => {
     return datasets[dataset];
   }
 
-  if (dataset === '2019_results') {
+  if (dataset === '2019results') {
     return fetchErads();
   }
 
@@ -38,7 +38,7 @@ export const fetchErads = async () => {
     return datasets.erads;
   }
 
-  const rawResults = await fetchLiveResultsElectorates('2019-local');
+  const rawResults = await fetchLiveResultsElectorates('2019local');
   // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
   return rawResults.map(e => {
     return {
