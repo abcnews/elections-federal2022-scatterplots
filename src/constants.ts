@@ -45,6 +45,11 @@ export const DATASETS = [
     sourceLabel: '',
   },
   {
+    id: 'geo',
+    label: 'Geographic Features',
+    sourceLabel: '',
+  },
+  {
     id: 'housing_stress',
     label: 'Rental and Mortgage Stress (Do not use)',
     sourceLabel: 'Digital Finance Analytics',
