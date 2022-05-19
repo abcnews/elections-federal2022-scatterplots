@@ -18,11 +18,11 @@
     let grid;
     switch (position) {
       case "bottom":
-        grid = axisBottom(scale).ticks(numTicks).tickSize(-1 * innerHeight).tickFormat("");
+        grid = axisBottom(scale).ticks(numTicks).tickSize(-1 * innerHeight).tickSizeOuter(0).tickFormat("");
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":
-        grid = axisLeft(scale).ticks(numTicks).tickSize(-1 * innerWidth).tickFormat("");
+        grid = axisLeft(scale).ticks(numTicks).tickSize(-1 * innerWidth).tickSizeOuter(0).tickFormat("");
         transform = `translate(0, 0)`;
     }
     select(g).call(grid).attr('color', COLOURS(isDarkMode).GRID);

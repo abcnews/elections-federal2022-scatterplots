@@ -5,11 +5,11 @@
   import { COLOURS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
 
-  const margin = { top: 15, bottom: 50, left: 50, right: 20 };
+  const margin = { top: 15, bottom: 25, left: 35, right: 15 };
 
   // Responsively sized dimensions
   export let width: number;
-  $: height = width * 0.8;
+  $: height = width;
   $: innerHeight = height - margin.top - margin.bottom;
   $: innerWidth = width - margin.left - margin.right;
 
@@ -59,10 +59,10 @@
       <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} scale={xScale} position="bottom" />
       <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" scale={yScale} position="left" />
 
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label" transform={`translate(${-30},${innerHeight / 2}) rotate(-90)`}>
+      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={5} y={margin.top}>
         {yLabel}
       </text>
-      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label" x={innerWidth / 2} y={innerHeight + 35}>
+      <text style={`color:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 5}>
         {xLabel}
       </text>
 
@@ -76,7 +76,8 @@
           cx={xScale(point.x)}
           cy={yScale(point.y)}
           r="3"
-          color={electorateHighlights.indexOf(point.electorate) > -1 ? 'black' : point.colour}
+          color={point.colour}
+          stroke={electorateHighlights.indexOf(point.electorate) > -1 ? 'black' : point.colour}
           data-electorate={point.electorate}
           on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
           on:mouseout={() => {selectedPoint = undefined;}}
@@ -112,7 +113,7 @@
   .scatter-dot {
     fill: currentColor;
     fill-opacity: 0.6;
-    stroke: currentColor;
+    stroke-width: 1.5px;
   }
 
   .dot-label {
@@ -140,8 +141,13 @@
     stroke-width: 3px;
   }
 
-  .axis-label {
-    text-anchor: middle;
+  .axis-label-x {
+    text-anchor: end;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .axis-label-y {
+    text-anchor: start;
     font-weight: 700;
     font-size: 13px;
   }
