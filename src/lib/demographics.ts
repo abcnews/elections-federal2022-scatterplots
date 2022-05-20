@@ -10,7 +10,10 @@ const datasets: Record<string, any> = {};
 
 export const fetchDemographicData = async (dataset: string) => {
   if (dataset === '2019results') {
-    return fetchErads();
+    return fetchErads('2019local');
+  }
+  if (dataset === '2022results') {
+    return fetchErads('2022');
   }
 
   if (dataset === 'geo') {
@@ -90,15 +93,15 @@ const fetchCampaignVisits = async () => {
 };
 
 
-const fetchErads = async () => {
-  if (datasets.erads) {
-    return datasets.erads;
+const fetchErads = async (year: string) => {
+  if (datasets[year]) {
+    return datasets[year];
   }
 
-  const rawResults = await fetchLiveResultsElectorates('2019local');
+  const rawResults = await fetchLiveResultsElectorates(year);
 
   // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
-  datasets.erads = rawResults.map(e => {
+  datasets[year] = rawResults.map(e => {
 
     const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-lnp')?.label || '';
     const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-labor')?.label || '';
@@ -113,7 +116,7 @@ const fetchErads = async () => {
       [laborVoteLabel]: yAxis(e, '2cp-vote-labor'),
     };
   });
-  return datasets.erads;
+  return datasets[year];
 };
 
 const CAPITAL_CITIES = [

@@ -38,7 +38,7 @@ export const calcScatterData = (
   xAxisInverse: boolean,
   heldByFilters: string[],
   closenessFilters: string[],
-  categoryFilters: string[],
+  geoFilters: string[],
 ) => {
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
     return [];
@@ -61,34 +61,28 @@ export const calcScatterData = (
     // Apply filters
     if (heldByFilters.length > 0) {
       if (heldByFilters.indexOf(categories["Held By"]) === -1) {
-        console.log('Filtered:', result.name);
+        console.log('Held By Filtered:', result.name);
         return null;
       }
 
       // Special case to handle "LNP" in data
       if (heldByFilters.indexOf("Liberal") > -1 && categories["Held By"] === "LNP") {
-        console.log('Filtered:', result.name);
+        console.log('Held By Filtered:', result.name);
         return null;
       }
     }
     if (closenessFilters.length > 0) {
       if (closenessFilters.indexOf(categories["Closeness"]) === -1) {
-        console.log('Filtered:', result.name);
+        console.log('Closeness Filtered:', result.name);
         return null;
       }
     }
-    if (categoryFilters.length > 0) {
-      if (categoryFilters.indexOf(categories["Category"]) === -1) {
-        console.log('Filtered:', result.name);
+    if (geoFilters.length > 0) {
+      if (geoFilters.indexOf(categories["Geo"]) === -1) {
+        console.log('Geo Filtered:', result.name);
         return null;
       }
     }
-
-    // const isSafe = result.predicted?.predictionString?.startsWith('SAFE');
-    // Ignore electorates that haven't been called
-    // if (!isSafe) {
-    //   return null;
-    // }
 
     const winningParty = result.leadingCandidate?.party.code === 'LNP' ? 'LIB' : result.leadingCandidate?.party.code;
 

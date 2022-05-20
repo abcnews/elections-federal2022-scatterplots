@@ -8,6 +8,13 @@ export const DATASETS = [
     unit: '%',
   },
   {
+    id: '2022results',
+    label: 'AEC: 2022 Federal Election Results',
+    sourceLabel: '',
+    canCombine: false,
+    unit: '%',
+  },
+  {
     id: 'geo',
     label: 'AEC: Geographic Features',
     sourceLabel: '',
@@ -137,7 +144,7 @@ export const Y_AXIS_METHODS = [
 //
 // Filter Options
 //
-export const ELECTORATE_CATEGORIES = [
+export const ELECTORATE_GEO = [
   'Inner Metro',
   'Outer Metro',
   'Regional Seats',

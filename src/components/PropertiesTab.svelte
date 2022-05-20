@@ -11,7 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, ELECTORATE_CATEGORIES, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY } from '../constants';
+  import { DATASETS, Y_AXIS_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY } from '../constants';
   import ELECTORATES from '../electorate_categories.json';
 
   import { getContext } from 'svelte';
@@ -180,8 +180,8 @@
     <AccordionItem title="Filters">
       <MultiSelect
         titleText="Geo Category"
-        bind:selectedIds={$graph.categoryFilters}
-        items={ELECTORATE_CATEGORIES.map(d => ({ id: d, text: d }))}
+        bind:selectedIds={$graph.geoFilters}
+        items={ELECTORATE_GEO.map(d => ({ id: d, text: d }))}
         sortItem={() => {}}
       />
 

@@ -28,7 +28,7 @@ export interface Graph {
 
   heldByFilters: string[];
   closenessFilters: string[];
-  categoryFilters: string[];
+  geoFilters: string[];
 
   darkModePreview: boolean;
 
@@ -72,16 +72,24 @@ export const INITIAL_GRAPH = {
 
   heldByFilters: [],
   closenessFilters: [],
-  categoryFilters: [],
+  geoFilters: [],
 
   electorateHighlights: []
 };
+
+export const ARRAY_FIELDS = [
+  'xAxisFields',
+  'heldByFilters',
+  'closenessFilters',
+  'geoFilters',
+  'electorateHighlights',
+];
 
 export const ENCODED_FIELDS = [
   'xAxisFields',
   'heldByFilters',
   'closenessFilters',
-  'categoryFilters',
+  'geoFilters',
   'electorateHighlights',
   'xAxisLabelOverride',
   'xAxisUnitOverride',

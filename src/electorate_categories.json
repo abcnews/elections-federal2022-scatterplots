@@ -1,906 +1,906 @@
 [
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Adelaide",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Aston",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Ballarat",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Banks",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Barker",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Barton",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Bass",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Bean",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Bendigo",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Bennelong",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Berowra",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Blair",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Blaxland",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Bonner",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Boothby",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Bowman",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Braddon",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Bradfield",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Brand",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Brisbane",
     "Closeness": "Marginal",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Bruce",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Burt",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Calare",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Calwell",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Canberra",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Canning",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Capricornia",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Casey",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Chifley",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Chisholm",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Clark",
     "Closeness": "Very Safe",
     "Held By": "Independent"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Cook",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Cooper",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Corangamite",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Corio",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Cowan",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Cowper",
     "Closeness": "Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Cunningham",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Curtin",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Dawson",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Deakin",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Dickson",
     "Closeness": "Marginal",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Dobell",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Dunkley",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Durack",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Eden-Monaro",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fadden",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fairfax",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Farrer",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fenner",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fisher",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Flinders",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Flynn",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Forde",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Forrest",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fowler",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Franklin",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Fraser",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Fremantle",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Gellibrand",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Gilmore",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Gippsland",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Goldstein",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Gorton",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Grayndler",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Greenway",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Grey",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Griffith",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Groom",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Hasluck",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Hawke",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Herbert",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Higgins",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Hindmarsh",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Hinkler",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Holt",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Hotham",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Hughes",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Hume",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Hunter",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Indi",
     "Closeness": "Marginal",
     "Held By": "Independent"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Isaacs",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Jagajaga",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Kennedy",
     "Closeness": "Very Safe",
     "Held By": "KAP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Kingsford Smith",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Kingston",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Kooyong",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "La Trobe",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Lalor",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Leichhardt",
     "Closeness": "Marginal",
     "Held By": "LNP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Lilley",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Lindsay",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Lingiari",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Longman",
     "Closeness": "Marginal",
     "Held By": "LNP"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Lyne",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Lyons",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Macarthur",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Mackellar",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Macnamara",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Macquarie",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Makin",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Mallee",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Maranoa",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Maribyrnong",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Mayo",
     "Closeness": "Marginal",
     "Held By": "Centre Alliance"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "McEwen",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "McMahon",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "McPherson",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Melbourne",
     "Closeness": "Very Safe",
     "Held By": "Greens"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Menzies",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Mitchell",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Monash",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Moncrieff",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Moore",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Moreton",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "New England",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Newcastle",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Nicholls",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "North Sydney",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "O'Connor",
     "Closeness": "Very Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Oxley",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Page",
     "Closeness": "Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Parkes",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Parramatta",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Paterson",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Pearce",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Perth",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Petrie",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Rankin",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Reid",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Richmond",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Riverina",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Robertson",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Ryan",
     "Closeness": "Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Scullin",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Shortland",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Solomon",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Spence",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Sturt",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Swan",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Sydney",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Tangney",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Wannon",
     "Closeness": "Safe",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Warringah",
     "Closeness": "Safe",
     "Held By": "Independent"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Watson",
     "Closeness": "Very Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Wentworth",
     "Closeness": "Marginal",
     "Held By": "Liberal"
   },
   {
-    "Category": "Outer Metro",
+    "Geo": "Outer Metro",
     "Electorate": "Werriwa",
     "Closeness": "Marginal",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Whitlam",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Rural",
+    "Geo": "Rural",
     "Electorate": "Wide Bay",
     "Closeness": "Very Safe",
     "Held By": "LNP"
   },
   {
-    "Category": "Inner Metro",
+    "Geo": "Inner Metro",
     "Electorate": "Wills",
     "Closeness": "Safe",
     "Held By": "Labor"
   },
   {
-    "Category": "Regional Seats",
+    "Geo": "Regional Seats",
     "Electorate": "Wright",
     "Closeness": "Very Safe",
     "Held By": "LNP"

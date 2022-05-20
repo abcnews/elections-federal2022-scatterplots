@@ -5,6 +5,7 @@ import {
   INITIAL_GRAPH,
   ENCODED_FIELDS,
   PREVIEW_FIELDS,
+  ARRAY_FIELDS,
 } from '../store';
 import type { Graph } from '../store';
 
@@ -36,12 +37,15 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
   Object.keys(actoObject).reduce((graph, actoKey) => {
     const inputName = ACTO_KEYS_TO_NAMES[actoKey];
 
-    if (!inputName || PREVIEW_FIELDS.indexOf(inputName) > -1) {
+    // Ignore unknown properties, preview fields and empty string values
+    if (!inputName || PREVIEW_FIELDS.indexOf(inputName) > -1 || actoObject[actoKey] === '') {
       return graph;
     }
 
-    if (ENCODED_FIELDS.indexOf(inputName) > -1) {
+    if (ARRAY_FIELDS.indexOf(inputName) > -1) {
       graph[inputName] = decode(actoObject[actoKey]).split(',');
+    } else if (ENCODED_FIELDS.indexOf(inputName) > -1) {
+      graph[inputName] = decode(actoObject[actoKey]);
     } else {
       graph[inputName] = String(actoObject[actoKey]);
     }
@@ -57,9 +61,11 @@ export const graphToAlternatingCase = (graph: Graph): string =>
     const value = graph[inputName];
 
     // Dont export defaults, preview settings or empty values
-    if (String(INITIAL_GRAPH[inputName]) === String(value) ||
-        PREVIEW_FIELDS.indexOf(inputName) > -1 ||
-       String(value) === '') {
+    if (
+      String(INITIAL_GRAPH[inputName]) === String(value) ||
+      PREVIEW_FIELDS.indexOf(inputName) > -1 ||
+      String(value) === ''
+    ) {
       return alternatingCase;
     }
 
@@ -86,10 +92,13 @@ export const urlQueryToPartialGraph = (urlQuery: string): Partial<Graph> => {
     (key, value) => (key === '' ? value : decodeURIComponent(value))
   );
 
+
   return Object.keys(parsedUrlQuery).reduce((graph, inputName) => {
     if (inputName in INITIAL_GRAPH) {
-      if (ENCODED_FIELDS.indexOf(inputName) > -1) {
+      if (ARRAY_FIELDS.indexOf(inputName) > -1) {
         graph[inputName] = decode(parsedUrlQuery[inputName]).split(',');
+      } else if (ENCODED_FIELDS.indexOf(inputName) > -1) {
+        graph[inputName] = decode(parsedUrlQuery[inputName]);
       } else {
         graph[inputName] = parsedUrlQuery[inputName];
       }
@@ -104,7 +113,7 @@ export const graphToUrlQuery = (graph: Graph, existingUrlQuery?: string): string
     const value = graph[inputName];
 
     // We never export defaults
-    if (String(INITIAL_GRAPH[inputName]) === String(value) || String(value).length === 0) {
+    if (String(INITIAL_GRAPH[inputName]) === String(value) || String(value) === '') {
       return urlQuery;
     }
 
