@@ -1,6 +1,12 @@
 <script lang="ts" context="module">
-  const MARKERS = [
-    { label: 'Standalone graphic marker', prefix: 'scatter' },
+  type Marker = {
+    label: string;
+    note: string;
+    prefix: string;
+  }
+
+  const MARKERS: Marker[] = [
+    { label: 'Standalone graphic marker', note: '', prefix: 'scatter' },
     // {
     //   label: 'Scrollyteller opener',
     //   note: `If you're placing multiple scrollytellers in a single story, each must have a unique NAME.`,
