@@ -5,11 +5,13 @@ export interface Graph {
   chartTitle: string;
   chartDescription: string;
   chartAuthor: string;
+  chartNotes: string,
 
   resultsYear: string;
   dataset: string;
 
   yAxisMethod: string;
+  yAxisLabelOverride: null | string,
 
   xAxisFields: string[];
   xAxisInverse: boolean;
@@ -21,6 +23,7 @@ export interface Graph {
   grid: boolean;
 
   trendlineEnabled: boolean;
+  trendlineMethod: string;
   smoothingBandwidth: number;
 
   heldByFilters: string[];
@@ -44,11 +47,13 @@ export const INITIAL_GRAPH = {
   chartTitle: '',
   chartDescription: '',
   chartAuthor: '',
+  chartNotes: '',
 
   resultsYear: '2019local',
   dataset: 'votecompass',
 
-  yAxisMethod: 'swing-from-lnp',
+  yAxisMethod: 'swing-to-lnp',
+  yAxisLabelOverride: null,
 
   xAxisFields: [],
   xAxisInverse: false,
@@ -62,6 +67,7 @@ export const INITIAL_GRAPH = {
   grid: true,
 
   trendlineEnabled: true,
+  trendlineMethod: 'linear',
   smoothingBandwidth: 2,
 
   heldByFilters: [],
@@ -82,6 +88,12 @@ export const ENCODED_FIELDS = [
   'chartAuthor',
   'chartTitle',
   'chartDescription',
+  'chartNotes',
+];
+
+// These are excluded from acto markers (but not sharable URLs)
+export const PREVIEW_FIELDS = [
+  'darkModePreview',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

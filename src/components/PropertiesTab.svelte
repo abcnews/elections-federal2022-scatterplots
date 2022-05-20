@@ -9,7 +9,7 @@
   import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
   import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
 
-  import { fetchAbsData } from '../lib/abs';
+  import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
   import { DATASETS, Y_AXIS_METHODS } from '../constants';
   import ELECTORATES from '../electorate_categories.json';
@@ -20,7 +20,7 @@
 
   let datasetFields: string[] = [];
   $: {
-    fetchAbsData($graph.dataset).then(demographics => {
+    fetchDemographicData($graph.dataset).then(demographics => {
       datasetFields = Object.keys(demographics[0] || {})
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
@@ -41,8 +41,6 @@
     'Liberal',
     'Labor',
   ];
-
-  $: console.log($graph.xAxisFields);
 </script>
 
 
@@ -95,6 +93,11 @@
         {/each}
       </Select>
 
+      <TextInput
+        bind:value={$graph.yAxisLabelOverride}
+        labelText="Y Axis Custom Label"
+      />
+
       {#if DATASETS.find(d => d.id === $graph.dataset)?.canCombine}
         <MultiSelect
           titleText="X Axis"
@@ -110,12 +113,17 @@
         <Select
           labelText="X Axis"
           selected={$graph.xAxisFields[0]}
+          disabled={datasetFields.length === 0}
+          invalid={datasetFields.length > 0 && !$graph.xAxisFields[0]}
           on:change={e => {
             if (e.detail && e.detail !== $graph.xAxisFields[0]) {
               $graph.xAxisFields = [e.detail];
+          } else if (e.detail === '' && $graph.xAxisFields[0]) {
+              $graph.xAxisFields = [];
             }
           }}
         >
+          <SelectItem text={datasetFields.length === 0 ? 'Loading...' : 'None'} />
           {#each datasetFields as field}
             <SelectItem value={field} text={field} />
           {/each}
@@ -136,8 +144,18 @@
 
 
       <Checkbox
-        bind:checked={$graph.xAxisUseLog}
+        checked={$graph.xAxisUseLog}
         labelText="X Axis Log Scale"
+        on:check={() => {
+          $graph.xAxisUseLog = !$graph.xAxisUseLog;
+
+          // Auto update the trendline to suit the axis to avoid accidentally using the wrong one
+          if ($graph.xAxisUseLog) {
+            $graph.trendlineMethod = 'log';
+          } else {
+            $graph.trendlineMethod = 'linear';
+          }
+        }}
       />
 
     </AccordionItem>
@@ -178,6 +196,10 @@
         bind:value={$graph.chartAuthor}
         labelText="Chart Author"
       />
+      <TextInput
+        bind:value={$graph.chartNotes}
+        labelText="Chart Notes"
+      />
 
       <Checkbox
         bind:checked={$graph.partyColours}
@@ -195,16 +217,27 @@
     </AccordionItem>
 
     <AccordionItem title="Trendline">
+      <Checkbox
+        bind:checked={$graph.trendlineEnabled}
+        labelText="Enable"
+      />
+
+      <Select
+        labelText="Method"
+        bind:selected={$graph.trendlineMethod}
+      >
+        <SelectItem value="linear" text="Linear Regression" />
+        <SelectItem value="log" text="Logarithmic Regression" />
+        <SelectItem value="gaussian" text="Gaussian Smoothing" />
+      </Select>
+
       <NumberInput
         min={1}
         max={10}
         step={1}
         bind:value={$graph.smoothingBandwidth}
-        label="Smoothing"
-      />
-      <Checkbox
-        bind:checked={$graph.trendlineEnabled}
-        labelText="Enable"
+        label="Gaussian Smoothing"
+        disabled={$graph.trendlineMethod !== 'gaussian'}
       />
     </AccordionItem>
 

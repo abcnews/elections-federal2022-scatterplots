@@ -2,10 +2,10 @@
   import { getContext } from 'svelte';
   import type { GraphStore } from '../../store';
 
-  import { fetchAbsData } from '../../lib/abs';
+  import { fetchDemographicData } from '../../lib/demographics';
   import { fetchLiveResultsElectorates } from '../../lib/results';
-  import { calcScatterData, determineXAxisLabel } from '../../lib/model';
-  import { Y_AXIS_METHODS, DATASETS } from '../../constants';
+  import { calcScatterData, determineXAxisLabel, determineYAxisLabel } from '../../lib/model';
+  import { DATASETS } from '../../constants';
 
   import ScatterPlot from "./ScatterPlot.svelte";
   import Legend from "./Legend.svelte";
@@ -38,7 +38,7 @@
     });
   }
   $: {
-    fetchAbsData($graph.dataset).then(d => {
+    fetchDemographicData($graph.dataset).then(d => {
       demographics = d;
     });
   }
@@ -48,7 +48,7 @@
   // Graph Labels
   //
   $: xLabel = determineXAxisLabel($graph);
-  $: yLabel = Y_AXIS_METHODS.find(method => method.id === $graph.yAxisMethod)?.label || '';
+  $: yLabel = determineYAxisLabel($graph);
   $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
 </script>
@@ -75,11 +75,16 @@
 
     grid={$graph.grid}
     trendline={$graph.trendlineEnabled}
+    trendlineMethod={$graph.trendlineMethod}
     smoothingBandwidth={$graph.smoothingBandwidth}
 
     isDarkMode={isDarkMode}
     electorateHighlights={$graph.electorateHighlights}
   />
+
+  {#if $graph.chartNotes}
+    <p class="chart-notes">{$graph.chartNotes}</p>
+  {/if}
 
   <p class="data-source">
     {author}Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
@@ -121,6 +126,13 @@
     justify-content: space-between;
     line-height: 18px;
     text-decoration: none;
+  }
+
+  .chart-notes {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
   }
 
 </style>

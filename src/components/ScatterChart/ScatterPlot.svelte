@@ -2,20 +2,21 @@
   import { extent, scaleLinear, scaleLog, line } from "d3";
   import Axis from "./Axis.svelte";
   import Grid from "./Grid.svelte";
-  import { COLOURS } from '../../constants';
+  import { COLOURS, MOBILE_BREAKPOINT } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
 
   const margin = { top: 15, bottom: 25, left: 35, right: 15 };
 
-  // Responsively sized dimensions
+  // Responsively sized dimensions (1:1 on mobile, 2:3 on desktop)
   export let width: number;
-  $: height = width;
+  $: height = width > MOBILE_BREAKPOINT ? width * 2/3 : width;
   $: innerHeight = height - margin.top - margin.bottom;
   $: innerWidth = width - margin.left - margin.right;
 
   export let xLabel: string;
   export let yLabel: string;
   export let trendline: boolean;
+  export let trendlineMethod: string;
   export let grid: boolean;
   export let smoothingBandwidth: number;
   export let electorateHighlights: string[];
@@ -43,7 +44,7 @@
   $: trendlinePath = line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
-        (calcSmoothedLine(data, smoothingBandwidth))
+        (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod))
 
   $: numTicks = innerWidth / 60;
 </script>
@@ -151,6 +152,7 @@
   }
 
   .tooltip {
+    color: black;
     font-size: 12px;
     background: rgba(237, 240, 242, 0.9);
     box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.05);

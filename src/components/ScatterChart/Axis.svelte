@@ -34,7 +34,13 @@
         transform = `translate(0, ${innerHeight})`;
         break;
       case "left":
-        axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => `${t}${unit || ''}`);
+        axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
+          // Add + to positive vote change
+          if (t > 0) {
+            return `+${t}${unit || ''}`;
+          }
+          return `${t}${unit || ''}`;
+        });
         transform = `translate(0, 0)`;
     }
     select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);

@@ -2,16 +2,13 @@ import Papa from 'papaparse';
 import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf'
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
+import { Y_AXIS_METHODS } from '../constants';
 import { fetchLiveResultsElectorates } from './results';
 import { yAxis } from './model';
 
 const datasets: Record<string, any> = {};
 
-export const fetchAbsData = async (dataset: string) => {
-  if (datasets[dataset]) {
-    return datasets[dataset];
-  }
-
+export const fetchDemographicData = async (dataset: string) => {
   if (dataset === '2019results') {
     return fetchErads();
   }
@@ -22,6 +19,14 @@ export const fetchAbsData = async (dataset: string) => {
 
   if (dataset === 'campaignvisits') {
     return fetchCampaignVisits();
+  }
+
+  return fetchAbsData(dataset);
+}
+
+const fetchAbsData = async (dataset: string) => {
+  if (datasets[dataset]) {
+    return datasets[dataset];
   }
 
   const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
@@ -91,13 +96,21 @@ const fetchErads = async () => {
   }
 
   const rawResults = await fetchLiveResultsElectorates('2019local');
+
   // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
   datasets.erads = rawResults.map(e => {
+
+    const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-lnp')?.label || '';
+    const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-labor')?.label || '';
+    const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cp-vote-lnp')?.label || '';
+    const laborVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cp-vote-labor')?.label || '';
+
     return {
       Electorate: e.name,
-      'Swing Away From Coalition': yAxis(e, 'swing-from-lnp'),
-      'Swing To Coalition': yAxis(e, 'swing-to-lnp'),
-      'Coalition 2CP Vote': yAxis(e, '2cp-vote-lnp'),
+      [lnpSwingLabel]: yAxis(e, 'swing-to-lnp'),
+      [laborSwingLabel]: yAxis(e, 'swing-to-labor'),
+      [lnpVoteLabel]: yAxis(e, '2cp-vote-lnp'),
+      [laborVoteLabel]: yAxis(e, '2cp-vote-labor'),
     };
   });
   return datasets.erads;
@@ -113,19 +126,6 @@ const CAPITAL_CITIES = [
   point([-42.8806, 147.325].reverse()),
   point([-12.4381, 130.8411].reverse()),
 ];
-const MAX_SIZE = 1383954; // Durack
-const MAX_DISTANCE = 1440; // Leichhardt
-
-const logScale = (x: number, maxVal: number): number => {
-  // The result should be between 100 an 10000000
-  var minX = Math.log(0.01);
-  var maxX = Math.log(maxVal);
-
-  // calculate adjustment factor
-  var scale = (maxX-minX) / 100;
-  return (Math.log(x)-minX) / scale;
-}
-
 
 const fetchGeo = async () => {
   if (datasets.geo) {
@@ -141,12 +141,9 @@ const fetchGeo = async () => {
 
     return {
       Electorate: e.properties.Elect_div,
-      // "Area (Sq/km)": logScale(e.properties.Area_SqKm, MAX_SIZE) ,
-      // "Distance from Nearest Capital (km)": logScale(distanceToCity, MAX_DISTANCE),
       "Area": e.properties.Area_SqKm,
       "Distance from Nearest Capital": distanceToCity,
     };
   });
-  console.log(datasets.geo);
   return datasets.geo;
 };

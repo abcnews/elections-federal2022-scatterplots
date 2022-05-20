@@ -1,3 +1,4 @@
+export const MOBILE_BREAKPOINT = 480;
 export const DATASETS = [
   {
     id: '2019results',
@@ -22,7 +23,7 @@ export const DATASETS = [
   },
   {
     id: 'votecompass',
-    label: 'ABC Vote Compass',
+    label: 'ABC: Vote Compass',
     sourceLabel: 'ABC Vote Compass',
     canCombine: false,
     unit: '%',
@@ -95,15 +96,27 @@ export const DATASETS = [
 export const Y_AXIS_METHODS = [
   {
     id: 'swing-from-lnp',
-    label: 'Swing away from Coalition',
+    label: 'Change in Coalition 2PP vote (flipped)',
   },
   {
     id: 'swing-to-lnp',
-    label: 'Swing to Coalition',
+    label: 'Change in Coalition 2PP vote',
+  },
+  {
+    id: 'swing-from-labor',
+    label: 'Change in Labor 2PP vote (flipped)',
+  },
+  {
+    id: 'swing-to-labor',
+    label: 'Change in Labor 2PP vote',
   },
   {
     id: '2cp-vote-lnp',
-    label: 'Two-Candidate-Preferred Vote for Coalition',
+    label: 'Coalition 2CP Vote',
+  },
+  {
+    id: '2cp-vote-labor',
+    label: 'Labor 2CP Vote',
   },
 ];
 

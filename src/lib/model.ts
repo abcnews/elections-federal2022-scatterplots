@@ -1,4 +1,5 @@
 import { sum, range, min, max } from 'd3';
+import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS } from '../constants';
@@ -14,6 +15,15 @@ export const determineXAxisLabel = (opts: Graph) => {
   }
 
   return 'X Axis Label Override Needed!';
+};
+
+export const determineYAxisLabel = (opts: Graph) => {
+  if (opts.yAxisLabelOverride) {
+    return opts.yAxisLabelOverride;
+  }
+
+  const method = Y_AXIS_METHODS.find(method => method.id === opts.yAxisMethod);
+  return method?.label || '';
 };
 
 //
@@ -99,9 +109,38 @@ export const calcScatterData = (
 //
 export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
+  const laborRes = result.swingDial.find(p => p.contestantType === 'OPPOSITION');
+
+  if (method === 'swing-from-labor') {
+    if (!laborRes) {
+      return null;
+    }
+
+    // positive means away from Labor
+    const swing = -1 * parseFloat(laborRes.predicted2CP.swing);
+    return swing;
+  }
+
+  if (method === 'swing-to-labor') {
+    if (!laborRes) {
+      return null;
+    }
+
+    // positive means to Labor
+    const swing = parseFloat(laborRes.predicted2CP.swing);
+    return swing;
+  }
+
+  if (method === '2cp-vote-labor') {
+    if (!laborRes) {
+      return null;
+    }
+
+    const pct = parseFloat(laborRes.predicted2CP.pct);
+    return pct;
+  }
 
   if (method === 'swing-from-lnp') {
-    // TODO: What do we do when there's no Gov candidate involved?
     if (!coalitionRes) {
       return null;
     }
@@ -112,7 +151,6 @@ export const yAxis = (result: any, method: string): number | null => {
   }
 
   if (method === 'swing-to-lnp') {
-    // TODO: What do we do when there's no Gov candidate involved?
     if (!coalitionRes) {
       return null;
     }
@@ -151,24 +189,52 @@ const xAxis = (demo: any, xAxisFields: string[]): number => {
 //
 // Compute estimated value at each target x coordinate using the
 // source particles (the samples).
-export const calcSmoothedLine = (data, bandwidth: number) => {
-  const targets = range(
-    min(data, s => s.x),
-    max(data, s => s.x),
-    0.5
-  );
-  return targets.map(x => {
-    const numerator = sum(data, s => gaussian(s.x, x, bandwidth) * s.y);
-    const denominator = sum(data, s => gaussian(s.x, x, bandwidth));
+export const calcSmoothedLine = (data, bandwidth: number, method: string) => {
+  if (method === 'log') {
+    const regressionGenerator = regressionLog()
+      .x(d => d.x)
+      .y(d => d.y);
 
-    return {
-      x,
-      y: numerator / denominator
-    };
-  });
+    return regressionGenerator(data).map(([x, y]) => ({ x, y}));
+  }
+
+  if (method === 'linear') {
+    const regressionGenerator = regressionLinear()
+      .x(d => d.x)
+      .y(d => d.y);
+
+    return regressionGenerator(data).map(([x, y]) => ({ x, y}));
+  }
+
+  if (method === 'gaussian') {
+    const targets = range(
+      min(data, s => s.x),
+      max(data, s => s.x),
+      0.5
+    );
+    return targets.map(x => {
+      const numerator = sum(data, s => gaussian(s.x, x, bandwidth) * s.y);
+      const denominator = sum(data, s => gaussian(s.x, x, bandwidth));
+
+      return {
+        x,
+        y: numerator / denominator
+      };
+    });
+  }
 };
 
 // https://bl.ocks.org/rpgove/073d6cb996d7de1d52935790139c4240
 const gaussian = (target: number, source: number, bandwidth: number) => {
   return Math.exp(-Math.pow(target - source, 2) / (2 * bandwidth * bandwidth));
+};
+
+const logScale = (x: number, maxVal: number): number => {
+  // The result should be between 100 an 10000000
+  var minX = Math.log(0.01);
+  var maxX = Math.log(maxVal);
+
+  // calculate adjustment factor
+  var scale = (maxX-minX) / 100;
+  return (Math.log(x)-minX) / scale;
 };

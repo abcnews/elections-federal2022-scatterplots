@@ -4,6 +4,7 @@ import {
   NAMES_TO_ACTO_KEYS,
   INITIAL_GRAPH,
   ENCODED_FIELDS,
+  PREVIEW_FIELDS,
 } from '../store';
 import type { Graph } from '../store';
 
@@ -35,7 +36,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
   Object.keys(actoObject).reduce((graph, actoKey) => {
     const inputName = ACTO_KEYS_TO_NAMES[actoKey];
 
-    if (!inputName) {
+    if (!inputName || PREVIEW_FIELDS.indexOf(inputName) > -1) {
       return graph;
     }
 
@@ -44,8 +45,6 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
     } else {
       graph[inputName] = String(actoObject[actoKey]);
     }
-
-    console.log(graph);
 
     return graph;
   }, {} as Partial<Graph>);
@@ -57,8 +56,8 @@ export const graphToAlternatingCase = (graph: Graph): string =>
   Object.keys(graph).reduce((alternatingCase, inputName) => {
     const value = graph[inputName];
 
-    // We never export defaults
-    if (String(INITIAL_GRAPH[inputName]) === String(value)) {
+    // We never export defaults or preview settings
+    if (String(INITIAL_GRAPH[inputName]) === String(value) || PREVIEW_FIELDS.indexOf(inputName) > -1) {
       return alternatingCase;
     }
 
@@ -93,7 +92,6 @@ export const urlQueryToPartialGraph = (urlQuery: string): Partial<Graph> => {
         graph[inputName] = parsedUrlQuery[inputName];
       }
     }
-
 
     return graph;
   }, partialGraph);
