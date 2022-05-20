@@ -29,6 +29,20 @@ export const DATASETS = [
     unit: '%',
   },
   {
+    id: 'irsd',
+    label: 'ABS: Socio-Economic Disadvantage (SA1 Level - Pop-based)',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    canCombine: true,
+    unit: '%',
+  },
+  {
+    id: 'irsad',
+    label: 'ABS: Socio-Economic Advantage and Disadvantage (SA1 Level - Pop-based)',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    canCombine: true,
+    unit: '%',
+  },
+  {
     id: 'religion',
     label: 'ABS: Religious Affiliation',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
@@ -118,6 +132,25 @@ export const Y_AXIS_METHODS = [
     id: '2cp-vote-labor',
     label: 'Labor 2CP Vote',
   },
+];
+
+//
+// Filter Options
+//
+export const ELECTORATE_CATEGORIES = [
+  'Inner Metro',
+  'Outer Metro',
+  'Regional Seats',
+  'Rural',
+];
+export const ELECTORATE_CLOSENESS = [
+  'Marginal',
+  'Safe',
+  'Very Safe',
+];
+export const ELECTORATE_HELD_BY = [
+  'Liberal',
+  'Labor',
 ];
 
 //

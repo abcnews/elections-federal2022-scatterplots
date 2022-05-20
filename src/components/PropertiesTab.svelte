@@ -11,7 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS } from '../constants';
+  import { DATASETS, Y_AXIS_METHODS, ELECTORATE_CATEGORIES, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY } from '../constants';
   import ELECTORATES from '../electorate_categories.json';
 
   import { getContext } from 'svelte';
@@ -25,22 +25,6 @@
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
   }
-
-  let ELECTORATE_CATEGORIES = [
-    'Inner Metro',
-    'Outer Metro',
-    'Regional Seats',
-    'Rural',
-  ];
-  let ELECTORATE_CLOSENESS = [
-    'Marginal',
-    'Safe',
-    'Very Safe',
-  ];
-  let ELECTORATE_HELD_BY = [
-    'Liberal',
-    'Labor',
-  ];
 </script>
 
 
@@ -160,29 +144,6 @@
 
     </AccordionItem>
 
-    <AccordionItem title="Filters" open>
-      <MultiSelect
-        titleText="Geo Category"
-        bind:selectedIds={$graph.categoryFilters}
-        items={ELECTORATE_CATEGORIES.map(d => ({ id: d, text: d }))}
-        sortItem={() => {}}
-      />
-
-      <MultiSelect
-        titleText="Held By"
-        bind:selectedIds={$graph.heldByFilters}
-        items={ELECTORATE_HELD_BY.map(d => ({ id: d, text: d }))}
-        sortItem={() => {}}
-      />
-
-      <MultiSelect
-        titleText="Closeness"
-        bind:selectedIds={$graph.closenessFilters}
-        items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
-        sortItem={() => {}}
-      />
-    </AccordionItem>
-
     <AccordionItem title="General" open>
       <TextInput
         bind:value={$graph.chartTitle}
@@ -215,6 +176,30 @@
         labelText="Dark Mode Preview"
       />
     </AccordionItem>
+
+    <AccordionItem title="Filters">
+      <MultiSelect
+        titleText="Geo Category"
+        bind:selectedIds={$graph.categoryFilters}
+        items={ELECTORATE_CATEGORIES.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <MultiSelect
+        titleText="Held By"
+        bind:selectedIds={$graph.heldByFilters}
+        items={ELECTORATE_HELD_BY.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <MultiSelect
+        titleText="Closeness"
+        bind:selectedIds={$graph.closenessFilters}
+        items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+    </AccordionItem>
+
 
     <AccordionItem title="Trendline">
       <Checkbox
