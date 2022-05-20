@@ -56,8 +56,10 @@ export const graphToAlternatingCase = (graph: Graph): string =>
   Object.keys(graph).reduce((alternatingCase, inputName) => {
     const value = graph[inputName];
 
-    // We never export defaults or preview settings
-    if (String(INITIAL_GRAPH[inputName]) === String(value) || PREVIEW_FIELDS.indexOf(inputName) > -1) {
+    // Dont export defaults, preview settings or empty values
+    if (String(INITIAL_GRAPH[inputName]) === String(value) ||
+        PREVIEW_FIELDS.indexOf(inputName) > -1 ||
+       String(value) === '') {
       return alternatingCase;
     }
 
