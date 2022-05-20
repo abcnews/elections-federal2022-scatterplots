@@ -13,17 +13,17 @@ let appMountEl: Mount;
 let appProps;
 
 whenDOMReady.then(() => {
-  [appMountEl] = selectMounts('scatter');
+  const mounts = selectMounts('scatter');
 
-  if (appMountEl) {
-    appProps = alternatingCaseToPartialGraph(getMountValue(appMountEl, 'scatter'));
+  mounts.map(m => {
+    appProps = alternatingCaseToPartialGraph(getMountValue(m, 'scatter'));
     new Embed({
-      target: appMountEl,
+      target: m,
       props: {
         graphData: appProps,
       }
     });
-  }
+  });
 });
 
 if (process.env.NODE_ENV === 'development') {
