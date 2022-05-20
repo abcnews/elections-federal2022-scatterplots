@@ -123,6 +123,8 @@
   </svg>
 
   {#if selectedPoint != undefined}
+    <!-- Note: maybe consider aligning tooltip to the left of mouse when over to the right
+        to avoid label going off screen -->
     <div class="tooltip" style="left: {mouseX + 10}px; top: {mouseY - 10}px">
       {selectedPoint.electorate}
     </div>

@@ -70,7 +70,7 @@
     {xLabel}
     {yLabel}
     {data}
-    xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit : $graph.xAxisUnitOverride} 
+    xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
     isLog={$graph.xAxisUseLog}
 
     grid={$graph.grid}
