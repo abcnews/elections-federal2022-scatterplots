@@ -109,7 +109,6 @@
   .scatter-title {
     font-weight: 900;
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
   }
 
   .scatter-desc {
