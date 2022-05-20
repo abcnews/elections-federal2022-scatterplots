@@ -4,6 +4,7 @@
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
+  import { calcPearsonsCorrelation } from '../../lib/pearson';
 
   const margin = { top: 15, bottom: 25, left: 35, right: 15 };
 
@@ -47,6 +48,9 @@
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod))
 
   $: numTicks = innerWidth / 60;
+
+  // TODO: Do we want this?
+  // {calcPearsonsCorrelation(data)}
 </script>
 
 <main class="graphic">
