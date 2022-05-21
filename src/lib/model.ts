@@ -38,7 +38,7 @@ export const calcScatterData = (
   xAxisInverse: boolean,
   heldByFilters: string[],
   closenessFilters: string[],
-  geoFilters: string[],
+  geoFilters: string[]
 ) => {
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
     return [];
@@ -60,25 +60,25 @@ export const calcScatterData = (
 
     // Apply filters
     if (heldByFilters.length > 0) {
-      if (heldByFilters.indexOf(categories["Held By"]) === -1) {
+      if (heldByFilters.indexOf(categories['Held By']) === -1) {
         console.log('Held By Filtered:', result.name);
         return null;
       }
 
       // Special case to handle "LNP" in data
-      if (heldByFilters.indexOf("Liberal") > -1 && categories["Held By"] === "LNP") {
+      if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
         console.log('Held By Filtered:', result.name);
         return null;
       }
     }
     if (closenessFilters.length > 0) {
-      if (closenessFilters.indexOf(categories["Closeness"]) === -1) {
+      if (closenessFilters.indexOf(categories['Closeness']) === -1) {
         console.log('Closeness Filtered:', result.name);
         return null;
       }
     }
     if (geoFilters.length > 0) {
-      if (geoFilters.indexOf(categories["Geo"]) === -1) {
+      if (geoFilters.indexOf(categories['Geo']) === -1) {
         console.log('Geo Filtered:', result.name);
         return null;
       }
@@ -90,8 +90,10 @@ export const calcScatterData = (
       x: xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
       electorate: result.name,
-      colour: (isDM) => partyColours ? COLOURS(isDM).PARTIES[winningParty] || COLOURS(isDM).PARTIES.OTH : COLOURS(isDM).PRIMARY,
-      labelColour: (isDM) => partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] || COLOURS(isDM).PARTY_LABELS.OTH : COLOURS(isDM).TEXT,
+      colour: isDM =>
+        partyColours ? COLOURS(isDM).PARTIES[winningParty] || COLOURS(isDM).PARTIES.OTH : COLOURS(isDM).PRIMARY,
+      labelColour: isDM =>
+        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] || COLOURS(isDM).PARTY_LABELS.OTH : COLOURS(isDM).TEXT
     };
   });
 
@@ -102,9 +104,13 @@ export const calcScatterData = (
 // Calculate the vote measure for the Y Axis
 //
 export const yAxis = (result: any, method: string): number | null => {
-  const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
-  const laborRes = result.swingDial.find(p => p.contestantType === 'OPPOSITION');
-  const minorRes = result.swingDial.find(p => p.contestantType === 'NONE');
+  const coalitionRes = result.swingDial.find(
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+  );
+  const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
+  const minorRes = result.swingDial.find(
+    p => p.party.code !== 'LIB' && p.party.code !== 'LNP' && p.party.code !== 'NAT' && p.party.code !== 'ALP'
+  );
 
   if (method === 'swingfromlabor') {
     if (!laborRes) {
@@ -181,10 +187,7 @@ export const yAxis = (result: any, method: string): number | null => {
 // Calculate the demographic as a % of the total population of the electorate
 //
 const xAxis = (demo: any, xAxisFields: string[]): number => {
-  const selectedValues = xAxisFields.reduce(
-    (acc, field) => acc + parseFloat(demo[field]),
-    0
-  );
+  const selectedValues = xAxisFields.reduce((acc, field) => acc + parseFloat(demo[field]), 0);
 
   return selectedValues;
 };
@@ -200,7 +203,7 @@ export const calcSmoothedLine = (data, bandwidth: number, method: string) => {
       .x(d => d.x)
       .y(d => d.y);
 
-    return regressionGenerator(data).map(([x, y]) => ({ x, y}));
+    return regressionGenerator(data).map(([x, y]) => ({ x, y }));
   }
 
   if (method === 'linear') {
@@ -208,7 +211,7 @@ export const calcSmoothedLine = (data, bandwidth: number, method: string) => {
       .x(d => d.x)
       .y(d => d.y);
 
-    return regressionGenerator(data).map(([x, y]) => ({ x, y}));
+    return regressionGenerator(data).map(([x, y]) => ({ x, y }));
   }
 
   if (method === 'gaussian') {
@@ -240,6 +243,6 @@ const logScale = (x: number, maxVal: number): number => {
   var maxX = Math.log(maxVal);
 
   // calculate adjustment factor
-  var scale = (maxX-minX) / 100;
-  return (Math.log(x)-minX) / scale;
+  var scale = (maxX - minX) / 100;
+  return (Math.log(x) - minX) / scale;
 };
