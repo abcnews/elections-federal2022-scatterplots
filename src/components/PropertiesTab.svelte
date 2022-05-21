@@ -198,6 +198,11 @@
         items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
         sortItem={() => {}}
       />
+
+      <Checkbox
+        bind:checked={$graph.onlyCalledElectorates}
+        labelText="Only show electorates that have been called"
+      />
     </AccordionItem>
 
 

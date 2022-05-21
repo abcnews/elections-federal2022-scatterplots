@@ -2,7 +2,7 @@ import { sum, range, min, max } from 'd3';
 import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
-import { Y_AXIS_METHODS, COLOURS } from '../constants';
+import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
 export const determineXAxisLabel = (opts: Graph) => {
@@ -38,7 +38,8 @@ export const calcScatterData = (
   xAxisInverse: boolean,
   heldByFilters: string[],
   closenessFilters: string[],
-  geoFilters: string[]
+  geoFilters: string[],
+  onlyCalledElectorates: boolean,
 ) => {
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
     return [];
@@ -84,16 +85,29 @@ export const calcScatterData = (
       }
     }
 
-    const winningParty = result.leadingCandidate?.party.code === 'LNP' ? 'LIB' : result.leadingCandidate?.party.code;
+    const hasBeenCalled = result.predicted?.gainretain === 'gain' || result.predicted?.gainretain === 'retain';
+    if (!hasBeenCalled && onlyCalledElectorates) {
+      console.log('Called Filtered:', result.name);
+      return null;
+    }
+
+    let winningParty = result.leadingCandidate?.party.code;
+    if (winningParty === 'LNP') {
+      winningParty = 'LIB';
+    }
+    if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
+      winningParty = 'OTH';
+    }
 
     return {
       x: xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
+      hasBeenCalled,
       electorate: result.name,
       colour: isDM =>
-        partyColours ? COLOURS(isDM).PARTIES[winningParty] || COLOURS(isDM).PARTIES.OTH : COLOURS(isDM).PRIMARY,
+        partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
       labelColour: isDM =>
-        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] || COLOURS(isDM).PARTY_LABELS.OTH : COLOURS(isDM).TEXT
+        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
     };
   });
 
@@ -108,8 +122,9 @@ export const yAxis = (result: any, method: string): number | null => {
     p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
   );
   const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
+  // Greens included as "non-major" for this measure
   const minorRes = result.swingDial.find(
-    p => p.party.code !== 'LIB' && p.party.code !== 'LNP' && p.party.code !== 'NAT' && p.party.code !== 'ALP'
+    p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
 
   if (method === 'swingfromlabor') {

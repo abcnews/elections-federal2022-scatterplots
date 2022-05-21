@@ -177,6 +177,7 @@ export const ELECTORATE_HELD_BY = [
   'Liberal',
   'Labor',
 ];
+export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 
 //
 // From ABC Datawrapper colour palette

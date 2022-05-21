@@ -42,7 +42,7 @@
       demographics = d;
     });
   }
-  $: data = calcScatterData(results, demographics, $graph.xAxisFields, $graph.yAxisMethod, $graph.partyColours, $graph.xAxisInverse, $graph.heldByFilters, $graph.closenessFilters, $graph.geoFilters);
+  $: data = calcScatterData(results, demographics, $graph.xAxisFields, $graph.yAxisMethod, $graph.partyColours, $graph.xAxisInverse, $graph.heldByFilters, $graph.closenessFilters, $graph.geoFilters, $graph.onlyCalledElectorates);
 
   //
   // Graph Labels

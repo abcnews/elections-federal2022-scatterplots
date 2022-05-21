@@ -29,6 +29,7 @@ export interface Graph {
   heldByFilters: string[];
   closenessFilters: string[];
   geoFilters: string[];
+  onlyCalledElectorates: boolean;
 
   darkModePreview: boolean;
 
@@ -73,6 +74,7 @@ export const INITIAL_GRAPH = {
   heldByFilters: [],
   closenessFilters: [],
   geoFilters: [],
+  onlyCalledElectorates: false,
 
   electorateHighlights: []
 };
@@ -83,6 +85,7 @@ export const BOOL_FIELDS = [
   'partyColours',
   'grid',
   'trendlineEnabled',
+  'onlyCalledElectorates',
 ];
 
 export const ARRAY_FIELDS = [
