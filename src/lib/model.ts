@@ -114,6 +114,21 @@ export const calcScatterData = (
   return electorates.filter(e => !!e && e.y !== null);
 };
 
+const primarySwing = (runners) => {
+  if (runners.length === 0) {
+    return null;
+  }
+
+  return runners.reduce((acc, r) => acc + parseFloat(r.predicted.swing), 0);
+};
+const primary = (runners) => {
+  if (runners.length === 0) {
+    return null;
+  }
+
+  return runners.reduce((acc, r) => acc + parseFloat(r.predicted.pct), 0);
+};
+
 //
 // Calculate the vote measure for the Y Axis
 //
@@ -121,11 +136,50 @@ export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(
     p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
   );
+  const coalitionRunners = (result.runners || []).filter(
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+  );
+
   const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
+  const laborRunners = (result.runners || []).filter(
+    p => p.party.code === 'ALP'
+  );
+
   // Greens included as "non-major" for this measure
   const minorRes = result.swingDial.find(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
+  const minorRunners = (result.runners || []).filter(
+    p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
+  );
+
+  if (method === 'minorprimary') {
+    return primary(minorRunners);
+  }
+  if (method === 'minorprimaryswing') {
+    return primarySwing(minorRunners);
+  }
+  if (method === 'bestminorprimary') {
+    if (minorRunners.length === 0) {
+      return null;
+    }
+
+    return max(minorRunners.map(r => parseFloat(r.predicted.pct)));
+  }
+
+  if (method === 'laborprimary') {
+    return primary(laborRunners);
+  }
+  if (method === 'laborprimaryswing') {
+    return primarySwing(laborRunners);
+  }
+
+  if (method === 'lnpprimary') {
+    return primary(coalitionRunners);
+  }
+  if (method === 'lnpprimaryswing') {
+    return primarySwing(coalitionRunners);
+  }
 
   if (method === 'swingfromlabor') {
     if (!laborRes) {

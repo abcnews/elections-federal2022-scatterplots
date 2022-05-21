@@ -122,6 +122,7 @@ export const DATASETS = [
 ];
 
 export const Y_AXIS_METHODS = [
+  // LNP
   {
     id: 'swingfromlnp',
     forcePrefix: true,
@@ -133,6 +134,23 @@ export const Y_AXIS_METHODS = [
     label: 'Change in Coalition 2PP vote',
   },
   {
+    id: '2cpvotelnp',
+    forcePrefix: false,
+    label: 'Coalition 2CP Vote',
+  },
+  {
+    id: 'lnpprimary',
+    forcePrefix: false,
+    label: 'Coalition primary vote',
+  },
+  {
+    id: 'lnpprimaryswing',
+    forcePrefix: true,
+    label: 'Change in Coalition primary vote',
+  },
+
+  // LABOR
+  {
     id: 'swingfromlabor',
     forcePrefix: true,
     label: 'Change in Labor 2PP vote (flipped)',
@@ -143,19 +161,43 @@ export const Y_AXIS_METHODS = [
     label: 'Change in Labor 2PP vote',
   },
   {
-    id: 'swingtominors',
-    forcePrefix: true,
-    label: 'Change in minor parties 2PP vote (incl. Greens)',
-  },
-  {
-    id: '2cpvotelnp',
-    forcePrefix: false,
-    label: 'Coalition 2CP Vote',
-  },
-  {
     id: '2cpvotelabor',
     forcePrefix: false,
     label: 'Labor 2CP Vote',
+  },
+  {
+    id: 'laborprimary',
+    forcePrefix: false,
+    label: 'Labor primary vote',
+  },
+  {
+    id: 'laborprimaryswing',
+    forcePrefix: true,
+    label: 'Change in Labor primary vote',
+  },
+
+  // MINORS
+  {
+    id: 'swingtominors',
+    forcePrefix: true,
+    label: 'Change in minor parties (incl. Greens) 2PP vote',
+  },
+
+  {
+    id: 'minorprimary',
+    forcePrefix: false,
+    label: 'Primary vote for minor parties (incl. Greens)',
+  },
+  {
+    id: 'bestminorprimary',
+    forcePrefix: false,
+    label: 'Primary vote for highest placing minor party (incl. Greens)',
+  },
+
+  {
+    id: 'minorprimaryswing',
+    forcePrefix: true,
+    label: 'Change in primary vote for minor parties (incl. Greens)',
   },
 ];
 
