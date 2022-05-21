@@ -104,6 +104,7 @@ export const calcScatterData = (
 export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
   const laborRes = result.swingDial.find(p => p.contestantType === 'OPPOSITION');
+  const minorRes = result.swingDial.find(p => p.contestantType === 'NONE');
 
   if (method === 'swingfromlabor') {
     if (!laborRes) {
@@ -161,6 +162,16 @@ export const yAxis = (result: any, method: string): number | null => {
 
     const pct = parseFloat(coalitionRes.predicted2CP.pct);
     return pct;
+  }
+
+  if (method === 'swingtominors') {
+    if (!minorRes) {
+      return null;
+    }
+
+    // positive means to minor party
+    const swing = parseFloat(minorRes.predicted2CP.swing);
+    return swing;
   }
 
   return null;

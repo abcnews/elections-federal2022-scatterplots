@@ -36,6 +36,13 @@ export const DATASETS = [
     unit: '%',
   },
   {
+    id: 'indigenousstatus',
+    label: 'ABS: Indigenous Status',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    canCombine: false,
+    unit: '%',
+  },
+  {
     id: 'irsd',
     label: 'ABS: Socio-Economic Disadvantage (SA1 Level - Pop-based)',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
@@ -134,6 +141,11 @@ export const Y_AXIS_METHODS = [
     id: 'swingtolabor',
     forcePrefix: true,
     label: 'Change in Labor 2PP vote',
+  },
+  {
+    id: 'swingtominors',
+    forcePrefix: true,
+    label: 'Change in minor parties 2PP vote (incl. Greens)',
   },
   {
     id: '2cpvotelnp',

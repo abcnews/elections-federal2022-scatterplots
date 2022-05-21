@@ -49,7 +49,7 @@ export const INITIAL_GRAPH = {
   chartAuthor: '',
   chartNotes: '',
 
-  resultsYear: '2019local',
+  resultsYear: '2022',
   dataset: 'votecompass',
 
   yAxisMethod: 'swingtolnp',
