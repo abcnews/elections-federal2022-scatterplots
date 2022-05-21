@@ -116,27 +116,33 @@ export const DATASETS = [
 
 export const Y_AXIS_METHODS = [
   {
-    id: 'swing-from-lnp',
+    id: 'swingfromlnp',
+    forcePrefix: true,
     label: 'Change in Coalition 2PP vote (flipped)',
   },
   {
-    id: 'swing-to-lnp',
+    id: 'swingtolnp',
+    forcePrefix: true,
     label: 'Change in Coalition 2PP vote',
   },
   {
-    id: 'swing-from-labor',
+    id: 'swingfromlabor',
+    forcePrefix: true,
     label: 'Change in Labor 2PP vote (flipped)',
   },
   {
-    id: 'swing-to-labor',
+    id: 'swingtolabor',
+    forcePrefix: true,
     label: 'Change in Labor 2PP vote',
   },
   {
-    id: '2cp-vote-lnp',
+    id: '2cpvotelnp',
+    forcePrefix: false,
     label: 'Coalition 2CP Vote',
   },
   {
-    id: '2cp-vote-labor',
+    id: '2cpvotelabor',
+    forcePrefix: false,
     label: 'Labor 2CP Vote',
   },
 ];

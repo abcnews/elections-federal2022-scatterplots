@@ -6,6 +6,7 @@ import {
   ENCODED_FIELDS,
   PREVIEW_FIELDS,
   ARRAY_FIELDS,
+  BOOL_FIELDS,
 } from '../store';
 import type { Graph } from '../store';
 
@@ -46,6 +47,8 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
       graph[inputName] = decode(actoObject[actoKey]).split(',');
     } else if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       graph[inputName] = decode(actoObject[actoKey]);
+    } else if (BOOL_FIELDS.indexOf(inputName) > -1) {
+      graph[inputName] = actoObject[actoKey];
     } else {
       graph[inputName] = String(actoObject[actoKey]);
     }
@@ -99,6 +102,8 @@ export const urlQueryToPartialGraph = (urlQuery: string): Partial<Graph> => {
         graph[inputName] = decode(parsedUrlQuery[inputName]).split(',');
       } else if (ENCODED_FIELDS.indexOf(inputName) > -1) {
         graph[inputName] = decode(parsedUrlQuery[inputName]);
+      } else if (BOOL_FIELDS.indexOf(inputName) > -1) {
+        graph[inputName] = parsedUrlQuery[inputName] === 'true';
       } else {
         graph[inputName] = parsedUrlQuery[inputName];
       }
@@ -121,7 +126,7 @@ export const graphToUrlQuery = (graph: Graph, existingUrlQuery?: string): string
     if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       urlQuery += encode(value);
     } else {
-      urlQuery += value; // will encode numbers, strings and nulls
+      urlQuery += value; // will encode numbers, strings, bools and nulls
     }
     return urlQuery;
   }, existingUrlQuery || '');

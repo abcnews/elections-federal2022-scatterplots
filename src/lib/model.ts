@@ -105,7 +105,7 @@ export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(p => p.contestantType === 'GOVERNMENT');
   const laborRes = result.swingDial.find(p => p.contestantType === 'OPPOSITION');
 
-  if (method === 'swing-from-labor') {
+  if (method === 'swingfromlabor') {
     if (!laborRes) {
       return null;
     }
@@ -115,7 +115,7 @@ export const yAxis = (result: any, method: string): number | null => {
     return swing;
   }
 
-  if (method === 'swing-to-labor') {
+  if (method === 'swingtolabor') {
     if (!laborRes) {
       return null;
     }
@@ -125,7 +125,7 @@ export const yAxis = (result: any, method: string): number | null => {
     return swing;
   }
 
-  if (method === '2cp-vote-labor') {
+  if (method === '2cpvotelabor') {
     if (!laborRes) {
       return null;
     }
@@ -134,7 +134,7 @@ export const yAxis = (result: any, method: string): number | null => {
     return pct;
   }
 
-  if (method === 'swing-from-lnp') {
+  if (method === 'swingfromlnp') {
     if (!coalitionRes) {
       return null;
     }
@@ -144,7 +144,7 @@ export const yAxis = (result: any, method: string): number | null => {
     return swing;
   }
 
-  if (method === 'swing-to-lnp') {
+  if (method === 'swingtolnp') {
     if (!coalitionRes) {
       return null;
     }
@@ -154,7 +154,7 @@ export const yAxis = (result: any, method: string): number | null => {
     return swing;
   }
 
-  if (method === '2cp-vote-lnp') {
+  if (method === '2cpvotelnp') {
     if (!coalitionRes) {
       return null;
     }

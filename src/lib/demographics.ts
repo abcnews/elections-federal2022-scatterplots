@@ -103,17 +103,17 @@ const fetchErads = async (year: string) => {
   // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
   datasets[year] = rawResults.map(e => {
 
-    const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-lnp')?.label || '';
-    const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swing-to-labor')?.label || '';
-    const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cp-vote-lnp')?.label || '';
-    const laborVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cp-vote-labor')?.label || '';
+    const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolnp')?.label || '';
+    const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolabor')?.label || '';
+    const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelnp')?.label || '';
+    const laborVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelabor')?.label || '';
 
     return {
       Electorate: e.name,
-      [lnpSwingLabel]: yAxis(e, 'swing-to-lnp'),
-      [laborSwingLabel]: yAxis(e, 'swing-to-labor'),
-      [lnpVoteLabel]: yAxis(e, '2cp-vote-lnp'),
-      [laborVoteLabel]: yAxis(e, '2cp-vote-labor'),
+      [lnpSwingLabel]: yAxis(e, 'swingtolnp'),
+      [laborSwingLabel]: yAxis(e, 'swingtolabor'),
+      [lnpVoteLabel]: yAxis(e, '2cpvotelnp'),
+      [laborVoteLabel]: yAxis(e, '2cpvotelabor'),
     };
   });
   return datasets[year];

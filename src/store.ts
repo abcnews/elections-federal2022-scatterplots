@@ -52,7 +52,7 @@ export const INITIAL_GRAPH = {
   resultsYear: '2019local',
   dataset: 'votecompass',
 
-  yAxisMethod: 'swing-to-lnp',
+  yAxisMethod: 'swingtolnp',
   yAxisLabelOverride: null,
 
   xAxisFields: [],
@@ -76,6 +76,14 @@ export const INITIAL_GRAPH = {
 
   electorateHighlights: []
 };
+
+export const BOOL_FIELDS = [
+  'xAxisUseLog',
+  'darkModePreview',
+  'partyColours',
+  'grid',
+  'trendlineEnabled',
+];
 
 export const ARRAY_FIELDS = [
   'xAxisFields',

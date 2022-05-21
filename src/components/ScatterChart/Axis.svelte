@@ -7,6 +7,7 @@
   export let position: "bottom" | "left";
   export let isDarkMode: boolean;
   export let isLog: boolean;
+  export let forcePrefix: boolean;
   export let unit: string;
   export let scale;
   export let numTicks: number;
@@ -36,7 +37,7 @@
       case "left":
         axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
           // Add + to positive vote change
-          if (t > 0) {
+          if (t > 0 && forcePrefix) {
             return `+${t}${unit || ''}`;
           }
           return `${t}${unit || ''}`;

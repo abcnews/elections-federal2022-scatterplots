@@ -2,9 +2,9 @@
   import { extent, scaleLinear, scaleLog, line } from "d3";
   import Axis from "./Axis.svelte";
   import Grid from "./Grid.svelte";
-  import { COLOURS, MOBILE_BREAKPOINT } from '../../constants';
+  import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
-  import { calcPearsonsCorrelation } from '../../lib/pearson';
+  // import { calcPearsonsCorrelation } from '../../lib/pearson';
 
   const margin = { top: 15, bottom: 25, left: 35, right: 15 };
 
@@ -25,6 +25,7 @@
   export let isDarkMode: boolean;
   export let data: any;
   export let isLog: boolean;
+  export let yAxisMethod: string;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -48,6 +49,7 @@
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod))
 
   $: numTicks = innerWidth / 60;
+  $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix;
 
   // TODO: Do we want this?
   // {calcPearsonsCorrelation(data)}
@@ -61,8 +63,8 @@
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={yScale} position="left" />
       {/if}
-      <Axis {innerHeight} {numTicks} {isDarkMode} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {numTicks} {isDarkMode} unit="%" isLog={false} scale={yScale} position="left" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} forcePrefix={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {numTicks} {isDarkMode} forcePrefix={forceAxisPrefix} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />

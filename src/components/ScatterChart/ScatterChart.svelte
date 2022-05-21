@@ -72,6 +72,7 @@
     {data}
     xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
     isLog={$graph.xAxisUseLog}
+    yAxisMethod={$graph.yAxisMethod}
 
     grid={$graph.grid}
     trendline={$graph.trendlineEnabled}
