@@ -186,7 +186,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'minorprimary',
     forcePrefix: false,
-    label: 'Primary vote for minor parties (incl. Greens)',
+    label: 'Primary vote for combined minor parties (incl. Greens)',
   },
   {
     id: 'bestminorprimary',
@@ -197,7 +197,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'minorprimaryswing',
     forcePrefix: true,
-    label: 'Change in primary vote for minor parties (incl. Greens)',
+    label: 'Change in combined primary vote for minor parties (incl. Greens)',
   },
 ];
 
