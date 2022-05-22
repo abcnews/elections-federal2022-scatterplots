@@ -36,6 +36,27 @@ export const DATASETS = [
     unit: '%',
   },
   {
+    id: 'covid',
+    label: 'COVID',
+    sourceLabel: 'https://covidlive.com.au',
+    canCombine: false,
+    unit: '',
+  },
+  {
+    id: 'ancestry',
+    label: 'ABS: Ancestry 1st Response',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    canCombine: false,
+    unit: '%',
+  },
+  {
+    id: 'parentscountryofbirth',
+    label: 'ABS: Country of Birth of Parents',
+    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    canCombine: false,
+    unit: '%',
+  },
+  {
     id: 'indigenousstatus',
     label: 'ABS: Indigenous Status',
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
