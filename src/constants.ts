@@ -37,10 +37,17 @@ export const DATASETS = [
   },
   {
     id: 'covid',
-    label: 'COVID',
+    label: 'COVID: Cases',
     sourceLabel: 'https://covidlive.com.au',
     canCombine: false,
     unit: '',
+  },
+  {
+    id: 'vaccinations',
+    label: 'COVID: Vaccinations',
+    sourceLabel: 'Federal Department of Health',
+    canCombine: false,
+    unit: '%',
   },
   {
     id: 'ancestry',
