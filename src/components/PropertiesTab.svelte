@@ -32,13 +32,22 @@
   <Accordion>
     <AccordionItem title="Data" open>
       <Select
-        labelText="Results"
+        labelText="Results Year"
         bind:selected={$graph.resultsYear}
       >
         <SelectItem value="2019local" text="2019 (dev)" />
         <SelectItem value="2019" text="2019" />
         <SelectItem value="2022" text="2022" />
         <SelectItem value="2022local" text="2022 (dev)" />
+      </Select>
+
+      <Select
+        labelText="Y Axis Metric"
+        bind:selected={$graph.yAxisMethod}
+      >
+        {#each Y_AXIS_METHODS as method}
+          <SelectItem value={method.id} text={method.label} />
+        {/each}
       </Select>
 
       <Select
@@ -58,34 +67,9 @@
         {/each}
       </Select>
 
-      <MultiSelect
-        titleText="Labelled Electorates"
-        filterable
-        bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
-        sortItem={() => {}}
-      />
-
-    </AccordionItem>
-
-    <AccordionItem title="Axes" open>
-      <Select
-        labelText="Y Axis"
-        bind:selected={$graph.yAxisMethod}
-      >
-        {#each Y_AXIS_METHODS as method}
-          <SelectItem value={method.id} text={method.label} />
-        {/each}
-      </Select>
-
-      <TextInput
-        bind:value={$graph.yAxisLabelOverride}
-        labelText="Y Axis Custom Label"
-      />
-
       {#if DATASETS.find(d => d.id === $graph.dataset)?.canCombine}
         <MultiSelect
-          titleText="X Axis"
+          titleText="X Axis Metric"
           bind:selectedIds={$graph.xAxisFields}
           disabled={datasetFields.length === 0}
           label={datasetFields.length === 0 ? 'Loading...' : ''}
@@ -115,32 +99,13 @@
         </Select>
       {/if}
 
-      <TextInput
-        bind:value={$graph.xAxisLabelOverride}
-        labelText="X Axis Custom Label"
-        invalid={datasetFields.length > 0 && $graph.xAxisFields.length > 0 && determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
-        invalidText="Required"
-      />
 
-      <TextInput
-        bind:value={$graph.xAxisUnitOverride}
-        labelText="X Axis Unit"
-      />
-
-
-      <Checkbox
-        checked={$graph.xAxisUseLog}
-        labelText="X Axis Log Scale"
-        on:check={() => {
-          $graph.xAxisUseLog = !$graph.xAxisUseLog;
-
-          // Auto update the trendline to suit the axis to avoid accidentally using the wrong one
-          if ($graph.xAxisUseLog) {
-            $graph.trendlineMethod = 'log';
-          } else {
-            $graph.trendlineMethod = 'linear';
-          }
-        }}
+      <MultiSelect
+        titleText="Labelled Electorates"
+        filterable
+        bind:selectedIds={$graph.electorateHighlights}
+        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        sortItem={() => {}}
       />
 
     </AccordionItem>
@@ -161,6 +126,37 @@
       <TextInput
         bind:value={$graph.chartNotes}
         labelText="Chart Notes"
+      />
+      <TextInput
+        bind:value={$graph.yAxisLabelOverride}
+        labelText="Y Axis Label"
+      />
+
+      <TextInput
+        bind:value={$graph.xAxisLabelOverride}
+        labelText="X Axis Label"
+        invalid={datasetFields.length > 0 && $graph.xAxisFields.length > 0 && determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
+        invalidText="Required"
+      />
+
+      <TextInput
+        bind:value={$graph.xAxisUnitOverride}
+        labelText="X Axis Unit"
+      />
+
+      <Checkbox
+        checked={$graph.xAxisUseLog}
+        labelText="X Axis Log Scale"
+        on:check={() => {
+          $graph.xAxisUseLog = !$graph.xAxisUseLog;
+
+          // Auto update the trendline to suit the axis to avoid accidentally using the wrong one
+          if ($graph.xAxisUseLog) {
+            $graph.trendlineMethod = 'log';
+          } else {
+            $graph.trendlineMethod = 'linear';
+          }
+        }}
       />
 
       <Checkbox
