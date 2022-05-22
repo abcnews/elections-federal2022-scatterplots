@@ -166,6 +166,15 @@ export const yAxis = (result: any, method: string): number | null => {
 
     return max(minorRunners.map(r => parseFloat(r.predicted.pct)));
   }
+  if (method === 'bestminorprimaryswing') {
+    if (minorRunners.length === 0) {
+      return null;
+    }
+
+    const highestPrimary = max(minorRunners.map(r => parseFloat(r.predicted.pct)));
+    const bestInd = minorRunners.find(r => parseFloat(r.predicted.pct) === highestPrimary);
+    return parseFloat(bestInd?.predicted.swing);
+  }
 
   if (method === 'laborprimary') {
     return primary(laborRunners);

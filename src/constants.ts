@@ -193,7 +193,11 @@ export const Y_AXIS_METHODS = [
     forcePrefix: false,
     label: 'Primary vote for highest placing minor party (incl. Greens)',
   },
-
+  {
+    id: 'bestminorprimaryswing',
+    forcePrefix: true,
+    label: 'Change in primary vote for highest placing minor party (incl. Greens)',
+  },
   {
     id: 'minorprimaryswing',
     forcePrefix: true,
