@@ -237,11 +237,11 @@ export const yAxis = (result: any, method: string): number | null => {
 // Calculate the chosen demographic as a % of the total population of the electorate
 //
 const xAxis = (demo: any, xAxisFields: string[]): number | null => {
-  const values = xAxisFields.map(field => parseFloat(demo[field]));
+  const values = xAxisFields.map(field => demo[field]);
   if (values.find(v => v === null)) {
     return null;
   }
-  return sum(values);
+  return sum(values.map(v => parseFloat(v)));
 };
 
 //

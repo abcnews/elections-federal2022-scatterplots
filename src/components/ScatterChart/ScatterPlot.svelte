@@ -57,6 +57,9 @@
   $: numTicks = innerWidth / 60;
   $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix || false;
 
+  $: console.log(extent(data, (d) => d.x));
+  $: console.log(data);
+
 </script>
 
 <main class="graphic">
