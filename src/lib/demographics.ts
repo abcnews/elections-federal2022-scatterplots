@@ -101,7 +101,7 @@ const fetchErads = async (year: string) => {
 
   const rawResults = await fetchLiveResultsElectorates(year);
 
-  // Convert 2019 results to a normalised form so it can be used as an x-axis dataset
+  // Convert results to a normalised form so it can be used as an x-axis dataset
   datasets[year] = rawResults.map(e => {
 
     const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolnp')?.label || '';
@@ -117,6 +117,7 @@ const fetchErads = async (year: string) => {
       [laborVoteLabel]: yAxis(e, '2cpvotelabor'),
     };
   });
+  console.log(datasets[year]);
   return datasets[year];
 };
 

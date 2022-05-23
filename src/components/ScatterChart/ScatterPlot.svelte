@@ -76,7 +76,7 @@
       {/if}
 
       {#each data as point}
-        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null}
+        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
             <circle
               class="scatter-dot"
               cx={xScale(point.x)}
