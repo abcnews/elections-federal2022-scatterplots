@@ -43,4 +43,11 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
+
+  @media (min-width: 96rem) {
+    .wrapper {
+      margin-right: 55%;
+      max-width: 40vw;
+    }
+  }
 </style>

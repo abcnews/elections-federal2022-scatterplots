@@ -42,3 +42,14 @@ $css--plex: false;
   letter-spacing: 0em;
   text-align: left;
 }
+
+.scrollyteller .panel ,
+.scrollyteller .st-panel {
+  -webkit-font-smoothing: initial;
+  -moz-osx-font-smoothing: initial;
+
+  @media (min-width: 96rem) {
+    margin-left: 55%;
+    max-width: 40vw;
+  }
+}
