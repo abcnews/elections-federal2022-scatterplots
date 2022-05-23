@@ -6,9 +6,11 @@
   export let innerHeight: number;
   export let innerWidth: number;
   export let position: "bottom" | "left";
-  export let isDarkMode: boolean;
   export let scale;
   export let numTicks: number;
+
+  export let isDarkMode: boolean;
+  export let midpoint: boolean;
 
   let transform: string;
   let g;
@@ -35,7 +37,13 @@
 
 <!-- emphasize the 0% gridline on the y-axis -->
 {#if position === 'left'}
-  <g class="tick origin" opacity="1" transform={`translate(0,${scale(0)})`}>
+  <g class="tick origin" opacity="1" transform={`translate(0,${scale(midpoint ? 0 : 50)})`}>
     <line stroke={COLOURS(isDarkMode).AXIS} x2={innerWidth}></line>
   </g>
 {/if}
+
+<style>
+  .tick.origin {
+    stroke-width: 1.5px;
+  }
+</style>

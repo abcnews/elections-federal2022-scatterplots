@@ -158,6 +158,12 @@ export const DATASETS = [
 ];
 
 export const Y_AXIS_METHODS = [
+  {
+    id: 'zero',
+    forcePrefix: false,
+    label: '',
+  },
+
   //
   // COALITION
   //

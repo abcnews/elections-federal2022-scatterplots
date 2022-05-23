@@ -113,7 +113,9 @@ export const calcScatterData = (
     };
   });
 
-  return electorates.filter(e => !!e && e.y !== null);
+  return electorates
+    // .filter(e => !!e && e.y !== null);
+    .filter(e => !!e);
 };
 
 const swing = (res) => {
@@ -167,6 +169,10 @@ export const yAxis = (result: any, method: string): number | null => {
   const minorRunners = (result.runners || []).filter(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
+
+  if (method === 'zero') {
+    return 0;
+  }
 
   //
   // LABOR

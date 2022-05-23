@@ -13,19 +13,22 @@
   $: innerHeight = height - margin.top - margin.bottom;
   $: innerWidth = width - margin.left - margin.right;
 
+  export let data: any;
+  export let yAxisMethod: string;
+
   export let xLabel: string;
   export let yLabel: string;
-  export let trendline: boolean;
+  export let xUnit: string;
+
   export let trendlineMethod: string;
-  export let grid: boolean;
   export let smoothingBandwidth: number;
   export let electorateHighlights: string[];
-  export let xUnit: string;
+
+  export let grid: boolean;
   export let xAxisInverse: boolean;
   export let isDarkMode: boolean;
-  export let data: any;
   export let isLog: boolean;
-  export let yAxisMethod: string;
+  export let trendline: boolean;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -52,7 +55,7 @@
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
   $: numTicks = innerWidth / 60;
-  $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix;
+  $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix || false;
 
 </script>
 
@@ -61,31 +64,32 @@
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={xScale} position="bottom" />
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} scale={yScale} position="left" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={false} scale={xScale} position="bottom" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={forceAxisPrefix} scale={yScale} position="left" />
       {/if}
-      <Axis {innerHeight} {numTicks} {isDarkMode} forcePrefix={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {numTicks} {isDarkMode} forcePrefix={forceAxisPrefix} unit="%" isLog={false} scale={yScale} position="left" />
+
+      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} forcePrefix={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} forcePrefix={forceAxisPrefix} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
       {/if}
 
       {#each data as point}
-        {#if electorateHighlights.indexOf(point.electorate) === -1}
-          <circle
-            class="scatter-dot"
-            cx={xScale(point.x)}
-            cy={yScale(point.y)}
-            r="3"
-            color={point.colour(isDarkMode)}
-            stroke={point.colour(isDarkMode)}
-            data-electorate={point.electorate}
-            on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-            on:mouseout={() => {selectedPoint = undefined;}}
-            on:blur={() => ({})}
-            on:focus={() => ({})}
-          />
+        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null}
+            <circle
+              class="scatter-dot"
+              cx={xScale(point.x)}
+              cy={yScale(point.y)}
+              r="3"
+              color={point.colour(isDarkMode)}
+              stroke={point.colour(isDarkMode)}
+              data-electorate={point.electorate}
+              on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
+              on:mouseout={() => {selectedPoint = undefined;}}
+              on:blur={() => ({})}
+              on:focus={() => ({})}
+            />
         {/if}
       {/each}
 
