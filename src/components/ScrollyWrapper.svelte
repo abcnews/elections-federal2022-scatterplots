@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { setContext, onMount } from 'svelte';
   import Scrollyteller from 'svelte-scrollyteller';
 
   import { createGraphStore } from '../store';
 
+  import { fetchDemographicData } from '../lib/demographics';
+  import { fetchLiveResultsElectorates } from '../lib/results';
   import { actoObjectToPartialGraph } from '../lib/encode';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
@@ -17,6 +19,15 @@
   // Pass markers into the room state
   let updateState = ((state: any) => {
     graph.updateMany(actoObjectToPartialGraph(state));
+  });
+
+  // Prefetch all the datasets
+  onMount(() => {
+    fetchLiveResultsElectorates('2019');
+    fetchLiveResultsElectorates('2022');
+    fetchDemographicData('votecompass2');
+    fetchDemographicData('geo');
+    fetchDemographicData('education');
   });
 </script>
 

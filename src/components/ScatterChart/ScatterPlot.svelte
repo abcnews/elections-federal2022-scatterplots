@@ -151,6 +151,9 @@
     fill: currentColor;
     fill-opacity: 0.6;
     stroke-width: 1.5px;
+
+    transition-property: cy;
+    transition-duration: 0.5s;
   }
   .scatter-dot.highlight {
     stroke-width: 2px;
