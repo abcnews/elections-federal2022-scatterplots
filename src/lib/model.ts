@@ -109,7 +109,7 @@ export const calcScatterData = (
       colour: isDM =>
         partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
       labelColour: isDM =>
-        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).PRIMARY
+        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
     };
   });
 
@@ -129,7 +129,7 @@ const twoCP = (res) => {
     return null;
   }
 
-  return parseFloat(res.predicted2CP.swing);
+  return parseFloat(res.predicted2CP.pct);
 };
 
 const primarySwing = (runners) => {

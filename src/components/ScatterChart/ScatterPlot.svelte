@@ -176,12 +176,12 @@
 
   .axis-label-x {
     text-anchor: end;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 14px;
   }
   .axis-label-y {
     text-anchor: start;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 14px;
   }
 </style>
