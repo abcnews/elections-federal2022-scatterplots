@@ -1,4 +1,5 @@
 export const MOBILE_BREAKPOINT = 480;
+export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
     id: '2019results',
@@ -150,21 +151,22 @@ export const DATASETS = [
 ];
 
 export const Y_AXIS_METHODS = [
-  // LNP
+  //
+  // COALITION
+  //
   {
-    id: 'swingfromlnp',
-    forcePrefix: true,
-    label: 'Change in Coalition 2PP vote (flipped)',
+    id: null,
+    label: '--COALITION--',
+  },
+  {
+    id: '2cpvotelnp',
+    forcePrefix: false,
+    label: 'Coalition 2CP vote',
   },
   {
     id: 'swingtolnp',
     forcePrefix: true,
     label: 'Change in Coalition 2PP vote',
-  },
-  {
-    id: '2cpvotelnp',
-    forcePrefix: false,
-    label: 'Coalition 2CP Vote',
   },
   {
     id: 'lnpprimary',
@@ -177,21 +179,22 @@ export const Y_AXIS_METHODS = [
     label: 'Change in Coalition primary vote',
   },
 
+  //
   // LABOR
+  //
   {
-    id: 'swingfromlabor',
-    forcePrefix: true,
-    label: 'Change in Labor 2PP vote (flipped)',
+    id: null,
+    label: '--LABOR--',
+  },
+  {
+    id: '2cpvotelabor',
+    forcePrefix: false,
+    label: 'Labor 2CP vote',
   },
   {
     id: 'swingtolabor',
     forcePrefix: true,
     label: 'Change in Labor 2PP vote',
-  },
-  {
-    id: '2cpvotelabor',
-    forcePrefix: false,
-    label: 'Labor 2CP Vote',
   },
   {
     id: 'laborprimary',
@@ -204,17 +207,22 @@ export const Y_AXIS_METHODS = [
     label: 'Change in Labor primary vote',
   },
 
+  //
   // MINORS
+  //
   {
-    id: 'swingtominors',
-    forcePrefix: true,
-    label: 'Change in minor parties (incl. Greens) 2PP vote',
+    id: null,
+    label: '--MINORS--',
   },
-
   {
     id: 'minorprimary',
     forcePrefix: false,
     label: 'Primary vote for combined minor parties (incl. Greens)',
+  },
+  {
+    id: 'minorprimaryswing',
+    forcePrefix: true,
+    label: 'Change in combined primary vote for minor parties (incl. Greens)',
   },
   {
     id: 'bestminorprimary',
@@ -225,11 +233,6 @@ export const Y_AXIS_METHODS = [
     id: 'bestminorprimaryswing',
     forcePrefix: true,
     label: 'Change in primary vote for highest placing minor party (incl. Greens)',
-  },
-  {
-    id: 'minorprimaryswing',
-    forcePrefix: true,
-    label: 'Change in combined primary vote for minor parties (incl. Greens)',
   },
 ];
 
@@ -251,7 +254,6 @@ export const ELECTORATE_HELD_BY = [
   'Liberal',
   'Labor',
 ];
-export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 
 //
 // From ABC Datawrapper colour palette

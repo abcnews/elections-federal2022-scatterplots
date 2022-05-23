@@ -53,48 +53,50 @@ export const calcScatterData = (
 
     // Ignore electorates with incomplete data
     if (!demo || xAxisFields.length === 0 || !categories) {
-      if (xAxisFields.length > 0) {
-        console.log('Incomplete data:', result.name);
-      }
       return null;
     }
 
     // Apply filters
     if (heldByFilters.length > 0) {
       if (heldByFilters.indexOf(categories['Held By']) === -1) {
-        console.log('Held By Filtered:', result.name);
+        // console.log('Held By Filtered:', result.name);
         return null;
       }
 
       // Special case to handle "LNP" in data
       if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
-        console.log('Held By Filtered:', result.name);
+        // console.log('Held By Filtered:', result.name);
         return null;
       }
     }
     if (closenessFilters.length > 0) {
       if (closenessFilters.indexOf(categories['Closeness']) === -1) {
-        console.log('Closeness Filtered:', result.name);
+        // console.log('Closeness Filtered:', result.name);
         return null;
       }
     }
     if (geoFilters.length > 0) {
       if (geoFilters.indexOf(categories['Geo']) === -1) {
-        console.log('Geo Filtered:', result.name);
+        // console.log('Geo Filtered:', result.name);
         return null;
       }
     }
 
     const hasBeenCalled = result.predicted?.gainretain === 'gain' || result.predicted?.gainretain === 'retain';
     if (!hasBeenCalled && onlyCalledElectorates) {
-      console.log('Called Filtered:', result.name);
+      // console.log('Called Filtered:', result.name);
       return null;
     }
 
     let winningParty = result.leadingCandidate?.party.code;
+    // LNP in QLD maps to LIB for our purposes
     if (winningParty === 'LNP') {
       winningParty = 'LIB';
     }
+
+    // If not major party (incl. greens), set it to OTH
+    //
+    // This will catch IND, UAP, ONP, CA
     if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
       winningParty = 'OTH';
     }
@@ -114,19 +116,35 @@ export const calcScatterData = (
   return electorates.filter(e => !!e && e.y !== null);
 };
 
+const swing = (res) => {
+  if (!res) {
+    return null;
+  }
+
+  return parseFloat(res.predicted2CP.swing);
+};
+
+const twoCP = (res) => {
+  if (!res) {
+    return null;
+  }
+
+  return parseFloat(res.predicted2CP.swing);
+};
+
 const primarySwing = (runners) => {
   if (runners.length === 0) {
     return null;
   }
 
-  return runners.reduce((acc, r) => acc + parseFloat(r.predicted.swing), 0);
+  return sum(runners.map(r => parseFloat(r.predicted.swing)));
 };
 const primary = (runners) => {
   if (runners.length === 0) {
     return null;
   }
 
-  return runners.reduce((acc, r) => acc + parseFloat(r.predicted.pct), 0);
+  return sum(runners.map(r => parseFloat(r.predicted.pct)));
 };
 
 //
@@ -146,13 +164,45 @@ export const yAxis = (result: any, method: string): number | null => {
   );
 
   // Greens included as "non-major" for this measure
-  const minorRes = result.swingDial.find(
-    p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
-  );
   const minorRunners = (result.runners || []).filter(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
 
+  //
+  // LABOR
+  //
+  if (method === 'laborprimary') {
+    return primary(laborRunners);
+  }
+  if (method === 'laborprimaryswing') {
+    return primarySwing(laborRunners);
+  }
+  if (method === 'swingtolabor') {
+    return swing(laborRes);
+  }
+  if (method === '2cpvotelabor') {
+    return twoCP(laborRes);
+  }
+
+  //
+  // COALITION
+  //
+  if (method === 'lnpprimary') {
+    return primary(coalitionRunners);
+  }
+  if (method === 'lnpprimaryswing') {
+    return primarySwing(coalitionRunners);
+  }
+  if (method === 'swingtolnp') {
+    return swing(coalitionRes);
+  }
+  if (method === '2cpvotelnp') {
+    return twoCP(coalitionRes);
+  }
+
+  //
+  // MINORS
+  //
   if (method === 'minorprimary') {
     return primary(minorRunners);
   }
@@ -163,111 +213,25 @@ export const yAxis = (result: any, method: string): number | null => {
     if (minorRunners.length === 0) {
       return null;
     }
-
     return max(minorRunners.map(r => parseFloat(r.predicted.pct)));
   }
   if (method === 'bestminorprimaryswing') {
     if (minorRunners.length === 0) {
       return null;
     }
-
     const highestPrimary = max(minorRunners.map(r => parseFloat(r.predicted.pct)));
     const bestInd = minorRunners.find(r => parseFloat(r.predicted.pct) === highestPrimary);
     return parseFloat(bestInd?.predicted.swing);
-  }
-
-  if (method === 'laborprimary') {
-    return primary(laborRunners);
-  }
-  if (method === 'laborprimaryswing') {
-    return primarySwing(laborRunners);
-  }
-
-  if (method === 'lnpprimary') {
-    return primary(coalitionRunners);
-  }
-  if (method === 'lnpprimaryswing') {
-    return primarySwing(coalitionRunners);
-  }
-
-  if (method === 'swingfromlabor') {
-    if (!laborRes) {
-      return null;
-    }
-
-    // positive means away from Labor
-    const swing = -1 * parseFloat(laborRes.predicted2CP.swing);
-    return swing;
-  }
-
-  if (method === 'swingtolabor') {
-    if (!laborRes) {
-      return null;
-    }
-
-    // positive means to Labor
-    const swing = parseFloat(laborRes.predicted2CP.swing);
-    return swing;
-  }
-
-  if (method === '2cpvotelabor') {
-    if (!laborRes) {
-      return null;
-    }
-
-    const pct = parseFloat(laborRes.predicted2CP.pct);
-    return pct;
-  }
-
-  if (method === 'swingfromlnp') {
-    if (!coalitionRes) {
-      return null;
-    }
-
-    // positive means away from LNP
-    const swing = -1 * parseFloat(coalitionRes.predicted2CP.swing);
-    return swing;
-  }
-
-  if (method === 'swingtolnp') {
-    if (!coalitionRes) {
-      return null;
-    }
-
-    // positive means to LNP
-    const swing = parseFloat(coalitionRes.predicted2CP.swing);
-    return swing;
-  }
-
-  if (method === '2cpvotelnp') {
-    if (!coalitionRes) {
-      return null;
-    }
-
-    const pct = parseFloat(coalitionRes.predicted2CP.pct);
-    return pct;
-  }
-
-  if (method === 'swingtominors') {
-    if (!minorRes) {
-      return null;
-    }
-
-    // positive means to minor party
-    const swing = parseFloat(minorRes.predicted2CP.swing);
-    return swing;
   }
 
   return null;
 };
 
 //
-// Calculate the demographic as a % of the total population of the electorate
+// Calculate the chosen demographic as a % of the total population of the electorate
 //
 const xAxis = (demo: any, xAxisFields: string[]): number => {
-  const selectedValues = xAxisFields.reduce((acc, field) => acc + parseFloat(demo[field]), 0);
-
-  return selectedValues;
+  return sum(xAxisFields.map(field => parseFloat(demo[field])));
 };
 
 //
@@ -313,14 +277,4 @@ export const calcSmoothedLine = (data, bandwidth: number, method: string) => {
 // https://bl.ocks.org/rpgove/073d6cb996d7de1d52935790139c4240
 const gaussian = (target: number, source: number, bandwidth: number) => {
   return Math.exp(-Math.pow(target - source, 2) / (2 * bandwidth * bandwidth));
-};
-
-const logScale = (x: number, maxVal: number): number => {
-  // The result should be between 100 an 10000000
-  var minX = Math.log(0.01);
-  var maxX = Math.log(maxVal);
-
-  // calculate adjustment factor
-  var scale = (maxX - minX) / 100;
-  return (Math.log(x) - minX) / scale;
 };
