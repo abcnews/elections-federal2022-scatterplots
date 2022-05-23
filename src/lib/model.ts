@@ -238,6 +238,7 @@ export const yAxis = (result: any, method: string): number | null => {
 //
 const xAxis = (demo: any, xAxisFields: string[]): number | null => {
   const values = xAxisFields.map(field => demo[field]);
+  console.log(values);
   if (values.find(v => v === null)) {
     return null;
   }
