@@ -101,13 +101,17 @@ export const ARRAY_FIELDS = [
 ];
 
 export const ENCODED_FIELDS = [
-  'xAxisFields',
   'heldByFilters',
   'closenessFilters',
   'geoFilters',
+
   'electorateHighlights',
+  'yAxisLabelOverride',
+
+  'xAxisFields',
   'xAxisLabelOverride',
   'xAxisUnitOverride',
+
   'chartAuthor',
   'chartTitle',
   'chartDescription',
