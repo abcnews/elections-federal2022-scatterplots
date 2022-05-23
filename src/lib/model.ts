@@ -239,7 +239,7 @@ export const yAxis = (result: any, method: string): number | null => {
 const xAxis = (demo: any, xAxisFields: string[]): number | null => {
   const values = xAxisFields.map(field => demo[field]);
   console.log(values);
-  if (values.find(v => v === null)) {
+  if (values.findIndex(v => v == null) > -1) {
     return null;
   }
   return sum(values.map(v => parseFloat(v)));
