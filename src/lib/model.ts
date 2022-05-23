@@ -5,24 +5,24 @@ import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
-export const determineXAxisLabel = (opts: Graph) => {
-  if (opts.xAxisLabelOverride) {
-    return opts.xAxisLabelOverride;
+export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
+  if (xAxisLabelOverride) {
+    return xAxisLabelOverride;
   }
 
-  if (opts.xAxisFields.length === 1) {
-    return opts.xAxisFields[0];
+  if (xAxisFields.length === 1) {
+    return xAxisFields[0];
   }
 
   return 'X Axis Label Override Needed!';
 };
 
-export const determineYAxisLabel = (opts: Graph) => {
-  if (opts.yAxisLabelOverride) {
-    return opts.yAxisLabelOverride;
+export const determineYAxisLabel = (yAxisLabelOverride, yAxisMethod) => {
+  if (yAxisLabelOverride) {
+    return yAxisLabelOverride;
   }
 
-  const method = Y_AXIS_METHODS.find(method => method.id === opts.yAxisMethod);
+  const method = Y_AXIS_METHODS.find(method => method.id === yAxisMethod);
   return method?.label || '';
 };
 

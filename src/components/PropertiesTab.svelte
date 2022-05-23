@@ -143,19 +143,18 @@
         labelText="X Axis Unit"
       />
 
-      <Checkbox
-        checked={$graph.xAxisUseLog}
-        labelText="X Axis Log Scale"
-        on:check={() => {
-          $graph.xAxisUseLog = !$graph.xAxisUseLog;
+      <Select
+        labelText="Method"
+        bind:selected={$graph.trendlineMethod}
+      >
+        <SelectItem value="linear" text="Linear Regression" />
+        <SelectItem value="log" text="Logarithmic Regression" />
+        <SelectItem value="gaussian" text="Gaussian Smoothing" />
+      </Select>
 
-          // Auto update the trendline to suit the axis to avoid accidentally using the wrong one
-          if ($graph.xAxisUseLog) {
-            $graph.trendlineMethod = 'log';
-          } else {
-            $graph.trendlineMethod = 'linear';
-          }
-        }}
+      <Checkbox
+        bind:checked={$graph.xAxisUseLog}
+        labelText="X Axis Log Scale"
       />
 
       <Checkbox
@@ -170,6 +169,12 @@
         bind:checked={$graph.grid}
         labelText="Enable Grid"
       />
+
+      <Checkbox
+        bind:checked={$graph.trendlineEnabled}
+        labelText="Enable Trendline"
+      />
+
 
       <Checkbox
         bind:checked={$graph.darkModePreview}
@@ -211,19 +216,6 @@
 
 
     <AccordionItem title="Trendline">
-      <Checkbox
-        bind:checked={$graph.trendlineEnabled}
-        labelText="Enable"
-      />
-
-      <Select
-        labelText="Method"
-        bind:selected={$graph.trendlineMethod}
-      >
-        <SelectItem value="linear" text="Linear Regression" />
-        <SelectItem value="log" text="Logarithmic Regression" />
-        <SelectItem value="gaussian" text="Gaussian Smoothing" />
-      </Select>
 
       <NumberInput
         min={1}

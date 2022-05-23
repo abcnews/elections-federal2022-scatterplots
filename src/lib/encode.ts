@@ -54,7 +54,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
     }
 
     return graph;
-  }, { ...INITIAL_GRAPH, } as Partial<Graph>);
+  }, {} as Partial<Graph>);
 
 export const alternatingCaseToPartialGraph = (alternatingCase: string): Partial<Graph> =>
   actoObjectToPartialGraph(acto(alternatingCase));

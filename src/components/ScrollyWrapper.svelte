@@ -16,7 +16,6 @@
 
   // Pass markers into the room state
   let updateState = ((state: any) => {
-    console.log(actoObjectToPartialGraph(state));
     graph.updateMany(actoObjectToPartialGraph(state));
   });
 </script>
@@ -36,13 +35,10 @@
 <style>
   .wrapper {
     margin: 3rem auto;
-    /* width: 100vw; */
-    /* height: 100%; */
-
-    max-width: 40rem;
-
+    padding: 1rem;
+    max-width: 50rem;
     position: relative;
-    top: 50%;
+    top: 40%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);

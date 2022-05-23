@@ -29,7 +29,6 @@
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   $: isDarkMode = newsWebDarkMode || $graph.darkModePreview;
-  $: console.log($graph);
 
   //
   // Data Fetching / Calcs
@@ -49,8 +48,8 @@
   //
   // Graph Labels
   //
-  $: xLabel = determineXAxisLabel($graph);
-  $: yLabel = determineYAxisLabel($graph);
+  $: xLabel = determineXAxisLabel($graph.xAxisLabelOverride, $graph.xAxisFields);
+  $: yLabel = determineYAxisLabel($graph.yAxisLabelOverride, $graph.yAxisMethod);
   $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
 </script>

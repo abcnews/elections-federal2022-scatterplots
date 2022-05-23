@@ -46,10 +46,10 @@
     .domain([yMin, yMax])
     .range([innerHeight, 0]);
 
-  $: trendlinePath = line()
+  $: trendlinePath = trendline ? line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
-        (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod))
+        (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
   $: numTicks = innerWidth / 60;
   $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix;
