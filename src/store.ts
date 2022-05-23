@@ -82,10 +82,11 @@ export const INITIAL_GRAPH = {
 };
 
 export const BOOL_FIELDS = [
-  'xAxisUseLog',
-  'xAxisInverse',
   'darkModePreview',
   'pearsonCoefficientPreview',
+
+  'xAxisUseLog',
+  'xAxisInverse',
   'partyColours',
   'grid',
   'trendlineEnabled',
@@ -93,10 +94,12 @@ export const BOOL_FIELDS = [
 ];
 
 export const ARRAY_FIELDS = [
-  'xAxisFields',
   'heldByFilters',
   'closenessFilters',
   'geoFilters',
+
+  'xAxisFields',
+
   'electorateHighlights',
 ];
 

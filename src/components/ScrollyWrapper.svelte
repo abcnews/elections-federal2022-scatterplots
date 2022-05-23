@@ -5,8 +5,6 @@
   import { createGraphStore } from '../store';
 
   import { actoObjectToPartialGraph } from '../lib/encode';
-  // import { INPUTS_DEFAULTS, CHECKBOXES_DEFAULTS } from '../../lib/constants';
-  // import Room from '../Room/SvgRoom.svelte';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
   // Initialise with default state
@@ -18,6 +16,7 @@
 
   // Pass markers into the room state
   let updateState = ((state: any) => {
+    console.log(actoObjectToPartialGraph(state));
     graph.updateMany(actoObjectToPartialGraph(state));
   });
 </script>

@@ -39,7 +39,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
     const inputName = ACTO_KEYS_TO_NAMES[actoKey];
 
     // Ignore unknown properties, preview fields and empty string values
-    if (!inputName || PREVIEW_FIELDS.indexOf(inputName) > -1 || actoObject[actoKey] === '') {
+    if (!inputName || PREVIEW_FIELDS.indexOf(inputName) > -1) {
       return graph;
     }
 
@@ -54,7 +54,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
     }
 
     return graph;
-  }, {} as Partial<Graph>);
+  }, { ...INITIAL_GRAPH, } as Partial<Graph>);
 
 export const alternatingCaseToPartialGraph = (alternatingCase: string): Partial<Graph> =>
   actoObjectToPartialGraph(acto(alternatingCase));
