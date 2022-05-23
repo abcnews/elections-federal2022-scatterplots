@@ -1,18 +1,20 @@
-import { whenDOMReady } from '@abcnews/env-utils';
+import { whenDOMReady, whenOdysseyLoaded } from '@abcnews/env-utils';
 import acto from '@abcnews/alternating-case-to-object';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
 import type { Mount } from '@abcnews/mount-utils';
+import { loadScrollyteller } from 'svelte-scrollyteller';
 
 import Embed from './components/Embed/Embed.svelte';
+import ScrollyWrapper from './components/ScrollyWrapper.svelte';
 
 import { alternatingCaseToPartialGraph } from './lib/encode';
 
 // import './global.scss';
 
-let appMountEl: Mount;
+let appMountEl;
 let appProps;
 
-whenDOMReady.then(() => {
+whenOdysseyLoaded.then(() => {
   const mounts = selectMounts('scatter');
 
   mounts.map(m => {
@@ -24,6 +26,19 @@ whenDOMReady.then(() => {
       }
     });
   });
+
+  try {
+    const scrollyData = loadScrollyteller('chart', 'u-full', 'mark');
+    appMountEl = scrollyData.mountNode;
+    if (appMountEl) {
+      new ScrollyWrapper({
+        target: appMountEl,
+        props: { scrollyData }
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 if (process.env.NODE_ENV === 'development') {

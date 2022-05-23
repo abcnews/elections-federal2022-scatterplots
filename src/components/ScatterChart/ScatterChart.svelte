@@ -29,6 +29,7 @@
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   $: isDarkMode = newsWebDarkMode || $graph.darkModePreview;
+  $: console.log($graph);
 
   //
   // Data Fetching / Calcs
@@ -72,6 +73,7 @@
     {yLabel}
     {data}
     xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
+    xAxisInverse={$graph.xAxisInverse}
     isLog={$graph.xAxisUseLog}
     yAxisMethod={$graph.yAxisMethod}
 

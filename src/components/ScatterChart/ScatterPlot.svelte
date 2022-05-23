@@ -21,6 +21,7 @@
   export let smoothingBandwidth: number;
   export let electorateHighlights: string[];
   export let xUnit: string;
+  export let xAxisInverse: boolean;
   export let isDarkMode: boolean;
   export let data: any;
   export let isLog: boolean;
@@ -36,7 +37,7 @@
 
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
-    .range([0, innerWidth]);
+    .range(xAxisInverse ? [innerWidth, 0] : [0, innerWidth]);
 
   $: yMin = min(data, d => d.y) - 5;
   $: yMax = max(data, d => d.y) + 5;

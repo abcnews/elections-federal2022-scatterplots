@@ -17,7 +17,7 @@ const liveResultsElectoratesPromises: {
   [key: string]: Promise<LiveResultsElectorate[]>;
 } = {};
 
-export const fetchLiveResultsElectorates = async (year: string) => {
+export const fetchLiveResultsElectorates = (year: string) => {
   let props;
   let url;
   if (year === '2019') {

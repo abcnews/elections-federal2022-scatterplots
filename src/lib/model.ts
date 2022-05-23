@@ -10,7 +10,7 @@ export const determineXAxisLabel = (opts: Graph) => {
     return opts.xAxisLabelOverride;
   }
 
-  if (opts.xAxisFields.length === 1 && !opts.xAxisInverse) {
+  if (opts.xAxisFields.length === 1) {
     return opts.xAxisFields[0];
   }
 

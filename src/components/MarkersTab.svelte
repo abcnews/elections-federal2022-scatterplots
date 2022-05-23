@@ -7,12 +7,12 @@
 
   const MARKERS: Marker[] = [
     { label: 'Standalone graphic marker', note: '', prefix: 'scatter' },
-    // {
-    //   label: 'Scrollyteller opener',
-    //   note: `If you're placing multiple scrollytellers in a single story, each must have a unique NAME.`,
-    //   prefix: 'scrollytellerNAMEuniqueGRAPHICscatter'
-    // },
-    // { label: 'Scrollyteller mark', prefix: 'mark' }
+    {
+      label: 'Scrollyteller opener',
+      note: `If you're placing multiple scrollytellers in a single story, each must have a unique NAME.`,
+      prefix: 'scrollytellerNAMEchart'
+    },
+    { label: 'Scrollyteller mark', prefix: 'mark' }
   ];
 </script>
 
@@ -21,7 +21,6 @@
   import Button from 'carbon-components-svelte/src/Button/Button.svelte';
   import CodeSnippet from 'carbon-components-svelte/src/CodeSnippet/CodeSnippet.svelte';
   import InlineNotification from 'carbon-components-svelte/src/Notification/InlineNotification.svelte';
-  // import HashtagIcon from 'carbon-icons-svelte/lib/Hashtag24/Hashtag24.svelte';
 
   import type { GraphStore } from '../store';
   import { alternatingCaseToPartialGraph, graphToAlternatingCase } from '../lib/encode';
@@ -41,7 +40,6 @@
   }));
 </script>
 
-    <!-- icon={HashtagIcon} -->
 <div>
   <Button
     size="field"

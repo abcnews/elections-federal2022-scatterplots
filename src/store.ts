@@ -83,6 +83,7 @@ export const INITIAL_GRAPH = {
 
 export const BOOL_FIELDS = [
   'xAxisUseLog',
+  'xAxisInverse',
   'darkModePreview',
   'pearsonCoefficientPreview',
   'partyColours',

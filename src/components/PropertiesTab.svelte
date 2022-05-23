@@ -159,6 +159,10 @@
       />
 
       <Checkbox
+        bind:checked={$graph.xAxisInverse}
+        labelText="Reverse X Axis"
+      />
+      <Checkbox
         bind:checked={$graph.partyColours}
         labelText="Enable Party Colours"
       />

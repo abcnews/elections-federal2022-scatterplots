@@ -13,7 +13,8 @@ module.exports = {
     includedDependencies,
     entry: [
       "index",
-      "embed"
+      "embed",
+      "googledoc"
     ],
   },
   webpack: config => {

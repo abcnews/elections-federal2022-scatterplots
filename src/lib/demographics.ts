@@ -1,6 +1,7 @@
 import Papa from 'papaparse';
 import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf'
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
+import regeneratorRuntime from "regenerator-runtime";
 
 import { Y_AXIS_METHODS } from '../constants';
 import { fetchLiveResultsElectorates } from './results';
