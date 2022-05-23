@@ -15,8 +15,8 @@
   import ELECTORATES from '../electorate_categories.json';
 
   import { getContext } from 'svelte';
-  import type { Graph } from '../store';
-  let graph = getContext<Graph>('graph');
+  import type { GraphStore } from '../store';
+  let graph = getContext<GraphStore>('graph');
 
   let datasetFields: string[] = [];
   $: {
@@ -26,7 +26,6 @@
     });
   }
 </script>
-
 
 <div>
   <Accordion>
@@ -171,6 +170,10 @@
       <Checkbox
         bind:checked={$graph.darkModePreview}
         labelText="Dark Mode Preview"
+      />
+      <Checkbox
+        bind:checked={$graph.pearsonCoefficientPreview}
+        labelText="Pearson Coefficient Preview"
       />
     </AccordionItem>
 

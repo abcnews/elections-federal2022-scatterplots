@@ -4,6 +4,7 @@
 
   import { fetchDemographicData } from '../../lib/demographics';
   import { fetchLiveResultsElectorates } from '../../lib/results';
+  import { calcPearsonsCorrelation } from '../../lib/pearson';
   import { calcScatterData, determineXAxisLabel, determineYAxisLabel } from '../../lib/model';
   import { DATASETS } from '../../constants';
 
@@ -92,6 +93,9 @@
   </p>
 </div>
 
+{#if $graph.pearsonCoefficientPreview && $graph.xAxisFields.length > 0}
+  <p class="preview-text">[PREVIEW ONLY] Pearson coefficient: {calcPearsonsCorrelation(data)}</p>
+{/if}
 
 <style>
   .wrapper {
@@ -133,6 +137,10 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 18px;
+  }
+
+  .preview-text {
+    font-weight: 700;
   }
 
 </style>

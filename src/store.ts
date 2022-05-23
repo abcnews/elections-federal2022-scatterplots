@@ -32,6 +32,7 @@ export interface Graph {
   onlyCalledElectorates: boolean;
 
   darkModePreview: boolean;
+  pearsonCoefficientPreview: boolean;
 
   electorateHighlights: string[];
 }
@@ -63,6 +64,7 @@ export const INITIAL_GRAPH = {
   xAxisUnitOverride: null,
 
   darkModePreview: false,
+  pearsonCoefficientPreview: false,
 
   partyColours: false,
   grid: true,
@@ -82,6 +84,7 @@ export const INITIAL_GRAPH = {
 export const BOOL_FIELDS = [
   'xAxisUseLog',
   'darkModePreview',
+  'pearsonCoefficientPreview',
   'partyColours',
   'grid',
   'trendlineEnabled',
@@ -113,6 +116,7 @@ export const ENCODED_FIELDS = [
 // These are excluded from acto markers (but not sharable URLs)
 export const PREVIEW_FIELDS = [
   'darkModePreview',
+  'pearsonCoefficientPreview',
 ];
 
 export function createGraphStore(initial: Partial<Graph> = {}) {

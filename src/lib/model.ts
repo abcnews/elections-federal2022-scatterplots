@@ -109,7 +109,7 @@ export const calcScatterData = (
       colour: isDM =>
         partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
       labelColour: isDM =>
-        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
+        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).PRIMARY
     };
   });
 

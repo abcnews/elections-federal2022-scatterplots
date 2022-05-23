@@ -4,7 +4,6 @@
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
-  // import { calcPearsonsCorrelation } from '../../lib/pearson';
 
   const margin = { top: 15, bottom: 25, left: 35, right: 35 };
 
@@ -54,8 +53,6 @@
   $: numTicks = innerWidth / 60;
   $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix;
 
-  // TODO: Do we want this?
-  // {calcPearsonsCorrelation(data)}
 </script>
 
 <main class="graphic">
