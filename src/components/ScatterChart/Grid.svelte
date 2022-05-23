@@ -36,6 +36,6 @@
 <!-- emphasize the 0% gridline on the y-axis -->
 {#if position === 'left'}
   <g class="tick origin" opacity="1" transform={`translate(0,${scale(0)})`}>
-    <line stroke={COLOURS(isDarkMode).AXIS} x2="580"></line>
+    <line stroke={COLOURS(isDarkMode).AXIS} x2={innerWidth}></line>
   </g>
 {/if}

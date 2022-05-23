@@ -30,11 +30,18 @@ export const DATASETS = [
     unit: '',
   },
   {
+    id: 'votecompass2',
+    label: 'ABC: Most Important Issue (Vote Compass)',
+    sourceLabel: 'ABC Vote Compass',
+    canCombine: true,
+    unit: '%',
+  },
+  {
     id: 'votecompass',
-    label: 'ABC: Vote Compass',
+    label: 'ABC: Progressiveness (Vote Compass)',
     sourceLabel: 'ABC Vote Compass',
     canCombine: false,
-    unit: '%',
+    unit: '',
   },
   {
     id: 'covid',

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { extent, scaleLinear, scaleLog, line } from "d3";
+  import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
   import Axis from "./Axis.svelte";
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
   // import { calcPearsonsCorrelation } from '../../lib/pearson';
 
-  const margin = { top: 15, bottom: 25, left: 35, right: 15 };
+  const margin = { top: 15, bottom: 25, left: 35, right: 35 };
 
   // Responsively sized dimensions (1:1 on mobile, 2:3 on desktop)
   export let width: number;
@@ -39,8 +39,11 @@
     .domain(extent(data, (d) => d.x))
     .range([0, innerWidth]);
 
+  $: yMin = min(data, d => d.y) - 5;
+  $: yMax = max(data, d => d.y) + 5;
+
   $: yScale = scaleLinear()
-    .domain(extent(data, (d) => d.y))
+    .domain([yMin, yMax])
     .range([innerHeight, 0]);
 
   $: trendlinePath = line()
