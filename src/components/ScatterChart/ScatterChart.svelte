@@ -100,6 +100,7 @@
 
 <style>
   .wrapper {
+    font-family: "ABC Sans", Helvetica, sans-serif;
     width: 100%;
   }
   .wrapper.dark {

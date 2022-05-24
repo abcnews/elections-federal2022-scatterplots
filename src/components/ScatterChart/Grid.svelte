@@ -35,15 +35,9 @@
 
 <g class="grid" bind:this={g} {transform} />
 
-<!-- emphasize the 0% gridline on the y-axis -->
+<!-- emphasize the 0% or 50% gridline on the y-axis -->
 {#if position === 'left'}
   <g class="tick origin" opacity="1" transform={`translate(0,${scale(midpoint ? 0 : 50)})`}>
     <line stroke={COLOURS(isDarkMode).AXIS} x2={innerWidth}></line>
   </g>
 {/if}
-
-<style>
-  .tick.origin {
-    stroke-width: 1.5px;
-  }
-</style>

@@ -46,5 +46,8 @@
     line-height: 13px;
     letter-spacing: 0em;
     text-align: left;
+
+    position: absolute;
+    top: -5px;
   }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext, onMount } from 'svelte';
-  import Scrollyteller from 'svelte-scrollyteller';
+  import Scrollyteller from 'jtfell-svelte-scrollyteller';
 
   import { createGraphStore } from '../store';
 
@@ -55,10 +55,9 @@
     transform: translateY(-50%);
   }
 
-  @media (min-width: 96rem) {
+  @media (min-width: 76rem) {
     .wrapper {
       margin-right: 55%;
-      max-width: 40vw;
     }
   }
 </style>

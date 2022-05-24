@@ -42,6 +42,6 @@
 		"papaparse": "^5.3.2",
 		"regenerator-runtime": "^0.13.9",
 		"svelte": "^3.47.0",
-		"svelte-scrollyteller": "^0.0.7"
+		"jtfell-svelte-scrollyteller": "^0.0.7"
 	}
 }
