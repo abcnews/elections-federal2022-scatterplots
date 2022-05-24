@@ -73,6 +73,12 @@
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
+  let dots = {};
+  $: {
+    data.forEach(d => {
+      dots[d.electorate] = d;
+    });
+  }
 </script>
 
 <main class="graphic">
@@ -93,7 +99,7 @@
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
       {/if}
 
-      {#each data as point}
+      {#each Object.values(data) as point}
         {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
             <circle
               id={point.electorate}
@@ -113,7 +119,7 @@
       {/each}
 
       <!-- Put the highlighted points after the non-highlighted so they sit on top -->
-      {#each data as point}
+      {#each Object.values(dots) as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <circle
             id={point.electorate}
@@ -132,7 +138,7 @@
         {/if}
       {/each}
 
-      {#each data as point}
+      {#each Object.values(dots) as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <text class="dot-label"
             id={`${point.electorate}-label`}
@@ -183,7 +189,7 @@
   .scatter-dot.highlight {
     stroke-width: 2px;
     /* Ensure that the dots animate with their labels */
-    transition-property: cx, cy;
+    /* transition-property: cx, cy; */
   }
 
   .dot-label {
