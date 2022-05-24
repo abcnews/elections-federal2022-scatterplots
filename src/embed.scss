@@ -1,0 +1,25 @@
+:root {
+  --primary: #0f62fe;
+  --tint: #f4f4f4;
+
+  font-family: "ABC Sans", Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.scrollyteller .panel ,
+.scrollyteller .st-panel {
+  -webkit-font-smoothing: initial;
+  -moz-osx-font-smoothing: initial;
+}
+
+@media (min-width: 76rem) {
+  .scrollyteller .panel ,
+  .scrollyteller .st-panel {
+    margin-left: 55% !important;
+    max-width: 40vw !important;
+  }
+}
