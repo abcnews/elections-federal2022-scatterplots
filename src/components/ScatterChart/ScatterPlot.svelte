@@ -57,15 +57,13 @@
   $: numTicks = innerWidth / 60;
   $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix || false;
 
-  $: console.log(data.find(e => e.electorate === 'Wills'));
-
 </script>
 
 <main class="graphic">
 
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
-      {#if (grid && data.length !== 0) && false}
+      {#if (grid && data.length !== 0)}
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={false} scale={xScale} position="bottom" />
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={forceAxisPrefix} scale={yScale} position="left" />
       {/if}

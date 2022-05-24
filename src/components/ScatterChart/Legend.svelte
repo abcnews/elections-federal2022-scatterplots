@@ -8,22 +8,22 @@
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.LIB} fill={COLOURS(isDarkMode).PARTIES.LIB} cx="10" cy="10" r="8"/>
   </svg>
-  <span>Liberal/National</span>
+  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.LIB}`}>Liberal/National</span>
 
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.ALP} fill={COLOURS(isDarkMode).PARTIES.ALP} cx="10" cy="10" r="8"/>
   </svg>
-  <span>Labor</span>
+  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.ALP}`}>Lab</span>
 
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.GRN} fill={COLOURS(isDarkMode).PARTIES.GRN} cx="10" cy="10" r="8"/>
   </svg>
-  <span>Greens</span>
+  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.GRN}`}>Greens</span>
 
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.OTH} fill={COLOURS(isDarkMode).PARTIES.OTH} cx="10" cy="10" r="8"/>
   </svg>
-  <span>Others</span>
+  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.OTH}`}>Others</span>
 </div>
 
 <style>
@@ -40,7 +40,7 @@
   }
 
   .scatter-key {
-    font-family: ABC Sans Nova;
+    font-family: "ABC Sans Nova", Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
     line-height: 13px;
