@@ -9,7 +9,7 @@ import ScrollyWrapper from './components/ScrollyWrapper.svelte';
 
 import { alternatingCaseToPartialGraph } from './lib/encode';
 
-// import './global.scss';
+import './embed.scss';
 
 let appMountEl1;
 let appMountEl2;
