@@ -174,7 +174,7 @@
     fill-opacity: 0.6;
     stroke-width: 1.5px;
 
-    transition-property: cy, cx;
+    transition-property: cy;
     transition-duration: 1s;
   }
   .scatter-dot.highlight {
