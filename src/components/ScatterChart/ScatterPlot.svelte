@@ -137,7 +137,7 @@
           <text class="dot-label"
             id={`${point.electorate}-label`}
             style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`}
-            transform={`translate(${xScale(point.x)}, ${yScale(point.y) - 10})`}
+            transform={`translate(${xScale(point.x) || 0}, ${yScale(point.y) - 10 || 0})`}
             x={0}
             y={0}
             text-anchor="middle"
