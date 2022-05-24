@@ -10,7 +10,7 @@
   // export let numTicks: number;
 
   export let isDarkMode: boolean;
-  export let midpoint: boolean;
+  export let isSwing: boolean;
 
   let transform: string;
   let g;
@@ -37,7 +37,7 @@
 
 <!-- emphasize the 0% or 50% gridline on the y-axis -->
 {#if position === 'left'}
-  <g class="tick origin" opacity="1" transform={`translate(0,${scale(midpoint ? 0 : 50)})`}>
+  <g class="tick origin" opacity="1" transform={`translate(0,${scale(isSwing ? 0 : 50)})`}>
     <line stroke={COLOURS(isDarkMode).AXIS} x2={innerWidth}></line>
   </g>
 {/if}

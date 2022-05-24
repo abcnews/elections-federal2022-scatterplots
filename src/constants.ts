@@ -160,7 +160,7 @@ export const DATASETS = [
 export const Y_AXIS_METHODS = [
   {
     id: 'zero',
-    forcePrefix: false,
+    isSwing: false,
     label: '',
   },
 
@@ -173,22 +173,22 @@ export const Y_AXIS_METHODS = [
   },
   {
     id: '2cpvotelnp',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Coalition 2CP vote',
   },
   {
     id: 'swingtolnp',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in Coalition 2PP vote',
   },
   {
     id: 'lnpprimary',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Coalition primary vote',
   },
   {
     id: 'lnpprimaryswing',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in Coalition primary vote',
   },
 
@@ -201,22 +201,22 @@ export const Y_AXIS_METHODS = [
   },
   {
     id: '2cpvotelabor',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Labor 2CP vote',
   },
   {
     id: 'swingtolabor',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in Labor 2PP vote',
   },
   {
     id: 'laborprimary',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Labor primary vote',
   },
   {
     id: 'laborprimaryswing',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in Labor primary vote',
   },
 
@@ -229,22 +229,22 @@ export const Y_AXIS_METHODS = [
   },
   {
     id: 'minorprimary',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Primary vote for combined minor parties (incl. Greens)',
   },
   {
     id: 'minorprimaryswing',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in combined primary vote for minor parties (incl. Greens)',
   },
   {
     id: 'bestminorprimary',
-    forcePrefix: false,
+    isSwing: false,
     label: 'Primary vote for highest placing minor party (incl. Greens)',
   },
   {
     id: 'bestminorprimaryswing',
-    forcePrefix: true,
+    isSwing: true,
     label: 'Change in primary vote for highest placing minor party (incl. Greens)',
   },
 ];

@@ -5,7 +5,7 @@
 
   export let isDarkMode: boolean;
   export let isLog: boolean;
-  export let forcePrefix: boolean;
+  export let isSwing: boolean;
 
   export let innerHeight: number;
   export let position: "bottom" | "left";
@@ -25,7 +25,7 @@
 
   $: {
     if (yAxisMethod !== 'zero' || position === 'bottom') {
-      select(g).selectAll("*").remove();
+      // select(g).selectAll("*").remove();
       let axis;
       switch (position) {
         case "bottom":
@@ -36,18 +36,19 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, ${innerHeight})`;
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
           break;
         case "left":
           axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
             // Add + to positive vote change
-            if (t > 0 && forcePrefix) {
+            if (t > 0 && isSwing) {
               return `+${t}${unit || ''}`;
             }
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, 0)`;
+          select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
       }
-      select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
     }
   }
 </script>

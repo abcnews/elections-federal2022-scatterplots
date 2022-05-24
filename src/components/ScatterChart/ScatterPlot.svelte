@@ -38,12 +38,28 @@
     mouseY = event.layerY;
   }
 
+  $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
+  $: numTicks = innerWidth / 60;
+
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
     .range(xAxisInverse ? [innerWidth, 0] : [0, innerWidth]);
 
-  $: yMin = min(data, d => d.y) - 5;
-  $: yMax = max(data, d => d.y) + 5;
+  // Ensure that the 0% or 50% line is always in the middle
+  let yMin: number;
+  let yMax: number;
+  $: {
+    if (isSwing) {
+      yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 5;
+      yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 5;
+    } else {
+      const negDiff = 50 - min(data, d => d.y);
+      const posDiff = max(data, d => d.y) - 50;
+
+      yMax = 50 + Math.max(posDiff, negDiff) + 5;
+      yMin = 50 - Math.max(posDiff, negDiff) - 5;
+    }
+  }
 
   $: yScale = scaleLinear()
     .domain([yMin, yMax])
@@ -54,9 +70,6 @@
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
-  $: numTicks = innerWidth / 60;
-  $: forceAxisPrefix = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.forcePrefix || false;
-
 </script>
 
 <main class="graphic">
@@ -64,12 +77,12 @@
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={false} scale={xScale} position="bottom" />
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} midpoint={forceAxisPrefix} scale={yScale} position="left" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
+        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
       {/if}
 
-      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} forcePrefix={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} forcePrefix={forceAxisPrefix} unit="%" isLog={false} scale={yScale} position="left" />
+      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
@@ -151,7 +164,7 @@
     stroke-width: 1.5px;
 
     transition-property: cy;
-    transition-duration: 0.5s;
+    transition-duration: 1s;
   }
   .scatter-dot.highlight {
     stroke-width: 2px;
