@@ -13,7 +13,7 @@
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.ALP} fill={COLOURS(isDarkMode).PARTIES.ALP} cx="10" cy="10" r="8"/>
   </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.ALP}`}>Lab</span>
+  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.ALP}`}>Labor</span>
 
   <svg viewBox="0 0 20 20">
     <circle stroke={COLOURS(isDarkMode).PARTIES.GRN} fill={COLOURS(isDarkMode).PARTIES.GRN} cx="10" cy="10" r="8"/>

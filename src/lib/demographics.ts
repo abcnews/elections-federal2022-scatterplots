@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
-import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf'
+import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
-import regeneratorRuntime from "regenerator-runtime";
+import regeneratorRuntime from 'regenerator-runtime';
 
 import { Y_AXIS_METHODS } from '../constants';
 import { fetchLiveResultsElectorates } from './results';
@@ -26,7 +26,7 @@ export const fetchDemographicData = async (dataset: string) => {
   }
 
   return fetchAbsData(dataset);
-}
+};
 
 const fetchAbsData = async (dataset: string) => {
   if (datasets[dataset]) {
@@ -39,7 +39,7 @@ const fetchAbsData = async (dataset: string) => {
     const res = { Electorate: row.Electorate };
     return Object.keys(row)
       .filter(k => k !== 'Electorate' && k !== 'Total')
-      .reduce((acc, k) => ({ ...acc, [k]: 100 * row[k] / row.Total }), res);
+      .reduce((acc, k) => ({ ...acc, [k]: (100 * row[k]) / row.Total }), res);
   });
 
   datasets[dataset] = normalised;
@@ -54,22 +54,24 @@ const fetchCampaignVisits = async () => {
     return datasets.visits;
   }
 
-  const dataUrl = 'https://abcnewsdata.sgp1.cdn.digitaloceanspaces.com/elections-federal2022-campaign-heatmap/travel.txt';
   const parties = [
     { id: 'LNP', name: 'Coalition', colour: 'ptyblue', leaders: ['Scott Morrison', 'Barnaby Joyce'] },
-    { id: 'ALP', name: 'Labor', colour: 'ptyred', leaders: ['Anthony Albanese', 'Richard Marles'] },
+    { id: 'ALP', name: 'Labor', colour: 'ptyred', leaders: ['Anthony Albanese', 'Richard Marles'] }
   ];
   const ZERO_VISITS = {
-    "Visits by Labor": 0,
-    "Visits by Coalition": 0,
-    "Visits by Anthony Albanese": 0,
-    "Visits by Scott Morrison": 0,
-    "Visits by Barnaby Joyce": 0,
-    "Visits by Richard Marles": 0,
+    'Visits by Labor': 0,
+    'Visits by Coalition': 0,
+    'Visits by Anthony Albanese': 0,
+    'Visits by Scott Morrison': 0,
+    'Visits by Barnaby Joyce': 0,
+    'Visits by Richard Marles': 0
   };
 
-  const raw = await fetch(dataUrl).then(r => r.text());
-  const rows = raw.trim().split('\n').map(line => line.split('\t'));
+  const raw = await fetch(`${__webpack_public_path__ || '/'}campaignvisits.txt`).then(r => r.text());
+  const rows = raw
+    .trim()
+    .split('\n')
+    .map(line => line.split('\t'));
 
   const visits = rows.reduce((acc, row) => {
     if (row.length !== 3) {
@@ -88,11 +90,10 @@ const fetchCampaignVisits = async () => {
   datasets.visits = ELECTORATE_CATEGORIES.map(({ Electorate }) => ({
     Electorate,
     ...ZERO_VISITS,
-    ...visits[Electorate],
+    ...visits[Electorate]
   }));
   return datasets.visits;
 };
-
 
 const fetchErads = async (year: string) => {
   if (datasets[year]) {
@@ -103,7 +104,6 @@ const fetchErads = async (year: string) => {
 
   // Convert results to a normalised form so it can be used as an x-axis dataset
   datasets[year] = rawResults.map(e => {
-
     const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolnp')?.label || '';
     const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolabor')?.label || '';
     const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelnp')?.label || '';
@@ -114,10 +114,10 @@ const fetchErads = async (year: string) => {
       [lnpSwingLabel]: yAxis(e, 'swingtolnp'),
       [laborSwingLabel]: yAxis(e, 'swingtolabor'),
       [lnpVoteLabel]: yAxis(e, '2cpvotelnp'),
-      [laborVoteLabel]: yAxis(e, '2cpvotelabor'),
+      [laborVoteLabel]: yAxis(e, '2cpvotelabor')
     };
   });
-  console.log(datasets[year]);
+
   return datasets[year];
 };
 
@@ -129,7 +129,7 @@ const CAPITAL_CITIES = [
   point([-34.9289, 138.6011].reverse()),
   point([-35.2931, 149.1269].reverse()),
   point([-42.8806, 147.325].reverse()),
-  point([-12.4381, 130.8411].reverse()),
+  point([-12.4381, 130.8411].reverse())
 ];
 
 const fetchGeo = async () => {
@@ -146,8 +146,8 @@ const fetchGeo = async () => {
 
     return {
       Electorate: e.properties.Elect_div,
-      "Area": e.properties.Area_SqKm,
-      "Distance from Nearest Capital": distanceToCity,
+      Area: e.properties.Area_SqKm,
+      'Distance from Nearest Capital': distanceToCity
     };
   });
   return datasets.geo;
