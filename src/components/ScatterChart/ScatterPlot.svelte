@@ -179,6 +179,8 @@
   }
   .scatter-dot.highlight {
     stroke-width: 2px;
+    /* Ensure that the dots animate with their labels */
+    transition-property: cy,cx;
   }
 
   .dot-label {
