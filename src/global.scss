@@ -8,9 +8,6 @@ $css--plex: false;
 
 @import 'carbon-components/scss/globals/scss/_css--helpers.scss';
 @import 'carbon-components/scss/globals/scss/_css--body.scss';
-// @import 'carbon-components/scss/globals/grid/_grid.scss';
-
-// @import 'carbon-components/scss/components/form/form';
 
 @import 'carbon-components/scss/components/accordion/accordion';
 @import 'carbon-components/scss/components/button/button';
@@ -22,14 +19,6 @@ $css--plex: false;
 @import 'carbon-components/scss/components/text-input/text-input';
 @import 'carbon-components/scss/components/tabs/tabs';
 @import 'carbon-components/scss/components/tag/tag';
-
-// @import 'carbon-components/scss/components/slider/slider';
-// @import 'carbon-components/scss/components/radio-button/radio-button';
-// @import 'carbon-components/scss/components/radio-button-group/radio-button-group';
-
-// @import 'carbon-components/scss/components/tile/tile';
-// @import 'carbon-components/scss/components/tile/tile-group';
-// @import 'carbon-components/scss/components/tile/radio-tile';
 
 :root {
   --primary: #0f62fe;
@@ -47,8 +36,11 @@ $css--plex: false;
 .scrollyteller .st-panel {
   -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
+}
 
-  @media (min-width: 76rem) {
+@media (min-width: 76rem) {
+  .scrollyteller .panel ,
+  .scrollyteller .st-panel {
     margin-left: 55% !important;
     max-width: 40vw !important;
   }
