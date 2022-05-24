@@ -21,13 +21,15 @@
     graph.updateMany(actoObjectToPartialGraph(state));
   });
 
-  // Prefetch all the datasets
+  // Prefetch all the datasets used in the scrollyteller sections
   onMount(() => {
     fetchLiveResultsElectorates('2019');
     fetchLiveResultsElectorates('2022');
     fetchDemographicData('votecompass2');
     fetchDemographicData('geo');
     fetchDemographicData('education');
+    fetchDemographicData('campaignvisits');
+    fetchDemographicData('vaccinations');
   });
 </script>
 
