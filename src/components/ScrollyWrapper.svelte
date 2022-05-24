@@ -57,7 +57,8 @@
 
   @media (min-width: 76rem) {
     .wrapper {
-      margin-right: 55%;
+      margin-left: calc(30% - 24.75rem) !important;
+      width: 49.5rem !important;
     }
   }
 </style>
