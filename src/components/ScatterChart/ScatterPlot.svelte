@@ -96,6 +96,7 @@
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
             <circle
+              id={point.electorate}
               class="scatter-dot"
               cx={xScale(point.x)}
               cy={yScale(point.y)}
@@ -115,6 +116,7 @@
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <circle
+            id={point.electorate}
             class="scatter-dot highlight"
             cx={xScale(point.x)}
             cy={yScale(point.y)}
@@ -133,6 +135,7 @@
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <text class="dot-label"
+            id={`${point.electorate}-label`}
             style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`}
             transform={`translate(${xScale(point.x)}, ${yScale(point.y) - 10})`}
             x={0}
@@ -174,13 +177,13 @@
     fill-opacity: 0.6;
     stroke-width: 1.5px;
 
-    transition-property: cy;
+    transition-property: cx, cy;
     transition-duration: 1s;
   }
   .scatter-dot.highlight {
     stroke-width: 2px;
     /* Ensure that the dots animate with their labels */
-    transition-property: cy,cx;
+    transition-property: cx, cy;
   }
 
   .dot-label {
