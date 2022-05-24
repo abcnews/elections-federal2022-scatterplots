@@ -29,7 +29,7 @@ whenOdysseyLoaded.then(() => {
   });
 
   try {
-    const scrollyData = loadScrollyteller('chart', 'u-full', 'mark');
+    const scrollyData = loadScrollyteller('chart1', 'u-full', 'mark');
     appMountEl1 = scrollyData.mountNode;
     if (appMountEl1) {
       new ScrollyWrapper({
