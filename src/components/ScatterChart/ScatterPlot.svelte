@@ -49,7 +49,10 @@
   let yMin: number;
   let yMax: number;
   $: {
-    if (isSwing) {
+    if (yAxisMethod === 'zero') {
+      yMin = 0;
+      yMax = 0;
+    } else if (isSwing) {
       yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 5;
       yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 5;
     } else {
@@ -78,7 +81,9 @@
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
         <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
+        {#if yAxisMethod !== 'zero'}
+          <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
+        {/if}
       {/if}
 
       <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
