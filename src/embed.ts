@@ -11,7 +11,8 @@ import { alternatingCaseToPartialGraph } from './lib/encode';
 
 // import './global.scss';
 
-let appMountEl;
+let appMountEl1;
+let appMountEl2;
 let appProps;
 
 whenOdysseyLoaded.then(() => {
@@ -29,10 +30,22 @@ whenOdysseyLoaded.then(() => {
 
   try {
     const scrollyData = loadScrollyteller('chart', 'u-full', 'mark');
-    appMountEl = scrollyData.mountNode;
-    if (appMountEl) {
+    appMountEl1 = scrollyData.mountNode;
+    if (appMountEl1) {
       new ScrollyWrapper({
-        target: appMountEl,
+        target: appMountEl1,
+        props: { scrollyData }
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    const scrollyData = loadScrollyteller('chart2', 'u-full', 'mark');
+    appMountEl2 = scrollyData.mountNode;
+    if (appMountEl2) {
+      new ScrollyWrapper({
+        target: appMountEl2,
         props: { scrollyData }
       });
     }
