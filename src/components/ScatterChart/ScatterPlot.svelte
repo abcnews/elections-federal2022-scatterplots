@@ -132,7 +132,13 @@
 
       {#each data as point}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <text class="dot-label" style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`} x={xScale(point.x)} y={yScale(point.y) - 10} text-anchor="middle">
+          <text class="dot-label"
+            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`}
+            transform={`translate(${xScale(point.x)}, ${yScale(point.y) - 10})`}
+            x={0}
+            y={0}
+            text-anchor="middle"
+          >
             {point.electorate}
           </text>
         {/if}
@@ -168,7 +174,7 @@
     fill-opacity: 0.6;
     stroke-width: 1.5px;
 
-    transition-property: cy;
+    transition-property: cy, cx;
     transition-duration: 1s;
   }
   .scatter-dot.highlight {
@@ -183,6 +189,9 @@
     stroke-opacity: 0.75;
     stroke-width: 2px;
     paint-order: stroke;
+
+    transition-property: transform;
+    transition-duration: 1s;
   }
 
   .tooltip {
