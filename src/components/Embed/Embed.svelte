@@ -11,4 +11,13 @@
 
 </script>
 
-<ScatterChart isScrolly={false} {isOdyssey} />
+<div class="scatter-embed">
+  <ScatterChart isScrolly={false} {isOdyssey} />
+</div>
+
+<style>
+  .scatter-embed {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+</style>
