@@ -7,6 +7,7 @@
   export let isLog: boolean;
   export let isSwing: boolean;
 
+  export let innerWidth: number;
   export let innerHeight: number;
   export let position: "bottom" | "left";
   export let unit: string;
@@ -25,12 +26,15 @@
 
   $: {
     if (yAxisMethod !== 'zero' || position === 'bottom') {
-      // select(g).selectAll("*").remove();
       let axis;
       switch (position) {
         case "bottom":
           axis = axisBottom(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
             if (isLog && LOG_SCALE.indexOf(t) === -1) {
+              return '';
+            }
+            // Avoid 0.5, 1.5, 2.5 on campaign visits chart
+            if (Math.round(t) !== t) {
               return '';
             }
             return `${t}${unit || ''}`;
@@ -54,7 +58,13 @@
 </script>
 
 {#if yAxisMethod !== 'zero' || position === 'bottom'}
-  <g class={`axis ${position}`} bind:this={g} {transform} />
+  <g class={`axis ${position}`} bind:this={g} {transform} >
+
+    <!-- Duplicate the bottom axis so it doesn't rotate on x-axis inversion --> 
+    {#if position === 'bottom'}
+      <path class="static-axis" stroke="currentColor" d="M{innerWidth},0.5H0.5"></path>
+    {/if}
+  </g>
 {/if}
 
 <style>

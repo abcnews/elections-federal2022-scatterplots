@@ -11,6 +11,8 @@
   import ScatterPlot from "./ScatterPlot.svelte";
   import Legend from "./Legend.svelte";
 
+  export let isScrolly: boolean;
+
   let graph = getContext<GraphStore>('graph');
   let data = [];
   let demographics = [];
@@ -54,13 +56,14 @@
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
 </script>
 
+{#if $graph.chartTitle}
+  <h1 class="scatter-title">{$graph.chartTitle}</h1>
+{/if}
+{#if $graph.chartDescription}
+  <p class="scatter-desc">{$graph.chartDescription}</p>
+{/if}
+
 <div bind:clientWidth={width} class={`wrapper ${isDarkMode ? 'dark' : ''}`}>
-  {#if $graph.chartTitle}
-    <h1 class="scatter-title">{$graph.chartTitle}</h1>
-  {/if}
-  {#if $graph.chartDescription}
-    <p class="scatter-desc">{$graph.chartDescription}</p>
-  {/if}
 
   {#if $graph.partyColours}
     <Legend {isDarkMode} />
@@ -71,6 +74,7 @@
     {xLabel}
     {yLabel}
     {data}
+    {isScrolly}
     xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
     xAxisInverse={$graph.xAxisInverse}
     isLog={$graph.xAxisUseLog}

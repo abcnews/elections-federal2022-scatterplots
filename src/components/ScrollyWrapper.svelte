@@ -39,7 +39,7 @@
     onMarker={updateState}
   >
     <div class="wrapper">
-      <ScatterChart />
+      <ScatterChart isScrolly={true} />
     </div>
   </Scrollyteller>
 {/if}

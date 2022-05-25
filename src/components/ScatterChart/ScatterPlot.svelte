@@ -9,6 +9,7 @@
 
   // Responsively sized dimensions (1:1 on mobile, 2:3 on desktop)
   export let width: number;
+
   $: height = width > MOBILE_BREAKPOINT ? width * 2/3 : width;
   $: innerHeight = height - margin.top - margin.bottom;
   $: innerWidth = width - margin.left - margin.right;
@@ -29,6 +30,7 @@
   export let isDarkMode: boolean;
   export let isLog: boolean;
   export let trendline: boolean;
+  export let isScrolly: boolean;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -39,7 +41,7 @@
   }
 
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
-  $: numTicks = innerWidth / 60;
+  $: numTicks = innerWidth / 100;
 
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
@@ -52,15 +54,18 @@
     if (yAxisMethod === 'zero') {
       yMin = 0;
       yMax = 0;
-    } else if (isSwing) {
+    } else if (isSwing && isScrolly) {
       yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 5;
       yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 5;
-    } else {
+    } else if (!isSwing && isScrolly) {
       const negDiff = 50 - min(data, d => d.y);
       const posDiff = max(data, d => d.y) - 50;
 
       yMax = 50 + Math.max(posDiff, negDiff) + 5;
       yMin = 50 - Math.max(posDiff, negDiff) - 5;
+    } else {
+      yMin = min(data, d => d.y) - 5;
+      yMax = max(data, d => d.y) + 5;
     }
   }
 
@@ -73,12 +78,8 @@
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
-  // let dots = {};
-  // $: {
-  //   data.forEach(d => {
-  //     dots[d.electorate] = d;
-  //   });
-  // }
+  $: selectedPointOnRight = mouseX > width * 0.8;
+  $: console.log(mouseX, width, selectedPointOnRight);
 </script>
 
 <main class="graphic">
@@ -92,8 +93,8 @@
         {/if}
       {/if}
 
-      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
+      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
         <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
@@ -163,11 +164,13 @@
   </svg>
 
   {#if selectedPoint != undefined}
-    <!-- Note: maybe consider aligning tooltip to the left of mouse when over to the right
-        to avoid label going off screen -->
-    <div class="tooltip" style="left: {mouseX + 10}px; top: {mouseY - 10}px">
-      {selectedPoint.electorate}
-    </div>
+    <!-- align the tooltip to the left of mouse when near the right side of the chart -->
+      <div
+        class="tooltip"
+        style="left: {mouseX + 10}px; top: {mouseY - 10}px; transform: translateX(-{selectedPointOnRight ? 120 : 0}%)"
+      >
+        {selectedPoint.electorate}
+      </div>
   {/if}
 
 </main>
@@ -222,12 +225,10 @@
 
   .axis-label-x {
     text-anchor: end;
-    /* font-weight: 700; */
     font-size: 14px;
   }
   .axis-label-y {
     text-anchor: start;
-    /* font-weight: 700; */
     font-size: 14px;
   }
 </style>

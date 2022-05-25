@@ -10,4 +10,4 @@
 
 </script>
 
-<ScatterChart />
+<ScatterChart isScrolly={false} />
