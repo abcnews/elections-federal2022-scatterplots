@@ -47,7 +47,7 @@
   {/each}
 
   <div class="u-full">
-    <ScrollyWrapper scrollyData={scrollyData} />
+    <ScrollyWrapper scrollyData={scrollyData} isOdyssey={true} />
   </div>
 {:else}
     <p class="FormatCredit">

@@ -25,7 +25,7 @@
 <main>
   <article class={`${$graph.darkModePreview ? 'darkmode' : ''}`}>
     <figure>
-      <ScatterChart isScrolly={false} />
+      <ScatterChart isScrolly={false} isOdyssey={false} />
     </figure>
   </article>
   <aside>

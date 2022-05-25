@@ -12,6 +12,7 @@
   import Legend from "./Legend.svelte";
 
   export let isScrolly: boolean;
+  export let isOdyssey: boolean;
 
   let graph = getContext<GraphStore>('graph');
   let data = [];
@@ -30,7 +31,10 @@
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  $: isDarkMode = newsWebDarkMode || $graph.darkModePreview;
+  // Detect dark-mode in the app only
+  //
+  // Odyssey doesn't support Dark mode anywhere
+  $: isDarkMode = newsWebDarkMode || $graph.darkModePreview && !isOdyssey;
 
   //
   // Data Fetching / Calcs

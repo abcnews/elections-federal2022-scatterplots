@@ -12,6 +12,7 @@
   // Initialise with default state
   const graph = createGraphStore({});
   export let scrollyData: any;
+  export let isOdyssey: boolean;
 
   // Setup room state
   setContext('graph', graph);
@@ -39,7 +40,7 @@
     onMarker={updateState}
   >
     <div class="wrapper">
-      <ScatterChart isScrolly={true} />
+      <ScatterChart isScrolly={true} {isOdyssey} />
     </div>
   </Scrollyteller>
 {/if}

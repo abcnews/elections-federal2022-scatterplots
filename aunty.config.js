@@ -14,6 +14,7 @@ module.exports = {
     entry: [
       "index",
       "embed",
+      "odyssey",
       "googledoc"
     ],
   },
