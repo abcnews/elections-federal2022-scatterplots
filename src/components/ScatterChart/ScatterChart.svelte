@@ -35,6 +35,7 @@
   //
   // Odyssey doesn't support Dark mode anywhere
   $: isDarkMode = (newsWebDarkMode || $graph.darkModePreview) && !isOdyssey;
+  $: console.log({ isDarkMode, isScrolly, isOdyssey });
 
   //
   // Data Fetching / Calcs

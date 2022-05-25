@@ -41,7 +41,8 @@
   }
 
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
-  $: numTicks = innerWidth / 100;
+  $: numTicks = Math.max(innerWidth / 100, 6);
+  $: console.log({ numTicks, innerWidth });
 
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
@@ -187,7 +188,7 @@
     stroke-width: 1.5px;
 
     transition-property: cx, cy;
-    transition-duration: 1s;
+    transition-duration: 2s;
   }
   .scatter-dot.highlight {
     stroke-width: 2px;
@@ -205,7 +206,7 @@
     paint-order: stroke;
 
     transition-property: transform;
-    transition-duration: 1s;
+    transition-duration: 2s;
   }
 
   .tooltip {

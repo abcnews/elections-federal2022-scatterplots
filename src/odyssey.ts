@@ -35,7 +35,7 @@ whenOdysseyLoaded.then(() => {
     if (appMountEl1) {
       new ScrollyWrapper({
         target: appMountEl1,
-        props: { scrollyData }
+        props: { scrollyData, isOdyssey: true }
       });
     }
   } catch (e) {
@@ -47,7 +47,7 @@ whenOdysseyLoaded.then(() => {
     if (appMountEl2) {
       new ScrollyWrapper({
         target: appMountEl2,
-        props: { scrollyData }
+        props: { scrollyData, isOdyssey: true }
       });
     }
   } catch (e) {
