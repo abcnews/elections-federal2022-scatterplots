@@ -34,7 +34,7 @@
   // Detect dark-mode in the app only
   //
   // Odyssey doesn't support Dark mode anywhere
-  $: isDarkMode = newsWebDarkMode || $graph.darkModePreview && !isOdyssey;
+  $: isDarkMode = (newsWebDarkMode || $graph.darkModePreview) && !isOdyssey;
 
   //
   // Data Fetching / Calcs
