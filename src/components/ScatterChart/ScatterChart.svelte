@@ -111,6 +111,7 @@
   .wrapper {
     font-family: "ABC Sans", Helvetica, sans-serif;
     width: 100%;
+    margin-top: 1.5rem;
   }
   .wrapper.dark {
     width: 100%;

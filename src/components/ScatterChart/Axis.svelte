@@ -51,7 +51,7 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, 0)`;
-          select(g).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
       }
     }
   }
