@@ -80,7 +80,6 @@
         (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
 
   $: selectedPointOnRight = mouseX > width * 0.8;
-  $: console.log(mouseX, width, selectedPointOnRight);
 </script>
 
 <main class="graphic">
