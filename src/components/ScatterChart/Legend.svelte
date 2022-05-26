@@ -30,7 +30,6 @@
   .scatter-key > svg {
     width: 0.75em;
     height: 0.75em;
-    margin-top: 1rem;
   }
   .scatter-key > svg > circle {
     stroke-width: 2px;

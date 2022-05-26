@@ -181,6 +181,10 @@
     position: relative;
   }
 
+  .graphic > svg {
+    margin-top: 0.75rem;
+  }
+
   .scatter-dot {
     fill: currentColor;
     fill-opacity: 0.6;
