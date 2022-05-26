@@ -143,8 +143,7 @@
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <text class="dot-label"
             id={`${point.electorate}-label`}
-            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}`}
-            transform={`translate(${xScale(point.x) || 0}, ${yScale(point.y) - 10 || 0})`}
+            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}; transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
             x={0}
             y={0}
             text-anchor="middle"
