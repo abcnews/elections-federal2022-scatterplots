@@ -180,10 +180,16 @@
   .graphic {
     position: relative;
     max-height: 90vh;
+    paint-order: stroke;
   }
 
   .graphic > svg {
     margin-top: 0.75rem;
+    paint-order: stroke;
+  }
+
+  .graphic text {
+    paint-order: stroke;
   }
 
   .scatter-dot {
