@@ -73,6 +73,7 @@
     font-size: 12px;
     line-height: 15px;
     padding-top: 0.5rem;
+    font-family: ABCSans, Helvetica, sans-serif;
   }
 
   :global(.axis.bottom > .tick > text) {
