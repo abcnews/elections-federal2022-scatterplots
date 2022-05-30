@@ -138,19 +138,22 @@
         {/if}
       {/each}
 
-      <!-- style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}; -webkit-transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px); transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`} -->
-      <!-- style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG};`} -->
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <text class="dot-label"
+          <g
             id={`${point.electorate}-label`}
-            style={`fill:${point.labelColour(isDarkMode)};`}
-            x={xScale(point.x) || 0}
-            y={yScale(point.y) - 10 || 0}
-            text-anchor="middle"
+            class="dot-label-wrapper"
+            style={`transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
           >
-            {point.electorate}
-          </text>
+            <text class="dot-label"
+              style={`fill:${point.labelColour(isDarkMode)};`}
+              x={0}
+              y={0}
+              text-anchor="middle"
+            >
+              {point.electorate}
+            </text>
+          </g>
         {/if}
       {/each}
 
@@ -186,10 +189,6 @@
     margin-top: 0.75rem;
   }
 
-  .graphic text {
-    paint-order: stroke;
-  }
-
   .scatter-dot {
     fill: currentColor;
     fill-opacity: 0.6;
@@ -198,6 +197,7 @@
     transition-property: cx, cy;
     transition-duration: 2s;
   }
+
   .scatter-dot.highlight {
     stroke-width: 2px;
     /* Ensure that the dots animate with their labels */
@@ -217,8 +217,11 @@
                   -1.25px 1.25px 0 #fff,
                   -1.25px    0   0 #fff;
 
-    /* transition-property: x, y; */
-    /* transition-duration: 2s; */
+  }
+
+  .dot-label-wrapper{
+    transition-property: transform;
+    transition-duration: 2s;
   }
 
   .tooltip {
