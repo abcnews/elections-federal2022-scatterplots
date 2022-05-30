@@ -202,8 +202,8 @@
     font-size: 12px;
 
     fill-opacity: 1;
-    stroke-opacity: 0.75;
-    stroke-width: 3px;
+    stroke-opacity: 0.9;
+    stroke-width: 4px;
     paint-order: stroke;
 
     transition-property: transform;

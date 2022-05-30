@@ -35,7 +35,6 @@
   //
   // Odyssey doesn't support Dark mode anywhere
   $: isDarkMode = (newsWebDarkMode || $graph.darkModePreview) && !isOdyssey;
-  $: console.log({ isDarkMode, isScrolly, isOdyssey });
 
   //
   // Data Fetching / Calcs
@@ -111,9 +110,9 @@
 
 <style>
   .wrapper {
-    font-family: "ABC Sans", Helvetica, sans-serif;
+    font-family: ABCSans, Helvetica, sans-serif;
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
   }
   .wrapper.dark {
     width: 100%;
@@ -126,11 +125,13 @@
   }
 
   .scatter-title {
+    font-family: ABCSansBold, ABCSans, Helvetica, sans-serif;
     font-weight: 900;
     font-size: 1.2rem;
   }
 
   .scatter-desc {
+    font-family: ABCSans, Helvetica, sans-serif;
     font-size: 1rem;
     line-height: 24px;
   }

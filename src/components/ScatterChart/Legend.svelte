@@ -40,7 +40,7 @@
   }
 
   .scatter-key {
-    font-family: "ABC Sans Nova", Helvetica, sans-serif;
+    font-family: ABCSans, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
     line-height: 13px;
