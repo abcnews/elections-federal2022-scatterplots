@@ -19,7 +19,5 @@
   .scatter-embed {
     padding-left: 14px;
     padding-right: 14px;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
 </style>
