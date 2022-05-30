@@ -147,6 +147,7 @@
             x={xScale(point.x) || 0}
             y={yScale(point.y) - 10 || 0}
             text-anchor="middle"
+            paint-order="stroke"
           >
             {point.electorate}
           </text>
