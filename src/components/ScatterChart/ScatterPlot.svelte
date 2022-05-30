@@ -208,21 +208,16 @@
     font-weight: 700;
     font-size: 12px;
 
-    fill-opacity: 1;
-    stroke-opacity: 0.9;
-    stroke-width: 1.5px;
-    paint-order: stroke;
+    text-shadow: -1.25px -1.25px 0 #fff,
+                  0      -1.25px 0 #fff,
+                  1.25px -1.25px 0 #fff,
+                  1.25px     0   0 #fff,
+                  1.25px  1.25px 0 #fff,
+                  0       1.25px 0 #fff,
+                  -1.25px 1.25px 0 #fff,
+                  -1.25px    0   0 #fff;
 
-    text-shadow: -1px -1px 0 #fff,
-0   -1px 0 #fff,
-1px -1px 0 #fff,
-1px  0   0 #fff,
-1px  1px 0 #fff,
-0    1px 0 #fff,
--1px  1px 0 #fff,
--1px  0   0 #fff
-
-    /* transition-property: transform; */
+    /* transition-property: x, y; */
     /* transition-duration: 2s; */
   }
 
