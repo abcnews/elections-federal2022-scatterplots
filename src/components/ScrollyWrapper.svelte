@@ -66,7 +66,7 @@
   @media (min-width: 76rem) {
     .wrapper {
       padding: 7.5vw 0 0;
-      margin-left: calc(30% - 24.75rem) !important;
+      margin-left: calc(32% - 24.75rem) !important;
       width: 49.5rem !important;
     }
   }

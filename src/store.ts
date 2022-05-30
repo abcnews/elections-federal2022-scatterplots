@@ -22,6 +22,7 @@ export interface Graph {
   partyColours: boolean;
   grid: boolean;
 
+  showSource: boolean;
   trendlineEnabled: boolean;
   trendlineMethod: string;
   smoothingBandwidth: number;
@@ -69,6 +70,7 @@ export const INITIAL_GRAPH = {
   partyColours: false,
   grid: true,
 
+  showSource: false,
   trendlineEnabled: true,
   trendlineMethod: 'linear',
   smoothingBandwidth: 2,
@@ -91,6 +93,7 @@ export const BOOL_FIELDS = [
   'grid',
   'trendlineEnabled',
   'onlyCalledElectorates',
+  'showSource',
 ];
 
 export const ARRAY_FIELDS = [

@@ -169,12 +169,14 @@
         bind:checked={$graph.grid}
         labelText="Enable Grid"
       />
-
       <Checkbox
         bind:checked={$graph.trendlineEnabled}
         labelText="Enable Trendline"
       />
-
+      <Checkbox
+        bind:checked={$graph.showSource}
+        labelText="Show Data Source"
+      />
 
       <Checkbox
         bind:checked={$graph.darkModePreview}

@@ -98,9 +98,11 @@
     <p class="chart-notes">{$graph.chartNotes}</p>
   {/if}
 
-  <p class="data-source">
-    {author}Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
-  </p>
+  {#if $graph.showSource}
+    <p class="data-source">
+      {author}Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
+    </p>
+  {/if}
 </div>
 
 {#if $graph.pearsonCoefficientPreview && $graph.xAxisFields.length > 0}

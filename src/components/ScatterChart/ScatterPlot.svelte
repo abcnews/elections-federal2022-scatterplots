@@ -42,7 +42,6 @@
 
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
-  $: console.log({ numTicks, innerWidth });
 
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
@@ -204,7 +203,7 @@
 
     fill-opacity: 1;
     stroke-opacity: 0.75;
-    stroke-width: 2px;
+    stroke-width: 3px;
     paint-order: stroke;
 
     transition-property: transform;
