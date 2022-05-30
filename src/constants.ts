@@ -179,7 +179,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'swingtolnp',
     isSwing: true,
-    label: 'Change in Coalition 2PP vote',
+    label: 'Change in Coalition 2CP vote',
   },
   {
     id: 'lnpprimary',
@@ -207,7 +207,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'swingtolabor',
     isSwing: true,
-    label: 'Change in Labor 2PP vote',
+    label: 'Change in Labor 2CP vote',
   },
   {
     id: 'laborprimary',
