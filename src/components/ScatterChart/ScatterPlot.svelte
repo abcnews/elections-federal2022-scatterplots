@@ -138,11 +138,14 @@
         {/if}
       {/each}
 
+      <!-- style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}; -webkit-transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px); transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`} -->
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <text class="dot-label"
             id={`${point.electorate}-label`}
-            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}; -webkit-transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px); transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
+            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG};`}
+            x={xScale(point.x) || 0}
+            y={yScale(point.y) - 10 || 0}
             text-anchor="middle"
           >
             {point.electorate}
@@ -205,8 +208,8 @@
     stroke-width: 4px;
     paint-order: stroke;
 
-    transition-property: transform;
-    transition-duration: 2s;
+    /* transition-property: transform; */
+    /* transition-duration: 2s; */
   }
 
   .tooltip {
