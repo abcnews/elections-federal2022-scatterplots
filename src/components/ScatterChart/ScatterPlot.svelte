@@ -139,15 +139,15 @@
       {/each}
 
       <!-- style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG}; -webkit-transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px); transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`} -->
+      <!-- style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG};`} -->
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <text class="dot-label"
             id={`${point.electorate}-label`}
-            style={`fill:${point.labelColour(isDarkMode)}; stroke:${COLOURS(isDarkMode).BG};`}
+            style={`fill:${point.labelColour(isDarkMode)};`}
             x={xScale(point.x) || 0}
             y={yScale(point.y) - 10 || 0}
             text-anchor="middle"
-            paint-order="stroke"
           >
             {point.electorate}
           </text>
@@ -180,12 +180,10 @@
   .graphic {
     position: relative;
     max-height: 90vh;
-    paint-order: stroke;
   }
 
   .graphic > svg {
     margin-top: 0.75rem;
-    paint-order: stroke;
   }
 
   .graphic text {
@@ -212,8 +210,17 @@
 
     fill-opacity: 1;
     stroke-opacity: 0.9;
-    stroke-width: 4px;
+    stroke-width: 1.5px;
     paint-order: stroke;
+
+    text-shadow: -1px -1px 0 #fff,
+0   -1px 0 #fff,
+1px -1px 0 #fff,
+1px  0   0 #fff,
+1px  1px 0 #fff,
+0    1px 0 #fff,
+-1px  1px 0 #fff,
+-1px  0   0 #fff
 
     /* transition-property: transform; */
     /* transition-duration: 2s; */
