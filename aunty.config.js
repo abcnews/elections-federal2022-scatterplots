@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const includedDependencies = [/carbon-/, /jtfell-/];
 const getLoaderDefinition = (config, testSourceMatch, loaderMatch) =>
