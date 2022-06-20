@@ -34,10 +34,8 @@
         labelText="Results Year"
         bind:selected={$graph.resultsYear}
       >
-        <SelectItem value="2019local" text="2019 (dev)" />
         <SelectItem value="2019" text="2019" />
         <SelectItem value="2022" text="2022" />
-        <SelectItem value="2022local" text="2022 (dev)" />
       </Select>
 
       <Select

@@ -21,13 +21,13 @@ export const fetchLiveResultsElectorates = (year: string) => {
   let props;
   let url;
   if (year === '2019') {
-    url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2019';
+    // Static version of live endpoint saved on 21/06/22 to avoid breakage if news-web change things
+    // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2019';
+    url = `${__webpack_public_path__ || '/'}2019results.json`;
   } else if (year === '2022') {
-    url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2022';
-  } else if (year === '2019local') {
-    url = `${__webpack_public_path__ || '/'}res2019.json`;
-  } else if (year === '2022local') {
-    url = `${__webpack_public_path__ || '/'}res2022.json`;
+    // Static version of live endpoint saved on 21/06/22 to avoid breakage if news-web change things
+    // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2022';
+    url = `${__webpack_public_path__ || '/'}2022results.json`;
   }
 
   if (!liveResultsElectoratesPromises[url]) {
