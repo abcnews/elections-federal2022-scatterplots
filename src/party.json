@@ -1,0 +1,610 @@
+[
+  {
+    "Electorate": "Adelaide",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Aston",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Ballarat",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Banks",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Barker",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Barton",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Bass",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Bean",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Bendigo",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Bennelong",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Berowra",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Blair",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Blaxland",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Bonner",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Boothby",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Bowman",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Braddon",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Bradfield",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Brand",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Brisbane",
+    "Party": "GRN"
+  },
+  {
+    "Electorate": "Bruce",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Burt",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Calare",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Calwell",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Canberra",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Canning",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Capricornia",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Casey",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Chifley",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Chisholm",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Clark",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Cook",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Cooper",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Corangamite",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Corio",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Cowan",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Cowper",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Cunningham",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Curtin",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Dawson",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Deakin",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Dickson",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Dobell",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Dunkley",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Durack",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Eden-Monaro",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Fadden",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Fairfax",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Farrer",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Fenner",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Fisher",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Flinders",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Flynn",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Forde",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Forrest",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Fowler",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Franklin",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Fraser",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Fremantle",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Gellibrand",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Gilmore",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Gippsland",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Goldstein",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Gorton",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Grayndler",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Greenway",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Grey",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Griffith",
+    "Party": "GRN"
+  },
+  {
+    "Electorate": "Groom",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Hasluck",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Hawke",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Herbert",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Higgins",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Hindmarsh",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Hinkler",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Holt",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Hotham",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Hughes",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Hume",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Hunter",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Indi",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Isaacs",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Jagajaga",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Kennedy",
+    "Party": "Katter's Australian Party (KAP)"
+  },
+  {
+    "Electorate": "Kingsford Smith",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Kingston",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Kooyong",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "La Trobe",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Lalor",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Leichhardt",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Lilley",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Lindsay",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Lingiari",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Longman",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Lyne",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Lyons",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Macarthur",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Mackellar",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Macnamara",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Macquarie",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Makin",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Mallee",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Maranoa",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Maribyrnong",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Mayo",
+    "Party": "Centre Alliance"
+  },
+  {
+    "Electorate": "McEwen",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "McMahon",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "McPherson",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Melbourne",
+    "Party": "GRN"
+  },
+  {
+    "Electorate": "Menzies",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Mitchell",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Monash",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Moncrieff",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Moore",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Moreton",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "New England",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Newcastle",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Nicholls",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "North Sydney",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "O'Connor",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Oxley",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Page",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Parkes",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Parramatta",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Paterson",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Pearce",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Perth",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Petrie",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Rankin",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Reid",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Richmond",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Riverina",
+    "Party": "NAT"
+  },
+  {
+    "Electorate": "Robertson",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Ryan",
+    "Party": "GRN"
+  },
+  {
+    "Electorate": "Scullin",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Shortland",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Solomon",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Spence",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Sturt",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Swan",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Sydney",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Tangney",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Wannon",
+    "Party": "LIB"
+  },
+  {
+    "Electorate": "Warringah",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Watson",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Wentworth",
+    "Party": "OTH"
+  },
+  {
+    "Electorate": "Werriwa",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Whitlam",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Wide Bay",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Wills",
+    "Party": "ALP"
+  },
+  {
+    "Electorate": "Wright",
+    "Party": "LNP"
+  },
+  {
+    "Electorate": "Total",
+    "Party": ""
+  }
+]

@@ -2,8 +2,8 @@
   import { getContext } from 'svelte';
   import type { GraphStore } from '../../store';
 
-  import { fetchDemographicData } from '../../lib/demographics';
-  import { fetchLiveResultsElectorates } from '../../lib/results';
+  import { fetchDemographicData, fetchTaxData } from '../../lib/demographics';
+  // import { fetchLiveResultsElectorates } from '../../lib/results';
   import { calcPearsonsCorrelation } from '../../lib/pearson';
   import { calcScatterData, determineXAxisLabel, determineYAxisLabel } from '../../lib/model';
   import { DATASETS } from '../../constants';
@@ -40,7 +40,7 @@
   // Data Fetching / Calcs
   //
   $: {
-    fetchLiveResultsElectorates($graph.resultsYear).then(r => {
+    fetchTaxData('tax').then(r => {
       results = r;
     });
   }

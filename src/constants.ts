@@ -2,6 +2,13 @@ export const MOBILE_BREAKPOINT = 480;
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
+    id: 'zero',
+    label: '',
+    sourceLabel: '',
+    canCombine: false,
+    unit: '',
+  },
+  {
     id: '2019results',
     label: 'AEC: 2019 Federal Election Results',
     sourceLabel: '',
@@ -159,93 +166,9 @@ export const DATASETS = [
 
 export const Y_AXIS_METHODS = [
   {
-    id: 'zero',
+    id: 'tax',
     isSwing: false,
-    label: '',
-  },
-
-  //
-  // COALITION
-  //
-  {
-    id: null,
-    label: '--COALITION--',
-  },
-  {
-    id: '2cpvotelnp',
-    isSwing: false,
-    label: 'Coalition 2CP vote',
-  },
-  {
-    id: 'swingtolnp',
-    isSwing: true,
-    label: 'Change in Coalition 2CP vote',
-  },
-  {
-    id: 'lnpprimary',
-    isSwing: false,
-    label: 'Coalition primary vote',
-  },
-  {
-    id: 'lnpprimaryswing',
-    isSwing: true,
-    label: 'Change in Coalition primary vote',
-  },
-
-  //
-  // LABOR
-  //
-  {
-    id: null,
-    label: '--LABOR--',
-  },
-  {
-    id: '2cpvotelabor',
-    isSwing: false,
-    label: 'Labor 2CP vote',
-  },
-  {
-    id: 'swingtolabor',
-    isSwing: true,
-    label: 'Change in Labor 2CP vote',
-  },
-  {
-    id: 'laborprimary',
-    isSwing: false,
-    label: 'Labor primary vote',
-  },
-  {
-    id: 'laborprimaryswing',
-    isSwing: true,
-    label: 'Change in Labor primary vote',
-  },
-
-  //
-  // MINORS
-  //
-  {
-    id: null,
-    label: '--MINORS--',
-  },
-  {
-    id: 'minorprimary',
-    isSwing: false,
-    label: 'Primary vote for combined minor parties (incl. Greens)',
-  },
-  {
-    id: 'minorprimaryswing',
-    isSwing: true,
-    label: 'Change in combined primary vote for minor parties (incl. Greens)',
-  },
-  {
-    id: 'bestminorprimary',
-    isSwing: false,
-    label: 'Primary vote for highest placing minor party (incl. Greens)',
-  },
-  {
-    id: 'bestminorprimaryswing',
-    isSwing: true,
-    label: 'Change in primary vote for highest placing minor party (incl. Greens)',
+    label: 'Share of stage 3 tax cuts (%)'
   },
 ];
 
@@ -273,7 +196,7 @@ export const ELECTORATE_HELD_BY = [
 //
 const PARTY_COLOURS = {
   LIB: '#0A52BF',
-  NAT: '#0A52BF',
+  NAT: 'green',
   ALP: '#E11F30',
   GRN: '#51A802',
   OTH: '#757575',

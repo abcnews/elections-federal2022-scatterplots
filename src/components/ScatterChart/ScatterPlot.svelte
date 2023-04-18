@@ -30,7 +30,7 @@
   export let isDarkMode: boolean;
   export let isLog: boolean;
   export let trendline: boolean;
-  export let isScrolly: boolean;
+  // export let isScrolly: boolean;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -43,6 +43,8 @@
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
 
+  $: isZero = xLabel === ' ' || xLabel === '';
+
   $: xScale = (isLog ? scaleLog() : scaleLinear())
     .domain(extent(data, (d) => d.x))
     .range(xAxisInverse ? [innerWidth, 0] : [0, innerWidth]);
@@ -54,18 +56,18 @@
     if (yAxisMethod === 'zero') {
       yMin = 0;
       yMax = 0;
-    } else if (isSwing && isScrolly) {
-      yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 5;
-      yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 5;
-    } else if (!isSwing && isScrolly) {
-      const negDiff = 50 - min(data, d => d.y);
-      const posDiff = max(data, d => d.y) - 50;
-
-      yMax = 50 + Math.max(posDiff, negDiff) + 5;
-      yMin = 50 - Math.max(posDiff, negDiff) - 5;
+    // } else if (isSwing && isScrolly) {
+    //   yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 1;
+    //   yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 1;
+    // } else if (!isSwing && isScrolly) {
+    //   const negDiff = 50 - min(data, d => d.y);
+    //   const posDiff = max(data, d => d.y) - 50;
+    //
+    //   yMax = 50 + Math.max(posDiff, negDiff) + 1;
+    //   yMin = 50 - Math.max(posDiff, negDiff) - 1;
     } else {
-      yMin = min(data, d => d.y) - 5;
-      yMax = max(data, d => d.y) + 5;
+      yMin = min(data, d => d.y) - 0.5;
+      yMax = max(data, d => d.y) + 0.5;
     }
   }
 
@@ -86,13 +88,15 @@
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
+          <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
         {#if yAxisMethod !== 'zero'}
           <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
         {/if}
       {/if}
 
+        {#if !isZero}
       <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+        {/if}
       <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
@@ -100,11 +104,11 @@
       {/if}
 
       {#each data as point (point.electorate)}
-        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
+        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null}
             <circle
               id={point.electorate}
               class="scatter-dot"
-              cx={xScale(point.x)}
+              cx={isZero ? 10 : xScale(point.x)}
               cy={yScale(point.y)}
               r="3"
               color={point.colour(isDarkMode)}
@@ -124,7 +128,7 @@
           <circle
             id={point.electorate}
             class="scatter-dot highlight"
-            cx={xScale(point.x)}
+            cx={isZero ? 10 : xScale(point.x)}
             cy={yScale(point.y)}
             r="3"
             color={point.colour(isDarkMode)}
@@ -143,13 +147,13 @@
           <g
             id={`${point.electorate}-label`}
             class="dot-label-wrapper"
-            style={`transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
+            style={`transform: translate(${isZero ? 20 : xScale(point.x) || 0}px, ${yScale(point.y) - 10 + (isZero ? 10 : 0) || 0}px)`}
           >
             <text class="dot-label"
               style={`fill:${point.labelColour(isDarkMode)};`}
               x={0}
               y={0}
-              text-anchor="middle"
+              text-anchor={isZero ? "left" : "middle"}
             >
               {point.electorate}
             </text>

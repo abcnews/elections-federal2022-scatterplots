@@ -28,6 +28,24 @@ export const fetchDemographicData = async (dataset: string) => {
   return fetchAbsData(dataset);
 };
 
+export const fetchTaxData = async (dataset: string) => {
+  if (datasets[dataset]) {
+    return datasets[dataset];
+  }
+
+  const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
+  const parsed = Papa.parse(raw, { header: true }).data;
+  const normalised = parsed.map(row => {
+    const res = { Electorate: row.Electorate, name: row.Electorate, };
+    return Object.keys(row)
+      .filter(k => k !== 'Electorate' && k !== 'Total')
+      .reduce((acc, k) => ({ ...acc, [k]: (100 * parseFloat(row[k])) / 17700 }), res);
+  });
+
+  datasets[dataset] = normalised;
+  return normalised;
+};
+
 const fetchAbsData = async (dataset: string) => {
   if (datasets[dataset]) {
     return datasets[dataset];

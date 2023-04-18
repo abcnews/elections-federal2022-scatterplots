@@ -4,6 +4,7 @@ import { regressionLog, regressionLinear } from 'd3-regression';
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
+import PARTIES from '../party.json';
 
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
   if (xAxisLabelOverride) {
@@ -82,13 +83,7 @@ export const calcScatterData = (
       }
     }
 
-    const hasBeenCalled = result.predicted?.gainretain === 'gain' || result.predicted?.gainretain === 'retain';
-    if (!hasBeenCalled && onlyCalledElectorates) {
-      // console.log('Called Filtered:', result.name);
-      return null;
-    }
-
-    let winningParty = result.leadingCandidate?.party.code;
+    let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party;
     // LNP in QLD maps to LIB for our purposes
     if (winningParty === 'LNP') {
       winningParty = 'LIB';
@@ -102,9 +97,8 @@ export const calcScatterData = (
     }
 
     return {
-      x: xAxis(demo, xAxisFields),
-      y: yAxis(result, yAxisMethod),
-      hasBeenCalled,
+      x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
+      y: xAxis(result, ['Total benefit $million ']),
       electorate: result.name,
       colour: isDM =>
         partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
@@ -112,6 +106,8 @@ export const calcScatterData = (
         partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
     };
   });
+
+  console.log(electorates);
 
   return electorates
     // .filter(e => !!e && e.y !== null);
