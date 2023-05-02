@@ -81,8 +81,8 @@ export const DATASETS = [
   {
     id: 'indigenousstatus',
     label: 'ABS: Indigenous Status',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: false,
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
     unit: '%',
   },
   {
@@ -168,7 +168,98 @@ export const Y_AXIS_METHODS = [
   {
     id: 'tax',
     isSwing: false,
-    label: 'Share of stage 3 tax cuts (%)'
+    label: 'Share of stage 3 tax cuts'
+  },
+
+
+   {
+    id: 'zero',
+    isSwing: false,
+    label: '',
+  },
+
+  //
+  // COALITION
+  //
+  {
+    id: null,
+    label: '--COALITION--',
+  },
+  {
+    id: '2cpvotelnp',
+    isSwing: false,
+    label: 'Coalition 2CP vote',
+  },
+  {
+    id: 'swingtolnp',
+    isSwing: true,
+    label: 'Change in Coalition 2CP vote',
+  },
+  {
+    id: 'lnpprimary',
+    isSwing: false,
+    label: 'Coalition primary vote',
+  },
+  {
+    id: 'lnpprimaryswing',
+    isSwing: true,
+    label: 'Change in Coalition primary vote',
+  },
+
+  //
+  // LABOR
+  //
+  {
+    id: null,
+    label: '--LABOR--',
+  },
+  {
+    id: '2cpvotelabor',
+    isSwing: false,
+    label: 'Labor 2CP vote',
+  },
+  {
+    id: 'swingtolabor',
+    isSwing: true,
+    label: 'Change in Labor 2CP vote',
+  },
+  {
+    id: 'laborprimary',
+    isSwing: false,
+    label: 'Labor primary vote',
+  },
+  {
+    id: 'laborprimaryswing',
+    isSwing: true,
+    label: 'Change in Labor primary vote',
+  },
+
+  //
+  // MINORS
+  //
+  {
+    id: null,
+    label: '--MINORS--',
+  },
+  {
+    id: 'minorprimary',
+    isSwing: false,
+    label: 'Primary vote for combined minor parties (incl. Greens)',
+  },
+  {
+    id: 'minorprimaryswing',
+    isSwing: true,
+    label: 'Change in combined primary vote for minor parties (incl. Greens)',
+  },
+  {
+    id: 'bestminorprimary',
+    isSwing: false,
+    label: 'Primary vote for highest placing minor party (incl. Greens)',
+  },
+  {
+    id: 'bestminorprimaryswing',
+    isSwing: true,
+    label: 'Change in primary vote for highest placing minor party (incl. Greens)',
   },
 ];
 
@@ -196,7 +287,7 @@ export const ELECTORATE_HELD_BY = [
 //
 const PARTY_COLOURS = {
   LIB: '#0A52BF',
-  NAT: 'green',
+  NAT: '#007056',
   ALP: '#E11F30',
   GRN: '#51A802',
   OTH: '#757575',

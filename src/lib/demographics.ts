@@ -126,13 +126,17 @@ const fetchErads = async (year: string) => {
     const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolabor')?.label || '';
     const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelnp')?.label || '';
     const laborVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelabor')?.label || '';
+    const lnpPVoteLabel = Y_AXIS_METHODS.find(m => m.id === 'lnpprimary')?.label || '';
+    const laborPVoteLabel = Y_AXIS_METHODS.find(m => m.id === 'laborprimary')?.label || '';
 
     return {
       Electorate: e.name,
       [lnpSwingLabel]: yAxis(e, 'swingtolnp'),
       [laborSwingLabel]: yAxis(e, 'swingtolabor'),
       [lnpVoteLabel]: yAxis(e, '2cpvotelnp'),
-      [laborVoteLabel]: yAxis(e, '2cpvotelabor')
+      [laborVoteLabel]: yAxis(e, '2cpvotelabor'),
+      [lnpPVoteLabel]: yAxis(e, 'lnpprimary'),
+      [laborPVoteLabel]: yAxis(e, 'laborprimary')
     };
   });
 

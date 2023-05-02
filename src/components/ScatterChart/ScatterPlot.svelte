@@ -66,7 +66,7 @@
     //   yMax = 50 + Math.max(posDiff, negDiff) + 1;
     //   yMin = 50 - Math.max(posDiff, negDiff) - 1;
     } else {
-      yMin = min(data, d => d.y) - 0.5;
+      yMin = 0;
       yMax = max(data, d => d.y) + 0.5;
     }
   }
@@ -245,10 +245,14 @@
 
   .axis-label-x {
     text-anchor: end;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 12px;
+    font-weight: 600;
   }
   .axis-label-y {
     text-anchor: start;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 12px;
+    font-weight: 600;
   }
 </style>

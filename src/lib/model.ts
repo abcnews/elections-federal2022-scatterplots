@@ -83,10 +83,10 @@ export const calcScatterData = (
       }
     }
 
-    let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party;
-    // LNP in QLD maps to LIB for our purposes
+    let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party || '';
+    // LNP in QLD maps to NAT for our purposes
     if (winningParty === 'LNP') {
-      winningParty = 'LIB';
+      winningParty = 'NAT';
     }
 
     // If not major party (incl. greens), set it to OTH
@@ -106,8 +106,6 @@ export const calcScatterData = (
         partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
     };
   });
-
-  console.log(electorates);
 
   return electorates
     // .filter(e => !!e && e.y !== null);

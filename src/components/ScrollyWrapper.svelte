@@ -69,5 +69,9 @@
       margin-left: calc(35% - 24.75rem) !important;
       width: 49.5rem !important;
     }
+
+    :global(.st-panel::before) {
+      opacity: 0;
+    }
   }
 </style>
