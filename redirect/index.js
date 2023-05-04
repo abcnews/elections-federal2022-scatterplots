@@ -1,1 +1,1 @@
-window.location = String(window.location).replace('/latest/', '/tax-cuts/')
+window.location = String(window.location).replace('/latest/', '/3.0.0/')
