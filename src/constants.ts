@@ -280,6 +280,7 @@ export const ELECTORATE_CLOSENESS = [
 export const ELECTORATE_HELD_BY = [
   'Liberal',
   'Labor',
+  'Minors'
 ];
 
 //

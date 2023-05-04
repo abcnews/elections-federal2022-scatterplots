@@ -57,32 +57,6 @@ export const calcScatterData = (
       return null;
     }
 
-    // Apply filters
-    if (heldByFilters.length > 0) {
-      if (heldByFilters.indexOf(categories['Held By']) === -1) {
-        // console.log('Held By Filtered:', result.name);
-        return null;
-      }
-
-      // Special case to handle "LNP" in data
-      if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
-        // console.log('Held By Filtered:', result.name);
-        return null;
-      }
-    }
-    if (closenessFilters.length > 0) {
-      if (closenessFilters.indexOf(categories['Closeness']) === -1) {
-        // console.log('Closeness Filtered:', result.name);
-        return null;
-      }
-    }
-    if (geoFilters.length > 0) {
-      if (geoFilters.indexOf(categories['Geo']) === -1) {
-        // console.log('Geo Filtered:', result.name);
-        return null;
-      }
-    }
-
     let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party || '';
     // LNP in QLD maps to NAT for our purposes
     if (winningParty === 'LNP') {
@@ -94,6 +68,38 @@ export const calcScatterData = (
     // This will catch IND, UAP, ONP, CA
     if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
       winningParty = 'OTH';
+    }
+
+    // Apply filters
+    if (heldByFilters.length === 1 && heldByFilters[0] === 'Minors') {
+      if (winningParty === 'ALP' || winningParty === 'LIB') {
+        return null;
+      }
+    } else if (heldByFilters.length > 0) {
+      if (heldByFilters.indexOf(categories['Held By']) === -1) {
+        // console.log('Held By Filtered:', result.name);
+        return null;
+      }
+
+      // Special case to handle "LNP" in data
+      if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
+        // console.log('Held By Filtered:', result.name);
+        return null;
+      }
+    }
+
+    if (closenessFilters.length > 0) {
+      if (closenessFilters.indexOf(categories['Closeness']) === -1) {
+        // console.log('Closeness Filtered:', result.name);
+        return null;
+      }
+    }
+
+    if (geoFilters.length > 0) {
+      if (geoFilters.indexOf(categories['Geo']) === -1) {
+        // console.log('Geo Filtered:', result.name);
+        return null;
+      }
     }
 
     return {
