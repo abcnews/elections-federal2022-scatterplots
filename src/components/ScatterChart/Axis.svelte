@@ -5,7 +5,7 @@
 
   export let isDarkMode: boolean;
   export let isLog: boolean;
-  export let isSwing: boolean;
+  // export let isSwing: boolean;
 
   export let innerWidth: number;
   export let innerHeight: number;
@@ -45,9 +45,9 @@
         case "left":
           axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
             // Add + to positive vote change
-            if (t > 0 && isSwing) {
-              return `+${t}${unit || ''}`;
-            }
+            // if (t > 0 && isSwing) {
+            //   return `+${t}${unit || ''}`;
+            // }
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, 0)`;
