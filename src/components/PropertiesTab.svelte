@@ -11,8 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY } from '../constants';
-  import ELECTORATES from '../electorate_categories.json';
+  import { DATASETS, Y_AXIS_METHODS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
 
   import { getContext } from 'svelte';
   import type { GraphStore } from '../store';
@@ -101,9 +100,18 @@
         titleText="Labelled Electorates"
         filterable
         bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        items={HIGHLIGHT_OPTS.map(d => ({ id: d, text: d}))}
         sortItem={() => {}}
       />
+
+      <Select
+        labelText="Colour By"
+        bind:selected={$graph.colourBy}
+      >
+        {#each COLOUR_METHODS as method}
+          <SelectItem value={method.id} text={method.label} />
+        {/each}
+      </Select>
 
     </AccordionItem>
 
@@ -156,12 +164,13 @@
       />
 
       <Checkbox
+        bind:checked={$graph.combineStates}
+        labelText="Combine states"
+      />
+
+      <Checkbox
         bind:checked={$graph.xAxisInverse}
         labelText="Reverse X Axis"
-      />
-      <Checkbox
-        bind:checked={$graph.partyColours}
-        labelText="Enable Party Colours"
       />
       <Checkbox
         bind:checked={$graph.grid}

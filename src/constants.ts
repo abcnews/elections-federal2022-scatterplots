@@ -1,4 +1,7 @@
+import ELECTORATES from './electorate_categories.json';
+
 export const MOBILE_BREAKPOINT = 480;
+
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
@@ -14,6 +17,12 @@ export const DATASETS = [
     sourceLabel: '',
     canCombine: false,
     unit: '%',
+  },
+  {
+    id: 'zero',
+    label: 'Zero',
+    sourceLabel: '',
+    canCombine: false,
   },
   {
     id: 'geo',
@@ -163,14 +172,46 @@ export const Y_AXIS_METHODS = [
   {
     id: 'yesvote',
     isSwing: false,
-    label: 'Yes vote',
+    label: 'Yes vote (%)',
   },
   {
     id: 'novote',
     isSwing: false,
-    label: 'No Vote',
+    label: 'No Vote (%)',
   },
 ];
+
+export const COLOUR_METHODS = [
+  {
+    id: '',
+    label: 'Basic',
+  },
+  {
+    id: 'party',
+    label: 'Party',
+  },
+  {
+    id: 'highlight',
+    label: 'Highlight',
+  },
+  {
+    id: 'state',
+    label: 'State',
+  },
+  {
+    id: 'result',
+    label: 'Result',
+  },
+  {
+    id: 'endorsement',
+    label: 'MP endorsement',
+  },
+];
+
+//
+// Electorate / State highlight opts
+//
+export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate), 'QLD', 'NSW', 'VIC', 'TAS', 'SA', 'WA', 'NT', 'ACT'];
 
 //
 // Filter Options
@@ -210,7 +251,8 @@ const PARTY_LABEL_COLOURS = {
   GRN: '#508423',
 };
 
-const DEFAULT_PRIMARY_COLOUR = '#664CB3'; // purple
+const DEFAULT_PRIMARY_COLOUR = '#007BC7'; // light blue
+const DEFAULT_FOCUS_COLOUR = '#E52A00'; // orange
 const TEXT_COLOUR = 'black';
 const BG_COLOUR = 'white';
 
@@ -230,7 +272,9 @@ const PARTY_COLOURS_DM = {
 const PARTY_LABEL_COLOURS_DM = {
   ...PARTY_COLOURS_DM,
 };
-const DEFAULT_PRIMARY_COLOUR_DM = '#AB96EB'; // purple
+
+const DEFAULT_PRIMARY_COLOUR_DM = '#0092ED'; // light blue
+const DEFAULT_FOCUS_COLOUR_DM = '#FF571A'; // orange
 const TEXT_COLOUR_DM = 'white';
 const BG_COLOUR_DM = 'black';
 
@@ -244,6 +288,7 @@ export const COLOURS = (isDarkMode?: boolean) => ({
   PARTIES: isDarkMode ? PARTY_COLOURS_DM : PARTY_COLOURS,
   PARTY_LABELS: isDarkMode ? PARTY_LABEL_COLOURS_DM : PARTY_LABEL_COLOURS,
   PRIMARY: isDarkMode ? DEFAULT_PRIMARY_COLOUR_DM : DEFAULT_PRIMARY_COLOUR,
+  FOCUS: isDarkMode ? DEFAULT_FOCUS_COLOUR_DM : DEFAULT_FOCUS_COLOUR,
   TEXT: isDarkMode ? TEXT_COLOUR_DM : TEXT_COLOUR,
   BG: isDarkMode ? BG_COLOUR_DM : BG_COLOUR,
   AXIS: isDarkMode ? AXIS_COLOUR_DM : AXIS_COLOUR,

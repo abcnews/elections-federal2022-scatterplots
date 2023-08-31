@@ -21,6 +21,14 @@ export const fetchDemographicData = async (dataset: string) => {
     return fetchGeo();
   }
 
+  if (dataset === 'zero') {
+    datasets.zero = ELECTORATE_CATEGORIES.map(e => ({
+      Electorate: e.Electorate,
+      zero: 50,
+    }));
+    return datasets.zero;
+  }
+
   if (dataset === 'campaignvisits') {
     return fetchCampaignVisits();
   }

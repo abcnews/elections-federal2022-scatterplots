@@ -49,7 +49,7 @@
       demographics = d;
     });
   }
-  $: data = calcScatterData(results, demographics, $graph.xAxisFields, $graph.yAxisMethod, $graph.partyColours, $graph.xAxisInverse, $graph.heldByFilters, $graph.closenessFilters, $graph.geoFilters, $graph.onlyCalledElectorates);
+  $: data = calcScatterData(results, demographics, $graph);
 
   //
   // Graph Labels
@@ -69,7 +69,7 @@
 
 <div bind:clientWidth={width} class={`wrapper ${isDarkMode ? 'dark' : ''}`}>
 
-  {#if $graph.partyColours}
+  {#if $graph.colourBy === 'party'}
     <Legend {isDarkMode} />
   {/if}
 

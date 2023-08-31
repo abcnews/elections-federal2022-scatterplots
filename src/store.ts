@@ -19,7 +19,8 @@ export interface Graph {
   xAxisUseLog: boolean;
   xAxisUnitOverride: null | string;
 
-  partyColours: boolean;
+  combineStates: boolean;
+  colourBy: string;
   grid: boolean;
 
   showSource: boolean;
@@ -67,7 +68,8 @@ export const INITIAL_GRAPH = {
   darkModePreview: false,
   pearsonCoefficientPreview: false,
 
-  partyColours: false,
+  combineStates: false,
+  colourBy: '',
   grid: true,
 
   showSource: false,
@@ -89,8 +91,8 @@ export const BOOL_FIELDS = [
 
   'xAxisUseLog',
   'xAxisInverse',
-  'partyColours',
   'grid',
+  'combineStates',
   'trendlineEnabled',
   'onlyCalledElectorates',
   'showSource',

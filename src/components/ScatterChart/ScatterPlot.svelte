@@ -106,7 +106,7 @@
               class="scatter-dot"
               cx={xScale(point.x)}
               cy={yScale(point.y)}
-              r="3"
+              r={point.r}
               color={point.colour(isDarkMode)}
               stroke={point.colour(isDarkMode)}
               data-electorate={point.electorate}
@@ -126,7 +126,7 @@
             class="scatter-dot highlight"
             cx={xScale(point.x)}
             cy={yScale(point.y)}
-            r="3"
+            r={point.r}
             color={point.colour(isDarkMode)}
             stroke={COLOURS(isDarkMode).TEXT}
             data-electorate={point.electorate}

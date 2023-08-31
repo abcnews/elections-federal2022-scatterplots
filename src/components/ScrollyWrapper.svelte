@@ -5,7 +5,7 @@
   import { createGraphStore } from '../store';
 
   import { fetchDemographicData } from '../lib/demographics';
-  import { fetchLiveResultsElectorates } from '../lib/results';
+  import { fetchErads } from '../lib/results';
   import { actoObjectToPartialGraph } from '../lib/encode';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
@@ -24,8 +24,8 @@
 
   // Prefetch all the datasets used in the scrollyteller sections
   onMount(() => {
-    fetchLiveResultsElectorates('2019');
-    fetchLiveResultsElectorates('2022');
+    fetchErads('2019');
+    fetchErads('2022');
     fetchDemographicData('votecompass2');
     fetchDemographicData('geo');
     fetchDemographicData('education');
