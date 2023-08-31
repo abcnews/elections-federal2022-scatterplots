@@ -4,7 +4,7 @@ import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 import regeneratorRuntime from 'regenerator-runtime';
 
 import { Y_AXIS_METHODS } from '../constants';
-import { fetchLiveResultsElectorates } from './results';
+import { fetchErads } from './results';
 import { yAxis } from './model';
 
 const datasets: Record<string, any> = {};
@@ -95,39 +95,14 @@ const fetchCampaignVisits = async () => {
   return datasets.visits;
 };
 
-const fetchErads = async (year: string) => {
-  if (datasets[year]) {
-    return datasets[year];
-  }
-
-  const rawResults = await fetchLiveResultsElectorates(year);
-
-  // Convert results to a normalised form so it can be used as an x-axis dataset
-  datasets[year] = rawResults.map(e => {
-    const lnpSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolnp')?.label || '';
-    const laborSwingLabel = Y_AXIS_METHODS.find(m => m.id === 'swingtolabor')?.label || '';
-    const lnpVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelnp')?.label || '';
-    const laborVoteLabel = Y_AXIS_METHODS.find(m => m.id === '2cpvotelabor')?.label || '';
-
-    return {
-      Electorate: e.name,
-      [lnpSwingLabel]: yAxis(e, 'swingtolnp'),
-      [laborSwingLabel]: yAxis(e, 'swingtolabor'),
-      [lnpVoteLabel]: yAxis(e, '2cpvotelnp'),
-      [laborVoteLabel]: yAxis(e, '2cpvotelabor')
-    };
-  });
-
-  return datasets[year];
-};
-
+const CANBERRA = point([-35.2931, 149.1269].reverse());
 const CAPITAL_CITIES = [
   point([-33.865, 151.2094].reverse()),
   point([-37.8136, 144.9631].reverse()),
   point([-27.4678, 153.0281].reverse()),
   point([-31.9522, 115.8589].reverse()),
   point([-34.9289, 138.6011].reverse()),
-  point([-35.2931, 149.1269].reverse()),
+  CANBERRA,
   point([-42.8806, 147.325].reverse()),
   point([-12.4381, 130.8411].reverse())
 ];
@@ -143,11 +118,13 @@ const fetchGeo = async () => {
     const electorateCenter = centroid(e.geometry);
     const nearestCity = nearestPoint(electorateCenter, featureCollection(CAPITAL_CITIES));
     const distanceToCity = Math.max(1, distance(electorateCenter, nearestCity));
+    const distanceToCanberra = Math.max(1, distance(electorateCenter, CANBERRA));
 
     return {
       Electorate: e.properties.Elect_div,
       Area: e.properties.Area_SqKm,
-      'Distance from Nearest Capital': distanceToCity
+      'Distance from Nearest Capital': distanceToCity,
+      'Distance from Canberra': distanceToCanberra
     };
   });
   return datasets.geo;

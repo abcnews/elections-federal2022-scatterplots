@@ -3,6 +3,7 @@ import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
+import PARTIES from '../party.json';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
@@ -51,23 +52,33 @@ export const calcScatterData = (
     // Get the categories for the electorate
     const categories = ELECTORATE_CATEGORIES.find(c => c.Electorate === result.name);
 
+    let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party;
+    // LNP in QLD maps to LIB for our purposes
+    if (winningParty === 'LNP') {
+      winningParty = 'LIB';
+    }
+
+    // If not major party (incl. greens), set it to OTH
+    //
+    // This will catch IND, UAP, ONP, CA
+    if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
+      winningParty = 'OTH';
+    }
+
+
     // Ignore electorates with incomplete data
-    if (!demo || xAxisFields.length === 0 || !categories) {
+    if (!demo || xAxisFields.length === 0 || !categories || !winningParty) {
+      console.log('Filtered (incomplete data):', result.name);
       return null;
     }
 
-    // Apply filters
     if (heldByFilters.length > 0) {
-      if (heldByFilters.indexOf(categories['Held By']) === -1) {
+
+      if (heldByFilters.indexOf(winningParty) === -1) {
         // console.log('Held By Filtered:', result.name);
         return null;
       }
 
-      // Special case to handle "LNP" in data
-      if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
-        // console.log('Held By Filtered:', result.name);
-        return null;
-      }
     }
     if (closenessFilters.length > 0) {
       if (closenessFilters.indexOf(categories['Closeness']) === -1) {
@@ -82,34 +93,14 @@ export const calcScatterData = (
       }
     }
 
-    const hasBeenCalled = result.predicted?.gainretain === 'gain' || result.predicted?.gainretain === 'retain';
-    if (!hasBeenCalled && onlyCalledElectorates) {
-      // console.log('Called Filtered:', result.name);
-      return null;
-    }
-
-    let winningParty = result.leadingCandidate?.party.code;
-    // LNP in QLD maps to LIB for our purposes
-    if (winningParty === 'LNP') {
-      winningParty = 'LIB';
-    }
-
-    // If not major party (incl. greens), set it to OTH
-    //
-    // This will catch IND, UAP, ONP, CA
-    if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
-      winningParty = 'OTH';
-    }
-
     return {
       x: xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
-      hasBeenCalled,
       electorate: result.name,
       colour: isDM =>
-        partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
+        partyColours ? COLOURS(isDM).PARTIES[winningParty as string] : COLOURS(isDM).PRIMARY,
       labelColour: isDM =>
-        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
+        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty as string] : COLOURS(isDM).TEXT
     };
   });
 
@@ -118,7 +109,7 @@ export const calcScatterData = (
     .filter(e => !!e);
 };
 
-const swing = (res) => {
+export const swing = (res) => {
   if (!res) {
     return null;
   }
@@ -126,7 +117,7 @@ const swing = (res) => {
   return parseFloat(res.predicted2CP.swing);
 };
 
-const twoCP = (res) => {
+export const twoCP = (res) => {
   if (!res) {
     return null;
   }
@@ -134,14 +125,15 @@ const twoCP = (res) => {
   return parseFloat(res.predicted2CP.pct);
 };
 
-const primarySwing = (runners) => {
+export const primarySwing = (runners) => {
   if (runners.length === 0) {
     return null;
   }
 
   return sum(runners.map(r => parseFloat(r.predicted.swing)));
 };
-const primary = (runners) => {
+
+export const primary = (runners) => {
   if (runners.length === 0) {
     return null;
   }
@@ -153,85 +145,26 @@ const primary = (runners) => {
 // Calculate the vote measure for the Y Axis
 //
 export const yAxis = (result: any, method: string): number | null => {
-  const coalitionRes = result.swingDial.find(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
-  );
-  const coalitionRunners = (result.runners || []).filter(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
-  );
-
-  const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
-  const laborRunners = (result.runners || []).filter(
-    p => p.party.code === 'ALP'
-  );
-
-  // Greens included as "non-major" for this measure
-  const minorRunners = (result.runners || []).filter(
-    p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
-  );
-
   if (method === 'zero') {
     return 0;
   }
 
   //
-  // LABOR
+  // Yes/No vote
   //
-  if (method === 'laborprimary') {
+  // TODO: calc vote % when we have test data
+  const laborRunners = (result.runners || []).filter(
+    p => p.party.code === 'ALP'
+  );
+  if (method === 'yesvote') {
     return primary(laborRunners);
   }
-  if (method === 'laborprimaryswing') {
-    return primarySwing(laborRunners);
-  }
-  if (method === 'swingtolabor') {
-    return swing(laborRes);
-  }
-  if (method === '2cpvotelabor') {
-    return twoCP(laborRes);
-  }
-
-  //
-  // COALITION
-  //
-  if (method === 'lnpprimary') {
-    return primary(coalitionRunners);
-  }
-  if (method === 'lnpprimaryswing') {
-    return primarySwing(coalitionRunners);
-  }
-  if (method === 'swingtolnp') {
-    return swing(coalitionRes);
-  }
-  if (method === '2cpvotelnp') {
-    return twoCP(coalitionRes);
-  }
-
-  //
-  // MINORS
-  //
-  if (method === 'minorprimary') {
-    return primary(minorRunners);
-  }
-  if (method === 'minorprimaryswing') {
-    return primarySwing(minorRunners);
-  }
-  if (method === 'bestminorprimary') {
-    if (minorRunners.length === 0) {
-      return null;
-    }
-    return max(minorRunners.map(r => parseFloat(r.predicted.pct)));
-  }
-  if (method === 'bestminorprimaryswing') {
-    if (minorRunners.length === 0) {
-      return null;
-    }
-    const highestPrimary = max(minorRunners.map(r => parseFloat(r.predicted.pct)));
-    const bestInd = minorRunners.find(r => parseFloat(r.predicted.pct) === highestPrimary);
-    return parseFloat(bestInd?.predicted.swing);
+  if (method === 'novote') {
+    return 1 - primary(laborRunners);
   }
 
   return null;
-};
+}
 
 //
 // Calculate the chosen demographic as a % of the total population of the electorate
