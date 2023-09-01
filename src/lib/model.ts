@@ -78,17 +78,21 @@ export const calcScatterData = (
     let i = 0;
     return Object.keys(states).map(state => {
       // TODO: set based on yes/no probably
-      let colour = isDM => COLOURS(isDM).PRIMARY;
-      let labelColour = isDM => COLOURS(isDM).TEXT;
-
-      if (colourBy === 'result') {
-        colour = isDM => (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS(isDM).FOCUS : COLOURS(isDM).PRIMARY;
-      }
+      let colour = COLOURS.PRIMARY;
+      let labelColour = COLOURS.TEXT;
 
       const { yesVotes, noVotes } = states[state];
 
+      if (colourBy === 'result') {
+        colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.FOCUS : COLOURS.PRIMARY;
+      }
+
       let x = i++;
       if (isZeroX) {
+        x = 0;
+      }
+      if (xAxisFields[0] === 'meta-ad-spend') {
+        // TODO
         x = 0;
       }
 
@@ -149,21 +153,21 @@ export const calcScatterData = (
       }
     }
 
-    let colour = isDM => COLOURS(isDM).PRIMARY;
-    let labelColour = isDM => COLOURS(isDM).TEXT;
+    let colour = COLOURS.PRIMARY;
+    let labelColour = COLOURS.TEXT;
 
     // Party colours
     if (colourBy === 'party') {
-      colour = isDM => COLOURS(isDM).PARTIES[winningParty as string];
-      labelColour = isDM => COLOURS(isDM).PARTY_LABELS[winningParty as string];
+      colour = COLOURS.PARTIES[winningParty as string];
+      labelColour = COLOURS.PARTY_LABELS[winningParty as string];
     }
 
     // Highlight colours
     if (colourBy === 'highlight') {
       const isHighlighted = electorateHighlights.indexOf(result.name) > -1;
 
-      colour = isDM => isHighlighted ? COLOURS(isDM).FOCUS : COLOURS(isDM).PRIMARY;
-      labelColour = isDM => COLOURS(isDM).TEXT;
+      colour = isHighlighted ? COLOURS.FOCUS : COLOURS.PRIMARY;
+      labelColour = COLOURS.TEXT;
     }
 
     return {

@@ -31,11 +31,6 @@
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  // Detect dark-mode in the app only
-  //
-  // Odyssey doesn't support Dark mode anywhere
-  $: isDarkMode = (newsWebDarkMode || $graph.darkModePreview) && !isOdyssey;
-
   //
   // Data Fetching / Calcs
   //
@@ -58,6 +53,7 @@
   $: yLabel = determineYAxisLabel($graph.yAxisLabelOverride, $graph.yAxisMethod);
   $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
+  $: xZero = $graph.xAxisFields[0] === 'zero';
 </script>
 
 {#if $graph.chartTitle}
@@ -67,10 +63,10 @@
   <p class="scatter-desc">{$graph.chartDescription}</p>
 {/if}
 
-<div bind:clientWidth={width} class={`wrapper ${isDarkMode ? 'dark' : ''}`}>
+<div bind:clientWidth={width} class={'wrapper'}>
 
   {#if $graph.colourBy === 'party'}
-    <Legend {isDarkMode} />
+    <Legend />
   {/if}
 
   <ScatterPlot
@@ -79,6 +75,8 @@
     {yLabel}
     {data}
     {isScrolly}
+
+    {xZero}
     xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
     xAxisInverse={$graph.xAxisInverse}
     isLog={$graph.xAxisUseLog}
@@ -89,7 +87,6 @@
     trendlineMethod={$graph.trendlineMethod}
     smoothingBandwidth={$graph.smoothingBandwidth}
 
-    isDarkMode={isDarkMode}
     electorateHighlights={$graph.electorateHighlights}
   />
 

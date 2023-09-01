@@ -20,6 +20,7 @@
   export let xLabel: string;
   export let yLabel: string;
   export let xUnit: string;
+  export let xZero: boolean;
 
   export let trendlineMethod: string;
   export let smoothingBandwidth: number;
@@ -27,7 +28,6 @@
 
   export let grid: boolean;
   export let xAxisInverse: boolean;
-  export let isDarkMode: boolean;
   export let isLog: boolean;
   export let trendline: boolean;
   export let isScrolly: boolean;
@@ -86,17 +86,19 @@
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-        <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
+        <Grid {innerHeight} {numTicks} {innerWidth} isSwing={false} scale={xScale} position="bottom" />
         {#if yAxisMethod !== 'zero'}
-          <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
+          <Grid {innerHeight} {numTicks} {innerWidth} {isSwing} scale={yScale} position="left" />
         {/if}
       {/if}
 
-      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
+      {#if !xZero}
+        <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      {/if}
+      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
-        <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
+        <path class="trendline" stroke={COLOURS.TEXT} d={trendlinePath} />
       {/if}
 
       {#each data as point (point.electorate)}
@@ -107,8 +109,8 @@
               cx={xScale(point.x)}
               cy={yScale(point.y)}
               r={point.r}
-              color={point.colour(isDarkMode)}
-              stroke={point.colour(isDarkMode)}
+              color={point.colour}
+              stroke={point.colour}
               data-electorate={point.electorate}
               on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
               on:mouseout={() => {selectedPoint = undefined;}}
@@ -127,8 +129,8 @@
             cx={xScale(point.x)}
             cy={yScale(point.y)}
             r={point.r}
-            color={point.colour(isDarkMode)}
-            stroke={COLOURS(isDarkMode).TEXT}
+            color={point.colour}
+            stroke={COLOURS.TEXT}
             data-electorate={point.electorate}
             on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
             on:mouseout={() => {selectedPoint = undefined;}}
@@ -146,7 +148,7 @@
             style={`transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
           >
             <text class="dot-label"
-              style={`fill:${point.labelColour(isDarkMode)};`}
+              style={`fill:${point.labelColour};`}
               x={0}
               y={0}
               text-anchor="middle"
@@ -157,10 +159,10 @@
         {/if}
       {/each}
 
-      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={10} y={margin.top}>
+      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top}>
         {yLabel}
       </text>
-      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
         {xLabel}
       </text>
     </g>

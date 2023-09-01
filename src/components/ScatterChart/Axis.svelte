@@ -3,7 +3,6 @@
   import { axisBottom, axisLeft } from "d3-axis";
   import { COLOURS } from '../../constants';
 
-  export let isDarkMode: boolean;
   export let isLog: boolean;
   export let isSwing: boolean;
 
@@ -40,7 +39,7 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, ${innerHeight})`;
-          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS.AXIS);
           break;
         case "left":
           axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
@@ -51,7 +50,7 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, 0)`;
-          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS.AXIS);
       }
     }
   }

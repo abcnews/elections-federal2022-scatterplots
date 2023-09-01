@@ -1,29 +1,27 @@
 <script lang="ts">
   import { COLOURS } from '../../constants';
-
-  export let isDarkMode: boolean;
 </script>
 
 <div class="scatter-key">
   <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.LIB} fill={COLOURS(isDarkMode).PARTIES.LIB} cx="10" cy="10" r="8"/>
+    <circle stroke={COLOURS.PARTIES.LIB} fill={COLOURS.PARTIES.LIB} cx="10" cy="10" r="8"/>
   </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.LIB}`}>Liberal/National</span>
+  <span style={`color:${COLOURS.PARTY_LABELS.LIB}`}>Liberal/National</span>
 
   <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.ALP} fill={COLOURS(isDarkMode).PARTIES.ALP} cx="10" cy="10" r="8"/>
+    <circle stroke={COLOURS.PARTIES.ALP} fill={COLOURS.PARTIES.ALP} cx="10" cy="10" r="8"/>
   </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.ALP}`}>Labor</span>
+  <span style={`color:${COLOURS.PARTY_LABELS.ALP}`}>Labor</span>
 
   <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.GRN} fill={COLOURS(isDarkMode).PARTIES.GRN} cx="10" cy="10" r="8"/>
+    <circle stroke={COLOURS.PARTIES.GRN} fill={COLOURS.PARTIES.GRN} cx="10" cy="10" r="8"/>
   </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.GRN}`}>Greens</span>
+  <span style={`color:${COLOURS.PARTY_LABELS.GRN}`}>Greens</span>
 
   <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.OTH} fill={COLOURS(isDarkMode).PARTIES.OTH} cx="10" cy="10" r="8"/>
+    <circle stroke={COLOURS.PARTIES.OTH} fill={COLOURS.PARTIES.OTH} cx="10" cy="10" r="8"/>
   </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.OTH}`}>Others</span>
+  <span style={`color:${COLOURS.PARTY_LABELS.OTH}`}>Others</span>
 </div>
 
 <style>

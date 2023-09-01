@@ -260,37 +260,15 @@ const AXIS_COLOUR = '#69788C';
 const GRID_COLOUR = '#D6DDE4';
 
 //
-// From ABC Datawrapper darkmode colour palette
-//
-const PARTY_COLOURS_DM = {
-  LIB: '#166EF3',
-  NAT: '#166EF3',
-  ALP: '#E11F30',
-  GRN: '#51A802',
-  OTH: '#757575',
-};
-const PARTY_LABEL_COLOURS_DM = {
-  ...PARTY_COLOURS_DM,
-};
-
-const DEFAULT_PRIMARY_COLOUR_DM = '#0092ED'; // light blue
-const DEFAULT_FOCUS_COLOUR_DM = '#FF571A'; // orange
-const TEXT_COLOUR_DM = 'white';
-const BG_COLOUR_DM = 'black';
-
-const AXIS_COLOUR_DM = '#838FA0';
-const GRID_COLOUR_DM = '#31363C';
-
-//
 // Allow consumer to flip between palette based on DM setting
 //
-export const COLOURS = (isDarkMode?: boolean) => ({
-  PARTIES: isDarkMode ? PARTY_COLOURS_DM : PARTY_COLOURS,
-  PARTY_LABELS: isDarkMode ? PARTY_LABEL_COLOURS_DM : PARTY_LABEL_COLOURS,
-  PRIMARY: isDarkMode ? DEFAULT_PRIMARY_COLOUR_DM : DEFAULT_PRIMARY_COLOUR,
-  FOCUS: isDarkMode ? DEFAULT_FOCUS_COLOUR_DM : DEFAULT_FOCUS_COLOUR,
-  TEXT: isDarkMode ? TEXT_COLOUR_DM : TEXT_COLOUR,
-  BG: isDarkMode ? BG_COLOUR_DM : BG_COLOUR,
-  AXIS: isDarkMode ? AXIS_COLOUR_DM : AXIS_COLOUR,
-  GRID: isDarkMode ? GRID_COLOUR_DM : GRID_COLOUR,
-});
+export const COLOURS = {
+  PARTIES: PARTY_COLOURS,
+  PARTY_LABELS: PARTY_LABEL_COLOURS,
+  PRIMARY: DEFAULT_PRIMARY_COLOUR,
+  FOCUS: DEFAULT_FOCUS_COLOUR,
+  TEXT: TEXT_COLOUR,
+  BG: BG_COLOUR,
+  AXIS: AXIS_COLOUR,
+  GRID: GRID_COLOUR,
+};
