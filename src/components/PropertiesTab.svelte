@@ -11,7 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
+  import { DATASETS, Y_AXIS_METHODS, STATE_X_AXIS_OPTS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
 
   import { getContext } from 'svelte';
   import type { GraphStore } from '../store';
@@ -24,6 +24,7 @@
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
   }
+
 </script>
 
 <div>
@@ -49,6 +50,7 @@
       <Select
         labelText="Dataset"
         selected={$graph.dataset}
+        disabled={$graph.combineStates}
         on:change={e => {
           if (e.detail !== $graph.dataset) {
             $graph.dataset = e.detail;
@@ -63,7 +65,24 @@
         {/each}
       </Select>
 
-      {#if DATASETS.find(d => d.id === $graph.dataset)?.canCombine}
+      {#if $graph.combineStates}
+        <Select
+          labelText="X Axis"
+          selected={$graph.xAxisFields[0]}
+          on:change={e => {
+            if (e.detail && e.detail !== $graph.xAxisFields[0]) {
+              $graph.xAxisFields = [e.detail];
+          } else if (e.detail === '' && $graph.xAxisFields[0]) {
+              $graph.xAxisFields = [];
+            }
+          }}
+        >
+          <SelectItem text={'None'} />
+          {#each STATE_X_AXIS_OPTS as field}
+            <SelectItem value={field} text={field} />
+          {/each}
+        </Select>
+      {:else if DATASETS.find(d => d.id === $graph.dataset)?.canCombine}
         <MultiSelect
           titleText="X Axis Metric"
           bind:selectedIds={$graph.xAxisFields}

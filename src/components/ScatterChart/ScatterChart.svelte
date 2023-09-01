@@ -12,7 +12,6 @@
   import Legend from "./Legend.svelte";
 
   export let isScrolly: boolean;
-  export let isOdyssey: boolean;
 
   let graph = getContext<GraphStore>('graph');
   let data = [];
@@ -110,15 +109,6 @@
     font-family: ABCSans, Helvetica, sans-serif;
     width: 100%;
     margin-top: 0.5rem;
-  }
-  .wrapper.dark {
-    width: 100%;
-    background: black;
-  }
-  .wrapper.dark {
-    width: 100%;
-    background: black;
-    color: white;
   }
 
   .scatter-title {

@@ -2,6 +2,7 @@ import ELECTORATES from './electorate_categories.json';
 
 export const MOBILE_BREAKPOINT = 480;
 
+export const STATE_X_AXIS_OPTS = ['zero', 'meta-ad-spend'];
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
@@ -195,8 +196,8 @@ export const COLOUR_METHODS = [
     label: 'Highlight',
   },
   {
-    id: 'state',
-    label: 'State',
+    id: 'state-result',
+    label: 'State Result',
   },
   {
     id: 'result',

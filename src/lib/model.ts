@@ -6,6 +6,19 @@ import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import PARTIES from '../party.json';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
+// TODO: This is fake data!
+// https://www.abc.net.au/news/2023-06-25/voice-no-campaign-strategy-facebook-ad-spend/102510194
+const META_AD_SPEND = {
+  NSW: 24,
+  QLD: 43,
+  VIC: 25,
+  NT: 11,
+  ACT: 11,
+  TAS: 41,
+  WA: 35,
+  SA: 54
+};
+
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
   if (xAxisLabelOverride) {
     return xAxisLabelOverride;
@@ -56,57 +69,60 @@ export const calcScatterData = (
   }
 
   // Special case to wrap data up into states
+  const states = {};
+
+  results.forEach(result => {
+    const state = result.state.toUpperCase();
+    const combinedStateData = states[state] || {
+      yesVotes: 0,
+      noVotes: 0,
+      electorates: [],
+    };
+
+    // TODO: Fix this!
+    combinedStateData.yesVotes += result.afterPrefs[0].simple.votes;
+    combinedStateData.noVotes += result.afterPrefs[1].simple.votes;
+    combinedStateData.electorates.push(result.name);
+
+    states[state] = combinedStateData;
+  });
+
+  let i = 0;
+  const stateResults = Object.keys(states).map(state => {
+    // TODO: set based on yes/no probably
+    let colour = COLOURS.PRIMARY;
+    let labelColour = COLOURS.TEXT;
+
+    const { yesVotes, noVotes } = states[state];
+
+    if (colourBy === 'result' || colourBy === 'state-result') {
+      colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.FOCUS : COLOURS.PRIMARY;
+    }
+
+    let x = i++;
+    if (isZeroX) {
+      x = 0;
+    }
+    if (xAxisFields[0] === 'meta-ad-spend') {
+      x = META_AD_SPEND[state];
+    }
+
+    return {
+      x,
+      y: (yesVotes / (noVotes + yesVotes)) * 100,
+      r: 5,
+
+      electorate: state,
+      colour,
+      labelColour,
+    };
+  });
+
   if (combineStates) {
-    const states = {};
-
-    results.forEach(result => {
-      const state = result.state.toUpperCase();
-      const combinedStateData = states[state] || {
-        yesVotes: 0,
-        noVotes: 0,
-        electorates: [],
-      };
-
-      // TODO: Fix this!
-      combinedStateData.yesVotes += result.afterPrefs[0].simple.votes;
-      combinedStateData.noVotes += result.afterPrefs[1].simple.votes;
-      combinedStateData.electorates.push(result.name);
-
-      states[state] = combinedStateData;
-    });
-
-    let i = 0;
-    return Object.keys(states).map(state => {
-      // TODO: set based on yes/no probably
-      let colour = COLOURS.PRIMARY;
-      let labelColour = COLOURS.TEXT;
-
-      const { yesVotes, noVotes } = states[state];
-
-      if (colourBy === 'result') {
-        colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.FOCUS : COLOURS.PRIMARY;
-      }
-
-      let x = i++;
-      if (isZeroX) {
-        x = 0;
-      }
-      if (xAxisFields[0] === 'meta-ad-spend') {
-        // TODO
-        x = 0;
-      }
-
-      return {
-        x,
-        y: (yesVotes / (noVotes + yesVotes)) * 100,
-        r: 5,
-
-        electorate: state,
-        colour,
-        labelColour,
-      };
-    });
+    return stateResults;
   }
+
+  const rejectedStates = stateResults.filter(s => s.y > 50).map(s => s.electorate);
 
   const electorates = results.map(result => {
     // Get the demographic data for the electorate
@@ -168,6 +184,12 @@ export const calcScatterData = (
 
       colour = isHighlighted ? COLOURS.FOCUS : COLOURS.PRIMARY;
       labelColour = COLOURS.TEXT;
+    }
+
+    if (colourBy === 'state-result') {
+      const state = result.state.toUpperCase();
+
+      colour = rejectedStates.indexOf(state) > -1 ? COLOURS.FOCUS : COLOURS.PRIMARY;
     }
 
     return {
