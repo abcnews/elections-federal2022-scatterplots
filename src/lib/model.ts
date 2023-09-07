@@ -64,7 +64,7 @@ export const calcScatterData = (
   const isZeroX = xAxisFields.length === 1 && xAxisFields[0] === 'zero';
 
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
-    console.log('here');
+    console.log('here', demographics, xAxisFields);
     return [];
   }
 
@@ -99,12 +99,15 @@ export const calcScatterData = (
       colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.FOCUS : COLOURS.PRIMARY;
     }
 
-    let x = i++;
+    let x = 0;
     if (isZeroX) {
       x = 0;
     }
     if (xAxisFields[0] === 'meta-ad-spend') {
       x = META_AD_SPEND[state];
+    }
+    if (xAxisFields[0] === 'ranked') {
+      x = i++;
     }
 
     return {

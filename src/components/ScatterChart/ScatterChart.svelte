@@ -52,7 +52,7 @@
   $: yLabel = determineYAxisLabel($graph.yAxisLabelOverride, $graph.yAxisMethod);
   $: sourceLabel = DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel ? `, ${DATASETS.find(d => d.id === $graph.dataset)?.sourceLabel}` : '';
   $: author = $graph.chartAuthor ? `Chart: ${$graph.chartAuthor} / ` : '';
-  $: xZero = $graph.xAxisFields[0] === 'zero';
+  $: xZero = $graph.xAxisFields[0] === 'zero' || $graph.xAxisFields[0] === 'ranked';
 </script>
 
 {#if $graph.chartTitle}

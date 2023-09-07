@@ -162,9 +162,11 @@
       <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top}>
         {yLabel}
       </text>
-      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
-        {xLabel}
-      </text>
+      {#if !xZero}
+        <text style={`fill:${COLOURS.TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+          {xLabel}
+        </text>
+      {/if}
     </g>
   </svg>
 
