@@ -1,5 +1,6 @@
 <script lang="ts">
   import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
+  import { fade } from 'svelte/transition';
   import Axis from "./Axis.svelte";
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
@@ -31,6 +32,8 @@
   export let isLog: boolean;
   export let trendline: boolean;
   export let isScrolly: boolean;
+  export let combineStates: boolean;
+
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -40,6 +43,8 @@
     mouseY = event.layerY;
   }
 
+  $: labelOffsetY = combineStates ? 5 : -10;
+  $: labelOffsetX = combineStates ? -20 : 0;
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
 
@@ -111,6 +116,7 @@
               r={point.r}
               color={point.colour}
               stroke={point.colour}
+              transition:fade={{ delay: 0, duration: 500 }}
               data-electorate={point.electorate}
               on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
               on:mouseout={() => {selectedPoint = undefined;}}
@@ -132,6 +138,7 @@
             color={point.colour}
             stroke={COLOURS.TEXT}
             data-electorate={point.electorate}
+            transition:fade={{ delay: 250, duration: 300 }}
             on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
             on:mouseout={() => {selectedPoint = undefined;}}
             on:blur={() => ({})}
@@ -145,7 +152,7 @@
           <g
             id={`${point.electorate}-label`}
             class="dot-label-wrapper"
-            style={`transform: translate(${xScale(point.x) || 0}px, ${yScale(point.y) - 10 || 0}px)`}
+            style={`transform: translate(${xScale(point.x) + labelOffsetX || 0}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
           >
             <text class="dot-label"
               style={`fill:${point.labelColour};`}

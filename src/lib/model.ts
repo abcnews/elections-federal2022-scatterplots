@@ -89,14 +89,14 @@ export const calcScatterData = (
 
   let i = 0;
   const stateResults = Object.keys(states).map(state => {
-    // TODO: set based on yes/no probably
     let colour = COLOURS.PRIMARY;
     let labelColour = COLOURS.TEXT;
 
     const { yesVotes, noVotes } = states[state];
 
     if (colourBy === 'result' || colourBy === 'state-result') {
-      colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.FOCUS : COLOURS.PRIMARY;
+      colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.NO : COLOURS.YES;
+      labelColour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.NO_TEXT : COLOURS.YES;
     }
 
     let x = 0;
@@ -192,7 +192,16 @@ export const calcScatterData = (
     if (colourBy === 'state-result') {
       const state = result.state.toUpperCase();
 
-      colour = rejectedStates.indexOf(state) > -1 ? COLOURS.FOCUS : COLOURS.PRIMARY;
+      colour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO : COLOURS.YES;
+      labelColour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO_TEXT : COLOURS.YES;
+    }
+
+    if (colourBy === 'result') {
+      const state = result.state.toUpperCase();
+
+      // TODO
+      colour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO : COLOURS.YES;
+      labelColour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO_TEXT : COLOURS.YES;
     }
 
     return {

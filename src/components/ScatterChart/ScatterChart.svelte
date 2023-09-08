@@ -86,6 +86,8 @@
     trendlineMethod={$graph.trendlineMethod}
     smoothingBandwidth={$graph.smoothingBandwidth}
 
+    combineStates={$graph.combineStates}
+
     electorateHighlights={$graph.electorateHighlights}
   />
 
