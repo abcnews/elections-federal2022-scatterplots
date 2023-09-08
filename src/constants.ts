@@ -32,13 +32,13 @@ export const DATASETS = [
     canCombine: false,
     unit: 'km',
   },
-  {
-    id: 'campaignvisits',
-    label: 'ABC: Campaign Visits',
-    sourceLabel: '', // TODO: Anything special to put here?
-    canCombine: false,
-    unit: '',
-  },
+  // {
+  //   id: 'campaignvisits',
+  //   label: 'ABC: Campaign Visits',
+  //   sourceLabel: '', // TODO: Anything special to put here?
+  //   canCombine: false,
+  //   unit: '',
+  // },
   {
     id: 'votecompass2',
     label: 'ABC: Most Important Issue (Vote Compass)',
@@ -53,34 +53,34 @@ export const DATASETS = [
     canCombine: false,
     unit: '',
   },
-  {
-    id: 'covid',
-    label: 'COVID: Cases',
-    sourceLabel: 'https://covidlive.com.au',
-    canCombine: false,
-    unit: '',
-  },
-  {
-    id: 'vaccinations',
-    label: 'COVID: Vaccinations',
-    sourceLabel: 'Federal Department of Health',
-    canCombine: false,
-    unit: '%',
-  },
+  // {
+  //   id: 'covid',
+  //   label: 'COVID: Cases',
+  //   sourceLabel: 'https://covidlive.com.au',
+  //   canCombine: false,
+  //   unit: '',
+  // },
+  // {
+  //   id: 'vaccinations',
+  //   label: 'COVID: Vaccinations',
+  //   sourceLabel: 'Federal Department of Health',
+  //   canCombine: false,
+  //   unit: '%',
+  // },
   {
     id: 'ancestry',
     label: 'ABS: Ancestry 1st Response',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
   },
-  {
-    id: 'parentscountryofbirth',
-    label: 'ABS: Country of Birth of Parents',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: false,
-    unit: '%',
-  },
+  // {
+  //   id: 'parentscountryofbirth',
+  //   label: 'ABS: Country of Birth of Parents',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: false,
+  //   unit: '%',
+  // },
   {
     id: 'indigenousstatus',
     label: 'ABS: Indigenous Status',
@@ -88,76 +88,76 @@ export const DATASETS = [
     canCombine: true,
     unit: '%',
   },
-  {
-    id: 'irsd',
-    label: 'ABS: Socio-Economic Disadvantage (SA1 Level - Pop-based)',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
-    id: 'irsad',
-    label: 'ABS: Socio-Economic Advantage and Disadvantage (SA1 Level - Pop-based)',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
+  // {
+  //   id: 'irsd',
+  //   label: 'ABS: Socio-Economic Disadvantage (SA1 Level - Pop-based)',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: true,
+  //   unit: '%',
+  // },
+  // {
+  //   id: 'irsad',
+  //   label: 'ABS: Socio-Economic Advantage and Disadvantage (SA1 Level - Pop-based)',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: true,
+  //   unit: '%',
+  // },
   {
     id: 'religion',
     label: 'ABS: Religious Affiliation',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'education',
     label: 'ABS: Level of Highest Educational Achievement',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'age',
     label: 'ABS: Age in Ten Year Groups',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
-  {
-    id: 'engagement',
-    label: 'ABS: Engagement in Employment, Education and Training',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
+  // {
+  //   id: 'engagement',
+  //   label: 'ABS: Engagement in Employment, Education and Training',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: true,
+  //   unit: '%',
+  // },
   {
     id: 'income',
     label: 'ABS: Total Personal Income',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'languages',
     label: 'ABS: Language Spoken At Home',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
   },
-  {
-    id: 'occupation',
-    label: 'ABS: Occupation',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
-    id: 'unpaiddomesticwork',
-    label: 'ABS: Unpaid Domestic Work',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
+  // {
+  //   id: 'occupation',
+  //   label: 'ABS: Occupation',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: true,
+  //   unit: '%',
+  // },
+  // {
+  //   id: 'unpaiddomesticwork',
+  //   label: 'ABS: Unpaid Domestic Work',
+  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+  //   canCombine: true,
+  //   unit: '%',
+  // },
 ];
 
 export const Y_AXIS_METHODS = [
@@ -260,9 +260,11 @@ const BG_COLOUR = 'white';
 const AXIS_COLOUR = '#69788C';
 const GRID_COLOUR = '#D6DDE4';
 
-//
-// Allow consumer to flip between palette based on DM setting
-//
+const YES_COLOUR = '#523178'; // purple
+const NO_COLOUR = '#EF5C06'; // orange
+const NO_TEXT_COLOUR = '#CC4E00';
+
+
 export const COLOURS = {
   PARTIES: PARTY_COLOURS,
   PARTY_LABELS: PARTY_LABEL_COLOURS,
@@ -272,4 +274,8 @@ export const COLOURS = {
   BG: BG_COLOUR,
   AXIS: AXIS_COLOUR,
   GRID: GRID_COLOUR,
+
+  YES: YES_COLOUR,
+  NO: NO_COLOUR,
+  NO_TEXT: NO_TEXT_COLOUR,
 };
