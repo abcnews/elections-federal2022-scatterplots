@@ -53,6 +53,20 @@ export const DATASETS = [
     canCombine: false,
     unit: '',
   },
+  {
+    id: 'ssm',
+    label: 'AEC: Same sex marriage postal survey',
+    sourceLabel: 'AEC',
+    canCombine: false,
+    unit: '%',
+  },
+  {
+    id: 'republic',
+    label: 'AEC: Republic referendum',
+    sourceLabel: 'AEC',
+    canCombine: false,
+    unit: '%',
+  },
   // {
   //   id: 'covid',
   //   label: 'COVID: Cases',

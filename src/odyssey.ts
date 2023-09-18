@@ -2,7 +2,7 @@ import { whenDOMReady, whenOdysseyLoaded } from '@abcnews/env-utils';
 import acto from '@abcnews/alternating-case-to-object';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
 import type { Mount } from '@abcnews/mount-utils';
-import { loadScrollyteller } from 'jtfell-svelte-scrollyteller';
+import { loadScrollyteller } from '@abcnews/svelte-scrollyteller';
 
 import Embed from './components/Embed/Embed.svelte';
 import ScrollyWrapper from './components/ScrollyWrapper.svelte';

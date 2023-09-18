@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const includedDependencies = [/carbon-/, /jtfell-/];
+const includedDependencies = [/carbon-/, "@abcnews/svelte-scrollyteller"];
 const getLoaderDefinition = (config, testSourceMatch, loaderMatch) =>
   config.module.rules
     .find(({ test }) => test.source.indexOf(testSourceMatch) > -1)
@@ -15,8 +15,7 @@ module.exports = {
     entry: [
       "index",
       "embed",
-      "odyssey",
-      "googledoc"
+      "odyssey"
     ],
   },
   webpack: config => {

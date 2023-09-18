@@ -1,7 +1,6 @@
 import Papa from 'papaparse';
 import { point, centroid, distance, nearestPoint, featureCollection } from '@turf/turf';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
-import regeneratorRuntime from 'regenerator-runtime';
 
 import { Y_AXIS_METHODS } from '../constants';
 import { fetchErads } from './results';
@@ -21,6 +20,10 @@ export const fetchDemographicData = async (dataset: string) => {
     return fetchGeo();
   }
 
+  if (dataset === 'ssm' || dataset === 'republic') {
+    return fetchRef(dataset);
+  }
+
   if (dataset === 'zero') {
     datasets.zero = ELECTORATE_CATEGORIES.map(e => ({
       Electorate: e.Electorate,
@@ -36,6 +39,23 @@ export const fetchDemographicData = async (dataset: string) => {
   return fetchAbsData(dataset);
 };
 
+const fetchRef = async (dataset: string) => {
+  if (datasets[dataset]) {
+    return datasets[dataset];
+  }
+
+  const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
+  const parsed = Papa.parse(raw, { header: true }).data;
+  const normalised = parsed.map(row => {
+    const res = { Electorate: row.Electorate };
+    return Object.keys(row)
+      .filter(k => k !== 'Electorate' && k !== 'Total')
+      .reduce((acc, k) => ({ ...acc, [k]: 100 * parseFloat(row[k]) }), res);
+  });
+
+  datasets[dataset] = normalised;
+  return normalised;
+};
 const fetchAbsData = async (dataset: string) => {
   if (datasets[dataset]) {
     return datasets[dataset];

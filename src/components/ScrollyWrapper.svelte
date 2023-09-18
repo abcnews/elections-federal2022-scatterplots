@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext, onMount } from 'svelte';
-  import Scrollyteller from 'jtfell-svelte-scrollyteller';
+  import Scrollyteller from '@abcnews/svelte-scrollyteller';
 
   import { createGraphStore } from '../store';
 
