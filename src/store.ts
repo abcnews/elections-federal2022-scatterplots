@@ -7,7 +7,6 @@ export interface Graph {
   chartAuthor: string;
   chartNotes: string,
 
-  resultsYear: string;
   dataset: string;
 
   yAxisMethod: string;
@@ -53,10 +52,9 @@ export const INITIAL_GRAPH = {
   chartAuthor: '',
   chartNotes: '',
 
-  resultsYear: '2022',
   dataset: 'votecompass',
 
-  yAxisMethod: 'swingtolnp',
+  yAxisMethod: 'yesvote',
   yAxisLabelOverride: null,
 
   xAxisFields: [],

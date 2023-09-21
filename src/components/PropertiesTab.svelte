@@ -31,14 +31,6 @@
   <Accordion>
     <AccordionItem title="Data" open>
       <Select
-        labelText="Results Year"
-        bind:selected={$graph.resultsYear}
-      >
-        <SelectItem value="2019" text="2019" />
-        <SelectItem value="2022" text="2022" />
-      </Select>
-
-      <Select
         labelText="Y Axis Metric"
         bind:selected={$graph.yAxisMethod}
       >

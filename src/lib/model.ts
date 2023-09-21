@@ -64,7 +64,6 @@ export const calcScatterData = (
   const isZeroX = xAxisFields.length === 1 && xAxisFields[0] === 'zero';
 
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
-    console.log('here', demographics, xAxisFields);
     return [];
   }
 
@@ -79,9 +78,8 @@ export const calcScatterData = (
       electorates: [],
     };
 
-    // TODO: Fix this!
-    combinedStateData.yesVotes += result.afterPrefs[0].simple.votes;
-    combinedStateData.noVotes += result.afterPrefs[1].simple.votes;
+    combinedStateData.yesVotes += result.swingDial.find(s => s.name === 'Yes').predicted2CP.votes;
+    combinedStateData.noVotes += result.swingDial.find(s => s.name === 'No').predicted2CP.votes;
     combinedStateData.electorates.push(result.name);
 
     states[state] = combinedStateData;
@@ -215,8 +213,7 @@ export const calcScatterData = (
   });
 
   return electorates
-    // .filter(e => !!e && e.y !== null);
-    .filter(e => !!e);
+    .filter(e => !!e && e.y !== null && e.x !== null);
 };
 
 export const swing = (res) => {
@@ -262,15 +259,11 @@ export const yAxis = (result: any, method: string): number | null => {
   //
   // Yes/No vote
   //
-  // TODO: calc vote % when we have test data
-  const laborRunners = (result.runners || []).filter(
-    p => p.party.code === 'ALP'
-  );
   if (method === 'yesvote') {
-    return primary(laborRunners);
+    return result.swingDial.find(s => s.name === 'Yes').predicted2CP.pct;
   }
   if (method === 'novote') {
-    return 1 - primary(laborRunners);
+    return result.swingDial.find(s => s.name === 'No').predicted2CP.pct;
   }
 
   return null;
@@ -282,7 +275,7 @@ export const yAxis = (result: any, method: string): number | null => {
 const xAxis = (demo: any, xAxisFields: string[]): number | null => {
   const values = xAxisFields.map(field => demo[field]);
   if (values.findIndex(v => v == null) > -1) {
-    return 0;
+    return null;
   }
   return sum(values.map(v => parseFloat(v)));
 };

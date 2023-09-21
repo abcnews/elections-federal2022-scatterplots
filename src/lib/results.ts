@@ -104,3 +104,20 @@ export const fetchErads = async (year: string) => {
   return datasets[year];
 };
 
+let liveResultsPromise;
+export const fetchLiveReferendumResults = () => {
+  let props;
+
+  // TODO: Switch to: https://www.abc.net.au/news-web/api/syndicate/storylab/elections/referendum/2023
+  const url = `${__webpack_public_path__ || '/'}voicetest.json`;
+
+  if (!liveResultsPromise) {
+    liveResultsPromise = fetch(url)
+      .then(response => response.json())
+      .then(({ data }) => data.electorates)
+      .then(electorates => electorates.map(e => ({ ...e, name: e.name.replace(/[^a-z \-']/gi, '').trim() })));
+  }
+
+  return liveResultsPromise;
+};
+

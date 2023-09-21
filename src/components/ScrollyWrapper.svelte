@@ -5,7 +5,7 @@
   import { createGraphStore } from '../store';
 
   import { fetchDemographicData } from '../lib/demographics';
-  import { fetchErads } from '../lib/results';
+  import { fetchErads, fetchLiveReferendumResults } from '../lib/results';
   import { actoObjectToPartialGraph } from '../lib/encode';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
@@ -26,6 +26,7 @@
   onMount(() => {
     fetchErads('2019');
     fetchErads('2022');
+    fetchLiveReferendumResults();
     fetchDemographicData('votecompass2');
     fetchDemographicData('geo');
     fetchDemographicData('education');
