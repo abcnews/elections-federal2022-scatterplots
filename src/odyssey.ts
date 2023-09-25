@@ -30,7 +30,7 @@ whenOdysseyLoaded.then(() => {
   });
 
   try {
-    const scrollyData = loadScrollyteller('chart1', 'u-full', 'mark');
+    const scrollyData = loadScrollyteller('scrollyscatter1', 'u-full', 'mark');
     appMountEl1 = scrollyData.mountNode;
     if (appMountEl1) {
       new ScrollyWrapper({
@@ -42,7 +42,7 @@ whenOdysseyLoaded.then(() => {
     console.log(e);
   }
   try {
-    const scrollyData = loadScrollyteller('chart2', 'u-full', 'mark');
+    const scrollyData = loadScrollyteller('scrollyscatter2', 'u-full', 'mark');
     appMountEl2 = scrollyData.mountNode;
     if (appMountEl2) {
       new ScrollyWrapper({

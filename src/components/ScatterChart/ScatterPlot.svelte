@@ -34,7 +34,6 @@
   export let isScrolly: boolean;
   export let combineStates: boolean;
 
-
   let selectedPoint;
   let mouseX, mouseY;
 

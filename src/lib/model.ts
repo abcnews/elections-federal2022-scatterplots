@@ -46,20 +46,20 @@ export const determineYAxisLabel = (yAxisLabelOverride, yAxisMethod) => {
 export const calcScatterData = (
   results: any,
   demographics: any,
-  graph: any,
+  xAxisFields,
+  yAxisMethod,
+  colourBy,
+  onlyCalledElectorates,
+  electorateHighlights,
+  combineStates,
+  filters: any,
 ) => {
+
   const {
-    xAxisFields,
-    yAxisMethod,
-    colourBy,
-    xAxisInverse,
     heldByFilters,
     closenessFilters,
     geoFilters,
-    onlyCalledElectorates,
-    electorateHighlights,
-    combineStates,
-  } = graph;
+  } = filters;
 
   const isZeroX = xAxisFields.length === 1 && xAxisFields[0] === 'zero';
 
@@ -260,10 +260,10 @@ export const yAxis = (result: any, method: string): number | null => {
   // Yes/No vote
   //
   if (method === 'yesvote') {
-    return result.swingDial.find(s => s.name === 'Yes').predicted2CP.pct;
+    return parseFloat(result.swingDial.find(s => s.name === 'Yes').predicted2CP.pct);
   }
   if (method === 'novote') {
-    return result.swingDial.find(s => s.name === 'No').predicted2CP.pct;
+    return parseFloat(result.swingDial.find(s => s.name === 'No').predicted2CP.pct);
   }
 
   return null;

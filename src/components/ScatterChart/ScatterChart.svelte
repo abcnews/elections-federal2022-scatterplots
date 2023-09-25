@@ -38,12 +38,34 @@
       results = r;
     });
   }
+  let fetching = false;
   $: {
+    fetching = true;
     fetchDemographicData($graph.dataset).then(d => {
+      fetching = false;
       demographics = d;
     });
   }
-  $: data = calcScatterData(results, demographics, $graph);
+
+  $: {
+    if (!fetching) {
+      data = calcScatterData(
+        results,
+        demographics, 
+        $graph.xAxisFields,
+        $graph.yAxisMethod,
+        $graph.colourBy,
+        $graph.onlyCalledElectorates,
+        $graph.electorateHighlights,
+        $graph.combineStates,
+        {
+          heldByFilters: $graph.heldByFilters,
+          closenessFilters: $graph.closenessFilters,
+          geoFilters: $graph.geoFilters,
+        }
+      );
+    }
+  }
 
   //
   // Graph Labels

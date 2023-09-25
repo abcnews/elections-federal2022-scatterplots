@@ -30,8 +30,6 @@
     fetchDemographicData('votecompass2');
     fetchDemographicData('geo');
     fetchDemographicData('education');
-    fetchDemographicData('campaignvisits');
-    fetchDemographicData('vaccinations');
   });
 </script>
 
