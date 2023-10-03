@@ -88,13 +88,13 @@ export const DATASETS = [
     canCombine: false,
     unit: '%',
   },
-  // {
-  //   id: 'parentscountryofbirth',
-  //   label: 'ABS: Country of Birth of Parents',
-  //   sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-  //   canCombine: false,
-  //   unit: '%',
-  // },
+  {
+    id: 'countryofbirth',
+    label: 'ABS: Country of Birth of Person',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: false,
+    unit: '%',
+  },
   {
     id: 'indigenousstatus',
     label: 'ABS: Indigenous Status',
@@ -215,18 +215,28 @@ export const COLOUR_METHODS = [
   },
   {
     id: 'result',
-    label: 'Result',
-  },
-  {
-    id: 'endorsement',
-    label: 'MP endorsement',
+    label: 'Electorate Result',
   },
 ];
+
+// in 000s
+export const STATE_POPULATIONS = {
+  QLD: 5418,
+  NSW: 8294,
+  VIC: 6766,
+  TAS: 572,
+  SA: 1844,
+  WA: 2855,
+  NT: 251,
+  ACT: 464 
+};
 
 //
 // Electorate / State highlight opts
 //
-export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate), 'QLD', 'NSW', 'VIC', 'TAS', 'SA', 'WA', 'NT', 'ACT'];
+export const STATES = Object.keys(STATE_POPULATIONS);
+export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate), ...STATES];
+
 
 //
 // Filter Options

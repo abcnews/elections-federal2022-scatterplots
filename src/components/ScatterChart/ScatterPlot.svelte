@@ -204,7 +204,7 @@
     fill-opacity: 0.6;
     stroke-width: 1.5px;
 
-    transition-property: cx, cy;
+    transition-property: cx, cy, r;
     transition-duration: 2s;
   }
 

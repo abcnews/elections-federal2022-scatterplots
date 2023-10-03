@@ -11,7 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, STATE_X_AXIS_OPTS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
+  import { DATASETS, STATES, Y_AXIS_METHODS, STATE_X_AXIS_OPTS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
 
   import { getContext } from 'svelte';
   import type { GraphStore } from '../store';
@@ -180,6 +180,12 @@
       />
 
       <Checkbox
+        bind:checked={$graph.sizeByPopulation}
+        disabled={!$graph.combineStates}
+        labelText="Size by population"
+      />
+
+      <Checkbox
         bind:checked={$graph.xAxisInverse}
         labelText="Reverse X Axis"
       />
@@ -225,6 +231,13 @@
         titleText="Closeness"
         bind:selectedIds={$graph.closenessFilters}
         items={ELECTORATE_CLOSENESS.map(d => ({ id: d, text: d }))}
+        sortItem={() => {}}
+      />
+
+      <MultiSelect
+        titleText="State"
+        bind:selectedIds={$graph.stateFilters}
+        items={STATES.map(d => ({ id: d, text: d }))}
         sortItem={() => {}}
       />
 

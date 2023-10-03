@@ -58,10 +58,12 @@
         $graph.onlyCalledElectorates,
         $graph.electorateHighlights,
         $graph.combineStates,
+        $graph.sizeByPopulation,
         {
           heldByFilters: $graph.heldByFilters,
           closenessFilters: $graph.closenessFilters,
           geoFilters: $graph.geoFilters,
+          stateFilters: $graph.stateFilters,
         }
       );
     }

@@ -19,6 +19,7 @@ export interface Graph {
   xAxisUnitOverride: null | string;
 
   combineStates: boolean;
+  sizeByPopulation: boolean;
   colourBy: string;
   grid: boolean;
 
@@ -30,6 +31,7 @@ export interface Graph {
   heldByFilters: string[];
   closenessFilters: string[];
   geoFilters: string[];
+  stateFilters: string[];
   onlyCalledElectorates: boolean;
 
   darkModePreview: boolean;
@@ -67,6 +69,7 @@ export const INITIAL_GRAPH = {
   pearsonCoefficientPreview: false,
 
   combineStates: false,
+  sizeByPopulation: false,
   colourBy: '',
   grid: true,
 
@@ -76,6 +79,7 @@ export const INITIAL_GRAPH = {
   smoothingBandwidth: 2,
 
   heldByFilters: [],
+  stateFilters: [],
   closenessFilters: [],
   geoFilters: [],
   onlyCalledElectorates: false,
@@ -91,6 +95,7 @@ export const BOOL_FIELDS = [
   'xAxisInverse',
   'grid',
   'combineStates',
+  'sizeByPopulation',
   'trendlineEnabled',
   'onlyCalledElectorates',
   'showSource',
@@ -99,6 +104,7 @@ export const BOOL_FIELDS = [
 export const ARRAY_FIELDS = [
   'heldByFilters',
   'closenessFilters',
+  'stateFilters',
   'geoFilters',
 
   'xAxisFields',
@@ -110,6 +116,7 @@ export const ENCODED_FIELDS = [
   'heldByFilters',
   'closenessFilters',
   'geoFilters',
+  'stateFilters',
 
   'electorateHighlights',
   'yAxisLabelOverride',

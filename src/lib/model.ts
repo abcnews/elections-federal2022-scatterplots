@@ -1,8 +1,8 @@
-import { sum, range, min, max } from 'd3';
+import { sum, range, min, max, scaleLinear, extent } from 'd3';
 import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
-import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
+import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES, STATE_POPULATIONS } from '../constants';
 import PARTIES from '../party.json';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
@@ -52,6 +52,7 @@ export const calcScatterData = (
   onlyCalledElectorates,
   electorateHighlights,
   combineStates,
+  sizeByPopulation,
   filters: any,
 ) => {
 
@@ -59,6 +60,7 @@ export const calcScatterData = (
     heldByFilters,
     closenessFilters,
     geoFilters,
+    stateFilters,
   } = filters;
 
   const isZeroX = xAxisFields.length === 1 && xAxisFields[0] === 'zero';
@@ -84,6 +86,10 @@ export const calcScatterData = (
 
     states[state] = combinedStateData;
   });
+
+  const rScale = scaleLinear()
+    .domain(extent(Object.values(STATE_POPULATIONS)))
+    .range(sizeByPopulation ? [3, 15] : [5, 5]);
 
   let i = 0;
   const stateResults = Object.keys(states).map(state => {
@@ -111,7 +117,7 @@ export const calcScatterData = (
     return {
       x,
       y: (yesVotes / (noVotes + yesVotes)) * 100,
-      r: 5,
+      r: rScale(STATE_POPULATIONS[state]),
 
       electorate: state,
       colour,
@@ -170,6 +176,15 @@ export const calcScatterData = (
       }
     }
 
+    const state = result.state.toUpperCase();
+    if (stateFilters.length > 0) {
+      if (stateFilters.indexOf(state) === -1) {
+        // console.log('State Filtered:', result.name);
+        return null;
+      }
+    }
+
+
     let colour = COLOURS.PRIMARY;
     let labelColour = COLOURS.TEXT;
 
@@ -188,18 +203,16 @@ export const calcScatterData = (
     }
 
     if (colourBy === 'state-result') {
-      const state = result.state.toUpperCase();
-
       colour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO : COLOURS.YES;
       labelColour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO_TEXT : COLOURS.YES;
     }
 
     if (colourBy === 'result') {
-      const state = result.state.toUpperCase();
+      const yesVotes = result.swingDial.find(s => s.name === 'Yes').predicted2CP.votes;
+      const noVotes = result.swingDial.find(s => s.name === 'No').predicted2CP.votes;
 
-      // TODO
-      colour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO : COLOURS.YES;
-      labelColour = rejectedStates.indexOf(state) > -1 ? COLOURS.NO_TEXT : COLOURS.YES;
+      colour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.NO : COLOURS.YES;
+      labelColour = (yesVotes / (noVotes + yesVotes)) < 0.5 ? COLOURS.NO_TEXT : COLOURS.YES;
     }
 
     return {
