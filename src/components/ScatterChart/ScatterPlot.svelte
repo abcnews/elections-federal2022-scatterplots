@@ -100,7 +100,7 @@
       <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
-        <path class="trendline" stroke={COLOURS.TEXT} d={trendlinePath} />
+        <path class="trendline" stroke="#737373" d={trendlinePath} />
       {/if}
 
       {#each data as point (point.electorate)}
@@ -217,7 +217,7 @@
 
   .trendline {
     fill: none;
-    stroke-width: 3px;
+    stroke-width: 1px;
   }
 
   .axis-label-x {

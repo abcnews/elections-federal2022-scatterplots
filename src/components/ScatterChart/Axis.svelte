@@ -61,7 +61,7 @@
 
     <!-- Duplicate the bottom axis so it doesn't rotate on x-axis inversion --> 
     {#if position === 'bottom'}
-      <path class="static-axis" stroke="currentColor" d="M{innerWidth},0.5H0.5"></path>
+      <path class="static-axis" stroke-width={1} stroke="currentColor" d="M{innerWidth},0.5H0.5"></path>
     {/if}
   </g>
 {/if}
@@ -69,7 +69,7 @@
 <style>
   :global(.tick > text) {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 15px;
     letter-spacing: 0em;
     padding-top: 0.5rem;

@@ -3,20 +3,23 @@
   import Hexagon from './Hexagon.svelte';
 
   export let variant: string;
+
+  const OFFSET_Y = 13;
+  const OFFSET_X = 12;
 </script>
 
 <div class="scatter-key">
 
   {#if variant === 'result' || variant === 'state-result'}
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.YES} x={10} y={10} />
       </g>
     </svg>
     <span>Yes</span>
 
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.NO} x={10} y={10} />
       </g>
     </svg>
@@ -26,28 +29,28 @@
 
   {#if variant === 'party'}
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.LIB} x={10} y={10} />
       </g>
     </svg>
     <span>Lib/Nat</span>
 
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.ALP} x={10} y={10} />
       </g>
     </svg>
     <span>Labor</span>
 
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.GRN} x={10} y={10} />
       </g>
     </svg>
     <span>Greens</span>
 
     <svg viewBox="0 0 20 20">
-      <g transform={"translate(-12, -14) scale(1.5)"}>
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale(1.5)">
         <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.OTH} x={10} y={10} />
       </g>
     </svg>
