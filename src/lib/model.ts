@@ -2,7 +2,7 @@ import { sum, range, min, max, scaleLinear, extent } from 'd3';
 import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
-import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES, STATE_POPULATIONS } from '../constants';
+import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES, STATE_POPULATIONS, REFERENDUM_67, REFERENDUM_SSM, REFERENDUM_99 } from '../constants';
 import PARTIES from '../party.json';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
 
@@ -113,6 +113,15 @@ export const calcScatterData = (
     if (xAxisFields[0] === 'ranked') {
       x = i++;
     }
+    if (xAxisFields[0] === 'ref_67') {
+      x = REFERENDUM_67[state];
+    }
+    if (xAxisFields[0] === 'ref_ssm') {
+      x = REFERENDUM_SSM[state];
+    }
+    if (xAxisFields[0] === 'ref_99') {
+      x = REFERENDUM_99[state];
+    }
 
     return {
       x,
@@ -157,30 +166,27 @@ export const calcScatterData = (
       return null;
     }
 
+    let filtered = false;
     if (heldByFilters.length > 0) {
       if (heldByFilters.indexOf(winningParty) === -1) {
-        // console.log('Held By Filtered:', result.name);
-        return null;
+        filtered = true;
       }
     }
     if (closenessFilters.length > 0) {
       if (closenessFilters.indexOf(categories['Closeness']) === -1) {
-        // console.log('Closeness Filtered:', result.name);
-        return null;
+        filtered = true;
       }
     }
     if (geoFilters.length > 0) {
       if (geoFilters.indexOf(categories['Geo']) === -1) {
-        // console.log('Geo Filtered:', result.name);
-        return null;
+        filtered = true;
       }
     }
 
     const state = result.state.toUpperCase();
     if (stateFilters.length > 0) {
       if (stateFilters.indexOf(state) === -1) {
-        // console.log('State Filtered:', result.name);
-        return null;
+        filtered = true;
       }
     }
 
@@ -220,6 +226,7 @@ export const calcScatterData = (
       y: yAxis(result, yAxisMethod),
       r: 3,
       electorate: result.name,
+      filtered,
       colour,
       labelColour,
     };

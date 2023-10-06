@@ -2,6 +2,7 @@
   import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
   import { fade } from 'svelte/transition';
   import Axis from "./Axis.svelte";
+  import Hexagon from "./Hexagon.svelte";
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
@@ -42,8 +43,8 @@
     mouseY = event.layerY;
   }
 
-  $: labelOffsetY = combineStates ? 5 : -10;
-  $: labelOffsetX = combineStates ? -20 : 0;
+  $: labelOffsetY = combineStates ? 5 : -6;
+  $: labelOffsetX = combineStates ? -20 : 5;
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
 
@@ -58,15 +59,12 @@
     if (yAxisMethod === 'zero') {
       yMin = 0;
       yMax = 0;
-    } else if (isSwing && isScrolly) {
-      yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 5;
-      yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 5;
     } else if (!isSwing && isScrolly) {
       const negDiff = 50 - min(data, d => d.y);
       const posDiff = max(data, d => d.y) - 50;
 
-      yMax = 50 + Math.max(posDiff, negDiff) + 5;
-      yMin = 50 - Math.max(posDiff, negDiff) - 5;
+      yMax = 50 + Math.max(posDiff, negDiff) + 8;
+      yMin = 50 - Math.max(posDiff, negDiff) - 8;
     } else {
       yMin = min(data, d => d.y) - 5;
       yMax = max(data, d => d.y) + 5;
@@ -107,20 +105,13 @@
 
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
-            <circle
+            <Hexagon
               id={point.electorate}
-              class="scatter-dot"
-              cx={xScale(point.x)}
-              cy={yScale(point.y)}
-              r={point.r}
-              color={point.colour}
+              x={xScale(point.x)}
+              y={yScale(point.y)}
+              colour={point.colour}
               stroke={point.colour}
-              transition:fade={{ delay: 0, duration: 500 }}
-              data-electorate={point.electorate}
-              on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-              on:mouseout={() => {selectedPoint = undefined;}}
-              on:blur={() => ({})}
-              on:focus={() => ({})}
+              opacity={point.filtered ? 0.1 : 0.7}
             />
         {/if}
       {/each}
@@ -128,23 +119,18 @@
       <!-- Put the highlighted points after the non-highlighted so they sit on top -->
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <circle
+          <Hexagon
             id={point.electorate}
-            class="scatter-dot highlight"
-            cx={xScale(point.x)}
-            cy={yScale(point.y)}
-            r={point.r}
-            color={point.colour}
+            x={xScale(point.x)}
+            y={yScale(point.y)}
+            colour={point.colour}
             stroke={COLOURS.TEXT}
-            data-electorate={point.electorate}
-            transition:fade={{ delay: 250, duration: 300 }}
-            on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-            on:mouseout={() => {selectedPoint = undefined;}}
-            on:blur={() => ({})}
-            on:focus={() => ({})}
+            strokeWidth={3}
           />
         {/if}
       {/each}
+
+
 
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
@@ -154,7 +140,7 @@
             style={`transform: translate(${xScale(point.x) + labelOffsetX || 0}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
           >
             <text class="dot-label"
-              style={`fill:${point.labelColour};`}
+              fill="black"
               x={0}
               y={0}
               text-anchor="middle"
@@ -199,21 +185,6 @@
     margin-top: 0.75rem;
   }
 
-  .scatter-dot {
-    fill: currentColor;
-    fill-opacity: 0.6;
-    stroke-width: 1.5px;
-
-    transition-property: cx, cy, r;
-    transition-duration: 2s;
-  }
-
-  .scatter-dot.highlight {
-    stroke-width: 2px;
-    /* Ensure that the dots animate with their labels */
-    /* transition-property: cx, cy; */
-  }
-
   .dot-label {
     font-weight: 700;
     font-size: 12px;
@@ -250,11 +221,19 @@
   }
 
   .axis-label-x {
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
     text-anchor: end;
-    font-size: 14px;
   }
   .axis-label-y {
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
     text-anchor: start;
-    font-size: 14px;
   }
 </style>

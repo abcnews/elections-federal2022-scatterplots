@@ -88,10 +88,6 @@
 
 <div bind:clientWidth={width} class={'wrapper'}>
 
-  {#if $graph.colourBy === 'party'}
-    <Legend />
-  {/if}
-
   <ScatterPlot
     {width}
     {xLabel}
@@ -123,6 +119,10 @@
     <p class="data-source">
       {author}Source: <a href="https://www.abc.net.au/news/elections/federal-election-2022/">AEC/ABC</a>{sourceLabel}
     </p>
+  {/if}
+
+  {#if $graph.colourBy === 'party' || $graph.colourBy === 'result' || $graph.colourBy === 'state-result'}
+    <Legend variant={$graph.colourBy} />
   {/if}
 </div>
 

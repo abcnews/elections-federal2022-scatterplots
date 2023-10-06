@@ -69,10 +69,12 @@
 <style>
   :global(.tick > text) {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 15px;
+    letter-spacing: 0em;
     padding-top: 0.5rem;
-    font-family: ABCSans, Helvetica, sans-serif;
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    color: #737373;
   }
 
   :global(.axis.bottom > .tick > text) {

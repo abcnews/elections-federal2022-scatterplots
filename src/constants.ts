@@ -2,7 +2,6 @@ import ELECTORATES from './electorate_categories.json';
 
 export const MOBILE_BREAKPOINT = 480;
 
-export const STATE_X_AXIS_OPTS = ['zero', 'ranked', 'meta-ad-spend'];
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
@@ -219,25 +218,6 @@ export const COLOUR_METHODS = [
   },
 ];
 
-// in 000s
-export const STATE_POPULATIONS = {
-  QLD: 5418,
-  NSW: 8294,
-  VIC: 6766,
-  TAS: 572,
-  SA: 1844,
-  WA: 2855,
-  NT: 251,
-  ACT: 464 
-};
-
-//
-// Electorate / State highlight opts
-//
-export const STATES = Object.keys(STATE_POPULATIONS);
-export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate), ...STATES];
-
-
 //
 // Filter Options
 //
@@ -276,7 +256,7 @@ const PARTY_LABEL_COLOURS = {
   GRN: '#508423',
 };
 
-const DEFAULT_PRIMARY_COLOUR = '#007BC7'; // light blue
+const DEFAULT_PRIMARY_COLOUR = '#6A7382B2'; // grey
 const DEFAULT_FOCUS_COLOUR = '#E52A00'; // orange
 const TEXT_COLOUR = 'black';
 const BG_COLOUR = 'white';
@@ -303,3 +283,55 @@ export const COLOURS = {
   NO: NO_COLOUR,
   NO_TEXT: NO_TEXT_COLOUR,
 };
+
+export const STATE_X_AXIS_OPTS = ['zero', 'ranked', 'ref_67', 'ref_ssm', 'ref_99'];
+
+// in 000s
+export const STATE_POPULATIONS = {
+  QLD: 5418,
+  NSW: 8294,
+  VIC: 6766,
+  TAS: 572,
+  SA: 1844,
+  WA: 2855,
+  NT: 251,
+  ACT: 464 
+};
+
+export const REFERENDUM_67 = {
+  QLD: 89.2,
+  NSW: 91.4,
+  VIC: 94.7,
+  TAS: 90.2,
+  SA: 86.3,
+  WA: 80.1,
+};
+
+export const REFERENDUM_SSM = {
+  QLD: 60.7,
+  NSW: 57.8,
+  VIC: 64.9,
+  TAS: 63.6,
+  SA: 62.5,
+  WA: 63.7,
+  NT: 60.6,
+  ACT: 74.0
+};
+
+export const REFERENDUM_99 = {
+  QLD: 32.8,
+  NSW: 42.1,
+  VIC: 42.5,
+  TAS: 35.7,
+  SA: 38.1,
+  WA: 34.7,
+  NT: 38.5,
+  ACT: 43.6
+};
+
+//
+// Electorate / State highlight opts
+//
+export const STATES = Object.keys(STATE_POPULATIONS);
+export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate), ...STATES];
+
