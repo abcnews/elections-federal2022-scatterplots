@@ -1,58 +1,89 @@
 <script lang="ts">
   import { COLOURS } from '../../constants';
+  import Hexagon from './Hexagon.svelte';
 
-  export let isDarkMode: boolean;
+  export let variant: string;
+
+  const OFFSET_Y = 14;
+  const OFFSET_X = 12;
+  const SCALE = 1.6;
 </script>
 
 <div class="scatter-key">
-  <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.LIB} fill={COLOURS(isDarkMode).PARTIES.LIB} cx="10" cy="10" r="8"/>
-  </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.LIB}`}>Liberal</span>
 
-  <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.ALP} fill={COLOURS(isDarkMode).PARTIES.ALP} cx="10" cy="10" r="8"/>
-  </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.ALP}`}>Labor</span>
+  {#if variant === 'result' || variant === 'state-result'}
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.YES} x={10} y={10} />
+      </g>
+    </svg>
+    <span>Yes</span>
 
-  <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.GRN} fill={COLOURS(isDarkMode).PARTIES.GRN} cx="10" cy="10" r="8"/>
-  </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.GRN}`}>Greens</span>
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.NO} x={10} y={10} />
+      </g>
+    </svg>
+    <span>No</span>
 
-  <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.NAT} fill={COLOURS(isDarkMode).PARTIES.NAT} cx="10" cy="10" r="8"/>
-  </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.NAT}`}>Nats / LNP</span>
+  {/if}
 
-  <svg viewBox="0 0 20 20">
-    <circle stroke={COLOURS(isDarkMode).PARTIES.OTH} fill={COLOURS(isDarkMode).PARTIES.OTH} cx="10" cy="10" r="8"/>
-  </svg>
-  <span style={`color:${COLOURS(isDarkMode).PARTY_LABELS.OTH}`}>Others</span>
+  {#if variant === 'party'}
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.LIB} x={10} y={10} />
+      </g>
+    </svg>
+    <span>Lib / Nat</span>
+
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.ALP} x={10} y={10} />
+      </g>
+    </svg>
+    <span>Labor</span>
+
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.GRN} x={10} y={10} />
+      </g>
+    </svg>
+    <span>Greens</span>
+
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.OTH} x={10} y={10} />
+      </g>
+    </svg>
+    <span>Others</span>
+  {/if}
+
 </div>
 
 <style>
   .scatter-key > svg {
-    width: 0.75em;
-    height: 0.75em;
-  }
-  .scatter-key > svg > circle {
-    stroke-width: 2px;
-    fill-opacity: 0.6;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 5px;
   }
   .scatter-key > span {
     padding-right: 0.5em;
   }
 
   .scatter-key {
-    font-family: ABCSans, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 13px;
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    color: #4D4D4D;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
     letter-spacing: 0em;
-    text-align: left;
 
     position: absolute;
-    top: -5px;
+    bottom: -50px;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

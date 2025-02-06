@@ -1,4 +1,7 @@
+import ELECTORATES from './electorate_categories.json';
+
 export const MOBILE_BREAKPOINT = 480;
+
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
@@ -23,19 +26,25 @@ export const DATASETS = [
     unit: '%',
   },
   {
+    id: 'zero',
+    label: 'Zero',
+    sourceLabel: '',
+    canCombine: false,
+  },
+  {
     id: 'geo',
     label: 'AEC: Geographic Features',
     sourceLabel: '',
     canCombine: false,
     unit: 'km',
   },
-  {
-    id: 'campaignvisits',
-    label: 'ABC: Campaign Visits',
-    sourceLabel: '', // TODO: Anything special to put here?
-    canCombine: false,
-    unit: '',
-  },
+  // {
+  //   id: 'campaignvisits',
+  //   label: 'ABC: Campaign Visits',
+  //   sourceLabel: '', // TODO: Anything special to put here?
+  //   canCombine: false,
+  //   unit: '',
+  // },
   {
     id: 'votecompass2',
     label: 'ABC: Most Important Issue (Vote Compass)',
@@ -51,30 +60,44 @@ export const DATASETS = [
     unit: '',
   },
   {
-    id: 'covid',
-    label: 'COVID: Cases',
-    sourceLabel: 'https://covidlive.com.au',
-    canCombine: false,
-    unit: '',
-  },
-  {
-    id: 'vaccinations',
-    label: 'COVID: Vaccinations',
-    sourceLabel: 'Federal Department of Health',
+    id: 'ssm',
+    label: 'AEC: Same sex marriage postal survey',
+    sourceLabel: 'AEC',
     canCombine: false,
     unit: '%',
   },
+  {
+    id: 'republic',
+    label: 'AEC: Republic referendum',
+    sourceLabel: 'AEC',
+    canCombine: false,
+    unit: '%',
+  },
+  // {
+  //   id: 'covid',
+  //   label: 'COVID: Cases',
+  //   sourceLabel: 'https://covidlive.com.au',
+  //   canCombine: false,
+  //   unit: '',
+  // },
+  // {
+  //   id: 'vaccinations',
+  //   label: 'COVID: Vaccinations',
+  //   sourceLabel: 'Federal Department of Health',
+  //   canCombine: false,
+  //   unit: '%',
+  // },
   {
     id: 'ancestry',
     label: 'ABS: Ancestry 1st Response',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
   },
   {
-    id: 'parentscountryofbirth',
-    label: 'ABS: Country of Birth of Parents',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    id: 'countryofbirth',
+    label: 'ABS: Country of Birth of Person',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
   },
@@ -93,85 +116,43 @@ export const DATASETS = [
     unit: '%',
   },
   {
-    id: 'irsad',
-    label: 'ABS: Socio-Economic Advantage and Disadvantage (SA1 Level - Pop-based)',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
     id: 'religion',
     label: 'ABS: Religious Affiliation',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'education',
     label: 'ABS: Level of Highest Educational Achievement',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'age',
     label: 'ABS: Age in Ten Year Groups',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
-    id: 'engagement',
-    label: 'ABS: Engagement in Employment, Education and Training',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'income',
     label: 'ABS: Total Personal Income',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
   },
   {
     id: 'languages',
     label: 'ABS: Language Spoken At Home',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: false,
-    unit: '%',
-  },
-  {
-    id: 'occupation',
-    label: 'ABS: Occupation',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
-    id: 'unpaiddomesticwork',
-    label: 'ABS: Unpaid Domestic Work',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-  },
-  {
-    id: 'housingstress',
-    label: 'DFA: Rental and Mortgage Stress (Do not use)',
-    sourceLabel: 'Digital Finance Analytics',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
   },
 ];
 
 export const Y_AXIS_METHODS = [
-  {
-    id: 'tax',
-    isSwing: false,
-    label: 'Share of stage 3 tax cuts'
-  },
-
-
    {
     id: 'zero',
     isSwing: false,
@@ -263,6 +244,29 @@ export const Y_AXIS_METHODS = [
   },
 ];
 
+export const COLOUR_METHODS = [
+  {
+    id: '',
+    label: 'Basic',
+  },
+  {
+    id: 'party',
+    label: 'Party',
+  },
+  {
+    id: 'highlight',
+    label: 'Highlight',
+  },
+  // {
+  //   id: 'state-result',
+  //   label: 'State Result',
+  // },
+  // {
+  //   id: 'result',
+  //   label: 'Electorate Result',
+  // },
+];
+
 //
 // Filter Options
 //
@@ -278,9 +282,10 @@ export const ELECTORATE_CLOSENESS = [
   'Very Safe',
 ];
 export const ELECTORATE_HELD_BY = [
-  'Liberal',
-  'Labor',
-  'Minors'
+  'LIB',
+  'ALP',
+  'GRN',
+  'OTH'
 ];
 
 //
@@ -300,42 +305,36 @@ const PARTY_LABEL_COLOURS = {
   GRN: '#508423',
 };
 
-const DEFAULT_PRIMARY_COLOUR = '#664CB3'; // purple
+const DEFAULT_PRIMARY_COLOUR = '#6A7382B2'; // grey
+const DEFAULT_FOCUS_COLOUR = '#E52A00'; // orange
 const TEXT_COLOUR = 'black';
 const BG_COLOUR = 'white';
 
 const AXIS_COLOUR = '#69788C';
 const GRID_COLOUR = '#D6DDE4';
 
-//
-// From ABC Datawrapper darkmode colour palette
-//
-const PARTY_COLOURS_DM = {
-  LIB: '#166EF3',
-  NAT: '#166EF3',
-  ALP: '#E11F30',
-  GRN: '#51A802',
-  OTH: '#757575',
-};
-const PARTY_LABEL_COLOURS_DM = {
-  ...PARTY_COLOURS_DM,
-};
-const DEFAULT_PRIMARY_COLOUR_DM = '#AB96EB'; // purple
-const TEXT_COLOUR_DM = 'white';
-const BG_COLOUR_DM = 'black';
+const YES_COLOUR = '#523178'; // purple
+const NO_COLOUR = '#EF5C06'; // orange
+const NO_TEXT_COLOUR = '#CC4E00';
 
-const AXIS_COLOUR_DM = '#838FA0';
-const GRID_COLOUR_DM = '#31363C';
+
+export const COLOURS = {
+  PARTIES: PARTY_COLOURS,
+  PARTY_LABELS: PARTY_LABEL_COLOURS,
+  PRIMARY: DEFAULT_PRIMARY_COLOUR,
+  FOCUS: DEFAULT_FOCUS_COLOUR,
+  TEXT: TEXT_COLOUR,
+  BG: BG_COLOUR,
+  AXIS: AXIS_COLOUR,
+  GRID: GRID_COLOUR,
+
+  YES: YES_COLOUR,
+  NO: NO_COLOUR,
+  NO_TEXT: NO_TEXT_COLOUR,
+};
 
 //
-// Allow consumer to flip between palette based on DM setting
+// Electorate highlight opts
 //
-export const COLOURS = (isDarkMode?: boolean) => ({
-  PARTIES: isDarkMode ? PARTY_COLOURS_DM : PARTY_COLOURS,
-  PARTY_LABELS: isDarkMode ? PARTY_LABEL_COLOURS_DM : PARTY_LABEL_COLOURS,
-  PRIMARY: isDarkMode ? DEFAULT_PRIMARY_COLOUR_DM : DEFAULT_PRIMARY_COLOUR,
-  TEXT: isDarkMode ? TEXT_COLOUR_DM : TEXT_COLOUR,
-  BG: isDarkMode ? BG_COLOUR_DM : BG_COLOUR,
-  AXIS: isDarkMode ? AXIS_COLOUR_DM : AXIS_COLOUR,
-  GRID: isDarkMode ? GRID_COLOUR_DM : GRID_COLOUR,
-});
+export const HIGHLIGHT_OPTS = [...ELECTORATES.map(e => e.Electorate)];
+

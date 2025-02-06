@@ -127,6 +127,13 @@
   },
   {
     "Geo": "Outer Metro",
+    "Electorate": "Bullwinkel",
+    "Closeness": "Marginal",
+    "Held By": "-",
+    "ExcludeFrom": ["2019", "2022"]
+  },
+  {
+    "Geo": "Outer Metro",
     "Electorate": "Burt",
     "Closeness": "Marginal",
     "Held By": "Labor"
@@ -435,7 +442,8 @@
     "Geo": "Inner Metro",
     "Electorate": "Higgins",
     "Closeness": "Marginal",
-    "Held By": "Liberal"
+    "Held By": "Liberal",
+    "ExcludeFrom": ["2025"]
   },
   {
     "Geo": "Inner Metro",
@@ -711,7 +719,8 @@
     "Geo": "Inner Metro",
     "Electorate": "North Sydney",
     "Closeness": "Safe",
-    "Held By": "Liberal"
+    "Held By": "Liberal",
+    "ExcludeFrom": ["2025"]
   },
   {
     "Geo": "Rural",

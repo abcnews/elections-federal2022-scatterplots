@@ -2,7 +2,7 @@ import { whenDOMReady, whenOdysseyLoaded } from '@abcnews/env-utils';
 import acto from '@abcnews/alternating-case-to-object';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
 import type { Mount } from '@abcnews/mount-utils';
-import { loadScrollyteller } from 'jtfell-svelte-scrollyteller';
+import { loadScrollyteller } from '@abcnews/svelte-scrollyteller';
 
 import Embed from './components/Embed/Embed.svelte';
 import ScrollyWrapper from './components/ScrollyWrapper.svelte';
@@ -30,7 +30,7 @@ whenOdysseyLoaded.then(() => {
   });
 
   try {
-    const scrollyData = loadScrollyteller('chart1', 'u-full', 'mark');
+    const scrollyData = loadScrollyteller('scrollyscatter1', 'u-full', 'mark');
     appMountEl1 = scrollyData.mountNode;
     if (appMountEl1) {
       new ScrollyWrapper({
@@ -42,7 +42,7 @@ whenOdysseyLoaded.then(() => {
     console.log(e);
   }
   try {
-    const scrollyData = loadScrollyteller('chart2', 'u-full', 'mark');
+    const scrollyData = loadScrollyteller('scrollyscatter2', 'u-full', 'mark');
     appMountEl2 = scrollyData.mountNode;
     if (appMountEl2) {
       new ScrollyWrapper({

@@ -3,7 +3,6 @@
   import { axisBottom, axisLeft } from "d3-axis";
   import { COLOURS } from '../../constants';
 
-  export let isDarkMode: boolean;
   export let isLog: boolean;
   // export let isSwing: boolean;
 
@@ -40,7 +39,7 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, ${innerHeight})`;
-          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS.AXIS);
           break;
         case "left":
           axis = axisLeft(scale).ticks(numTicks).tickSize(0).tickFormat(t => {
@@ -51,7 +50,7 @@
             return `${t}${unit || ''}`;
           });
           transform = `translate(0, 0)`;
-          select(g).transition().duration(1000).call(axis).attr('color', COLOURS(isDarkMode).AXIS);
+          select(g).transition().duration(1000).call(axis).attr('color', COLOURS.AXIS);
       }
     }
   }
@@ -62,7 +61,7 @@
 
     <!-- Duplicate the bottom axis so it doesn't rotate on x-axis inversion --> 
     {#if position === 'bottom'}
-      <path class="static-axis" stroke="currentColor" d="M{innerWidth},0.5H0.5"></path>
+      <path class="static-axis" stroke-width={1} stroke="currentColor" d="M{innerWidth},0.5H0.5"></path>
     {/if}
   </g>
 {/if}
@@ -72,8 +71,10 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+    letter-spacing: 0em;
     padding-top: 0.5rem;
-    font-family: ABCSans, Helvetica, sans-serif;
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    color: #737373;
   }
 
   :global(.axis.bottom > .tick > text) {

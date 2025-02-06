@@ -11,8 +11,7 @@
 
   import { fetchDemographicData } from '../lib/demographics';
   import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY } from '../constants';
-  import ELECTORATES from '../electorate_categories.json';
+  import { DATASETS, Y_AXIS_METHODS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
 
   import { getContext } from 'svelte';
   import type { GraphStore } from '../store';
@@ -25,19 +24,12 @@
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
   }
+
 </script>
 
 <div>
   <Accordion>
     <AccordionItem title="Data" open>
-      <Select
-        labelText="Results Year"
-        bind:selected={$graph.resultsYear}
-      >
-        <SelectItem value="2019" text="2019" />
-        <SelectItem value="2022" text="2022" />
-      </Select>
-
       <Select
         labelText="Y Axis Metric"
         bind:selected={$graph.yAxisMethod}
@@ -96,14 +88,22 @@
         </Select>
       {/if}
 
-
       <MultiSelect
         titleText="Labelled Electorates"
         filterable
         bind:selectedIds={$graph.electorateHighlights}
-        items={ELECTORATES.map(d => ({ id: d.Electorate, text: d.Electorate }))}
+        items={HIGHLIGHT_OPTS.map(d => ({ id: d, text: d}))}
         sortItem={() => {}}
       />
+
+      <Select
+        labelText="Colour By"
+        bind:selected={$graph.colourBy}
+      >
+        {#each COLOUR_METHODS as method}
+          <SelectItem value={method.id} text={method.label} />
+        {/each}
+      </Select>
 
     </AccordionItem>
 
@@ -132,7 +132,10 @@
       <TextInput
         bind:value={$graph.xAxisLabelOverride}
         labelText="X Axis Label"
-        invalid={datasetFields.length > 0 && $graph.xAxisFields.length > 0 && determineXAxisLabel($graph) === 'X Axis Label Override Needed!'}
+        invalid={
+          $graph.xAxisFields.length > 0 &&
+          determineXAxisLabel($graph.xAxisLabelOverride, $graph.xAxisFields) === 'X Axis Label Override Needed!'
+        }
         invalidText="Required"
       />
 
@@ -160,10 +163,6 @@
         labelText="Reverse X Axis"
       />
       <Checkbox
-        bind:checked={$graph.partyColours}
-        labelText="Enable Party Colours"
-      />
-      <Checkbox
         bind:checked={$graph.grid}
         labelText="Enable Grid"
       />
@@ -176,10 +175,6 @@
         labelText="Show Data Source"
       />
 
-      <Checkbox
-        bind:checked={$graph.darkModePreview}
-        labelText="Dark Mode Preview"
-      />
       <Checkbox
         bind:checked={$graph.pearsonCoefficientPreview}
         labelText="Pearson Coefficient Preview"

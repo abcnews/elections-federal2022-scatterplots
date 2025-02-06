@@ -20,7 +20,6 @@ whenDOMReady.then(() => {
       target: m,
       props: {
         graphData: appProps,
-        isOdyssey: false,
       }
     });
   });

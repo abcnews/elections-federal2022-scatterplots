@@ -1,18 +1,17 @@
 <script lang="ts">
   import { setContext, onMount } from 'svelte';
-  import Scrollyteller from 'jtfell-svelte-scrollyteller';
+  import Scrollyteller from '@abcnews/svelte-scrollyteller';
 
   import { createGraphStore } from '../store';
 
-  import { fetchDemographicData } from '../lib/demographics';
-  import { fetchLiveResultsElectorates } from '../lib/results';
+  // import { fetchDemographicData } from '../lib/demographics';
+  import { fetchErads } from '../lib/results';
   import { actoObjectToPartialGraph } from '../lib/encode';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
   // Initialise with default state
   const graph = createGraphStore({});
   export let scrollyData: any;
-  export let isOdyssey: boolean;
 
   // Setup room state
   setContext('graph', graph);
@@ -24,13 +23,12 @@
 
   // Prefetch all the datasets used in the scrollyteller sections
   onMount(() => {
-    fetchLiveResultsElectorates('2019');
-    fetchLiveResultsElectorates('2022');
-    fetchDemographicData('votecompass2');
-    fetchDemographicData('geo');
-    fetchDemographicData('education');
-    fetchDemographicData('campaignvisits');
-    fetchDemographicData('vaccinations');
+    // fetchErads('2019');
+    // fetchErads('2022');
+    fetchErads('2025');
+    // fetchDemographicData('votecompass2');
+    // fetchDemographicData('geo');
+    // fetchDemographicData('education');
   });
 </script>
 
@@ -40,34 +38,32 @@
     onMarker={updateState}
   >
     <div class="wrapper">
-      <ScatterChart isScrolly={true} {isOdyssey} />
+      <ScatterChart isScrolly={true} />
     </div>
   </Scrollyteller>
 {/if}
 
 
-<style>
+<style lang="scss">
   .wrapper {
     margin: 0 auto;
     padding: 1rem 0 0;
     width: calc(100% - 2rem);
     max-width: 40rem;
-
-    /* margin: 3rem auto; */
-    /* padding: 1rem; */
-    /* max-width: 50rem; */
-    /* position: relative; */
-    /* top: 40%; */
-    /* -webkit-transform: translateY(-50%); */
-    /* -ms-transform: translateY(-50%); */
-    /* transform: translateY(-50%); */
   }
 
-  @media (min-width: 76rem) {
-    .wrapper {
+  @media (min-width: 96rem) {
+   .wrapper {
+      margin-left: 50%;
       padding: 7.5vw 0 0;
-      margin-left: calc(35% - 24.75rem) !important;
-      width: 49.5rem !important;
+      max-width: 26.67vw;
+    }
+
+    :global(.st-panel:before) {
+      background: none !important;
+    }
+    :global(.st-panel > *) {
+      color: black !important;
     }
 
     :global(.st-panel::before) {

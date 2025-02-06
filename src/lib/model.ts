@@ -1,4 +1,4 @@
-import { sum, range, min, max } from 'd3';
+import { sum, range, min, max, scaleLinear, extent } from 'd3';
 import { regressionLog, regressionLinear } from 'd3-regression';
 
 import type { Graph } from '../store';
@@ -32,19 +32,30 @@ export const determineYAxisLabel = (yAxisLabelOverride, yAxisMethod) => {
 //
 export const calcScatterData = (
   results: any,
+  resultsYear: string,
   demographics: any,
-  xAxisFields: string[],
-  yAxisMethod: string,
-  partyColours: boolean,
-  xAxisInverse: boolean,
-  heldByFilters: string[],
-  closenessFilters: string[],
-  geoFilters: string[],
-  onlyCalledElectorates: boolean,
+  xAxisFields,
+  yAxisMethod,
+  colourBy,
+  onlyCalledElectorates,
+  electorateHighlights,
+  filters: any,
 ) => {
+
+  const {
+    heldByFilters,
+    closenessFilters,
+    geoFilters,
+    stateFilters,
+  } = filters;
+
+  const isZeroX = xAxisFields.length === 1 && xAxisFields[0] === 'zero';
+
   if (!results || !demographics || !xAxisFields || xAxisFields.length === 0) {
     return [];
   }
+
+  let i = 0;
 
   const electorates = results.map(result => {
     // Get the demographic data for the electorate
@@ -56,11 +67,15 @@ export const calcScatterData = (
     if (!demo || xAxisFields.length === 0 || !categories) {
       return null;
     }
+    // Ignore electorates that were added after (or removed before) this election
+    if ((categories.ExcludeFrom || []).indexOf(resultsYear) !== -1) {
+      return null;
+    }
 
     let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party || '';
-    // LNP in QLD maps to NAT for our purposes
+    // LNP in QLD maps to LIB for our purposes
     if (winningParty === 'LNP') {
-      winningParty = 'NAT';
+      winningParty = 'LIB';
     }
 
     // If not major party (incl. greens), set it to OTH
@@ -70,55 +85,57 @@ export const calcScatterData = (
       winningParty = 'OTH';
     }
 
+
     // Apply filters
-    if (heldByFilters.length === 1 && heldByFilters[0] === 'Minors') {
-      if (winningParty === 'ALP' || winningParty === 'LIB') {
-        return null;
-      }
-    } else if (heldByFilters.length > 0) {
-      if (heldByFilters.indexOf(categories['Held By']) === -1) {
-        // console.log('Held By Filtered:', result.name);
-        return null;
-      }
-
-      // Special case to handle "LNP" in data
-      if (heldByFilters.indexOf('Liberal') > -1 && categories['Held By'] === 'LNP') {
-        // console.log('Held By Filtered:', result.name);
-        return null;
+    let filtered = false;
+    if (heldByFilters?.length > 0) {
+      if (heldByFilters.indexOf(winningParty) === -1) {
+        filtered = true;
       }
     }
-
-    if (closenessFilters.length > 0) {
+    if (closenessFilters?.length > 0) {
       if (closenessFilters.indexOf(categories['Closeness']) === -1) {
-        // console.log('Closeness Filtered:', result.name);
-        return null;
+        filtered = true;
+      }
+    }
+    if (geoFilters?.length > 0) {
+      if (geoFilters.indexOf(categories['Geo']) === -1) {
+        filtered = true;
       }
     }
 
-    if (geoFilters.length > 0) {
-      if (geoFilters.indexOf(categories['Geo']) === -1) {
-        // console.log('Geo Filtered:', result.name);
-        return null;
-      }
+    let colour = COLOURS.PRIMARY;
+    let labelColour = COLOURS.TEXT;
+
+    // Party colours
+    if (colourBy === 'party') {
+      colour = COLOURS.PARTIES[winningParty as string];
+      labelColour = COLOURS.PARTY_LABELS[winningParty as string];
+    }
+
+    // Highlight colours
+    if (colourBy === 'highlight') {
+      const isHighlighted = electorateHighlights.indexOf(result.name) > -1;
+
+      colour = isHighlighted ? COLOURS.FOCUS : COLOURS.PRIMARY;
+      labelColour = COLOURS.TEXT;
     }
 
     return {
       x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
-      y: xAxis(result, ['Total benefit $million ']),
+      y: yAxis(result, yAxisMethod),
       electorate: result.name,
-      colour: isDM =>
-        partyColours ? COLOURS(isDM).PARTIES[winningParty] : COLOURS(isDM).PRIMARY,
-      labelColour: isDM =>
-        partyColours ? COLOURS(isDM).PARTY_LABELS[winningParty] : COLOURS(isDM).TEXT
+      filtered,
+      colour,
+      labelColour,
     };
   });
 
   return electorates
-    // .filter(e => !!e && e.y !== null);
-    .filter(e => !!e);
+    .filter(e => !!e && e.y !== null && e.x !== null);
 };
 
-const swing = (res) => {
+export const swing = (res) => {
   if (!res) {
     return null;
   }
@@ -126,7 +143,7 @@ const swing = (res) => {
   return parseFloat(res.predicted2CP.swing);
 };
 
-const twoCP = (res) => {
+export const twoCP = (res) => {
   if (!res) {
     return null;
   }
@@ -134,14 +151,15 @@ const twoCP = (res) => {
   return parseFloat(res.predicted2CP.pct);
 };
 
-const primarySwing = (runners) => {
+export const primarySwing = (runners) => {
   if (runners.length === 0) {
     return null;
   }
 
   return sum(runners.map(r => parseFloat(r.predicted.swing)));
 };
-const primary = (runners) => {
+
+export const primary = (runners) => {
   if (runners.length === 0) {
     return null;
   }
@@ -153,6 +171,10 @@ const primary = (runners) => {
 // Calculate the vote measure for the Y Axis
 //
 export const yAxis = (result: any, method: string): number | null => {
+  if (method === 'zero') {
+    return 0;
+  }
+
   const coalitionRes = result.swingDial.find(
     p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
   );
@@ -231,7 +253,7 @@ export const yAxis = (result: any, method: string): number | null => {
   }
 
   return null;
-};
+}
 
 //
 // Calculate the chosen demographic as a % of the total population of the electorate

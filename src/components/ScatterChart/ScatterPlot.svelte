@@ -1,6 +1,8 @@
 <script lang="ts">
   import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
+  import { fade } from 'svelte/transition';
   import Axis from "./Axis.svelte";
+  import Hexagon from "./Hexagon.svelte";
   import Grid from "./Grid.svelte";
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
@@ -20,6 +22,7 @@
   export let xLabel: string;
   export let yLabel: string;
   export let xUnit: string;
+  export let xZero: boolean;
 
   export let trendlineMethod: string;
   export let smoothingBandwidth: number;
@@ -27,10 +30,8 @@
 
   export let grid: boolean;
   export let xAxisInverse: boolean;
-  export let isDarkMode: boolean;
   export let isLog: boolean;
   export let trendline: boolean;
-  // export let isScrolly: boolean;
 
   let selectedPoint;
   let mouseX, mouseY;
@@ -40,6 +41,8 @@
     mouseY = event.layerY;
   }
 
+  $: labelOffsetY = -6;
+  $: labelOffsetX = 5;
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
 
@@ -56,15 +59,15 @@
     if (yAxisMethod === 'zero') {
       yMin = 0;
       yMax = 0;
-    // } else if (isSwing && isScrolly) {
-    //   yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 1;
-    //   yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 1;
-    // } else if (!isSwing && isScrolly) {
-    //   const negDiff = 50 - min(data, d => d.y);
-    //   const posDiff = max(data, d => d.y) - 50;
-    //
-    //   yMax = 50 + Math.max(posDiff, negDiff) + 1;
-    //   yMin = 50 - Math.max(posDiff, negDiff) - 1;
+    } else if (isSwing) {
+      yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 1;
+      yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 1;
+    } else if (!isSwing) {
+      const negDiff = 50 - min(data, d => d.y);
+      const posDiff = max(data, d => d.y) - 50;
+
+      yMax = 50 + Math.max(posDiff, negDiff) + 1;
+      yMin = 50 - Math.max(posDiff, negDiff) - 1;
     } else {
       yMin = 0;
       yMax = max(data, d => d.y) + 0.5;
@@ -88,36 +91,30 @@
   <svg {width} {height}>
     <g transform={`translate(${margin.left},${margin.top})`}>
       {#if (grid && data.length !== 0)}
-          <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} isSwing={false} scale={xScale} position="bottom" />
+        <Grid {innerWidth} isSwing={false} scale={xScale} position="bottom" />
+
         {#if yAxisMethod !== 'zero'}
-          <Grid {innerHeight} {numTicks} {innerWidth} {isDarkMode} {isSwing} scale={yScale} position="left" />
+          <Grid {innerWidth} {isSwing} scale={yScale} position="left" />
         {/if}
       {/if}
 
-        {#if !isZero}
-      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} isSwing={false} unit={xUnit} {isLog} scale={xScale} position="bottom" />
-        {/if}
-      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} {isDarkMode} {isSwing} unit="%" isLog={false} scale={yScale} position="left" />
+      {#if !xZero}
+        <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} unit={xUnit} {isLog} scale={xScale} position="bottom" />
+      {/if}
+      <Axis {innerHeight} {innerWidth} {numTicks} {yAxisMethod} unit="%" isLog={false} scale={yScale} position="left" />
 
       {#if trendline}
-        <path class="trendline" stroke={COLOURS(isDarkMode).TEXT} d={trendlinePath} />
+        <path class="trendline" stroke="#737373" d={trendlinePath} />
       {/if}
 
       {#each data as point (point.electorate)}
-        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null}
-            <circle
-              id={point.electorate}
-              class="scatter-dot"
-              cx={isZero ? 10 : xScale(point.x)}
-              cy={yScale(point.y)}
-              r="3"
-              color={point.colour(isDarkMode)}
-              stroke={point.colour(isDarkMode)}
-              data-electorate={point.electorate}
-              on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-              on:mouseout={() => {selectedPoint = undefined;}}
-              on:blur={() => ({})}
-              on:focus={() => ({})}
+        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
+            <Hexagon
+              x={xScale(point.x)}
+              y={yScale(point.y)}
+              colour={point.colour}
+              stroke={point.colour}
+              opacity={point.filtered ? 0.1 : 0.7}
             />
         {/if}
       {/each}
@@ -125,32 +122,27 @@
       <!-- Put the highlighted points after the non-highlighted so they sit on top -->
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <circle
-            id={point.electorate}
-            class="scatter-dot highlight"
-            cx={isZero ? 10 : xScale(point.x)}
-            cy={yScale(point.y)}
-            r="3"
-            color={point.colour(isDarkMode)}
-            stroke={COLOURS(isDarkMode).TEXT}
-            data-electorate={point.electorate}
-            on:mouseover={(event) => {selectedPoint = point; setMousePosition(event)}}
-            on:mouseout={() => {selectedPoint = undefined;}}
-            on:blur={() => ({})}
-            on:focus={() => ({})}
+          <Hexagon
+            x={xScale(point.x)}
+            y={yScale(point.y)}
+            colour={point.colour}
+            stroke={COLOURS.TEXT}
+            strokeWidth={3}
           />
         {/if}
       {/each}
+
+
 
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
           <g
             id={`${point.electorate}-label`}
             class="dot-label-wrapper"
-            style={`transform: translate(${isZero ? 20 : xScale(point.x) || 0}px, ${yScale(point.y) - 10 + (isZero ? 10 : 0) || 0}px)`}
+            style={`transform: translate(${xScale(point.x) + labelOffsetX || 0}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
           >
             <text class="dot-label"
-              style={`fill:${point.labelColour(isDarkMode)};`}
+              fill="black"
               x={0}
               y={0}
               text-anchor={isZero ? "left" : "middle"}
@@ -161,12 +153,14 @@
         {/if}
       {/each}
 
-      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-y" x={10} y={margin.top}>
+      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top}>
         {yLabel}
       </text>
-      <text style={`fill:${COLOURS(isDarkMode).TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
-        {xLabel}
-      </text>
+      {#if !xZero}
+        <text style={`fill:${COLOURS.TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+          {xLabel}
+        </text>
+      {/if}
     </g>
   </svg>
 
@@ -191,21 +185,6 @@
 
   .graphic > svg {
     margin-top: 0.75rem;
-  }
-
-  .scatter-dot {
-    fill: currentColor;
-    fill-opacity: 0.6;
-    stroke-width: 1.5px;
-
-    transition-property: cx, cy;
-    transition-duration: 2s;
-  }
-
-  .scatter-dot.highlight {
-    stroke-width: 2px;
-    /* Ensure that the dots animate with their labels */
-    /* transition-property: cx, cy; */
   }
 
   .dot-label {
@@ -240,19 +219,23 @@
 
   .trendline {
     fill: none;
-    stroke-width: 3px;
+    stroke-width: 1px;
   }
 
   .axis-label-x {
-    text-anchor: end;
-    /* font-size: 14px; */
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-anchor: end;
   }
   .axis-label-y {
-    text-anchor: start;
-    /* font-size: 14px; */
+    font-family: ABC Sans Nova, Helvetica, sans-serif;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-anchor: start;
   }
 </style>

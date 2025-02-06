@@ -7,8 +7,8 @@ export interface Graph {
   chartAuthor: string;
   chartNotes: string,
 
-  resultsYear: string;
   dataset: string;
+  resultsYear: string;
 
   yAxisMethod: string;
   yAxisLabelOverride: null | string,
@@ -19,7 +19,9 @@ export interface Graph {
   xAxisUseLog: boolean;
   xAxisUnitOverride: null | string;
 
-  partyColours: boolean;
+  // combineStates: boolean;
+  // sizeByPopulation: boolean;
+  colourBy: string;
   grid: boolean;
 
   showSource: boolean;
@@ -30,9 +32,9 @@ export interface Graph {
   heldByFilters: string[];
   closenessFilters: string[];
   geoFilters: string[];
+  stateFilters: string[];
   onlyCalledElectorates: boolean;
 
-  darkModePreview: boolean;
   pearsonCoefficientPreview: boolean;
 
   electorateHighlights: string[];
@@ -52,10 +54,10 @@ export const INITIAL_GRAPH = {
   chartAuthor: '',
   chartNotes: '',
 
-  resultsYear: '2022',
   dataset: 'votecompass',
+  resultsYear: '2025',
 
-  yAxisMethod: 'swingtolnp',
+  yAxisMethod: '',
   yAxisLabelOverride: null,
 
   xAxisFields: [],
@@ -64,10 +66,11 @@ export const INITIAL_GRAPH = {
   xAxisUseLog: false,
   xAxisUnitOverride: null,
 
-  darkModePreview: false,
   pearsonCoefficientPreview: false,
 
-  partyColours: false,
+  combineStates: false,
+  sizeByPopulation: false,
+  colourBy: '',
   grid: true,
 
   showSource: false,
@@ -76,6 +79,7 @@ export const INITIAL_GRAPH = {
   smoothingBandwidth: 2,
 
   heldByFilters: [],
+  stateFilters: [],
   closenessFilters: [],
   geoFilters: [],
   onlyCalledElectorates: false,
@@ -84,13 +88,13 @@ export const INITIAL_GRAPH = {
 };
 
 export const BOOL_FIELDS = [
-  'darkModePreview',
   'pearsonCoefficientPreview',
 
   'xAxisUseLog',
   'xAxisInverse',
-  'partyColours',
   'grid',
+  'combineStates',
+  'sizeByPopulation',
   'trendlineEnabled',
   'onlyCalledElectorates',
   'showSource',
@@ -99,6 +103,7 @@ export const BOOL_FIELDS = [
 export const ARRAY_FIELDS = [
   'heldByFilters',
   'closenessFilters',
+  'stateFilters',
   'geoFilters',
 
   'xAxisFields',
@@ -110,6 +115,7 @@ export const ENCODED_FIELDS = [
   'heldByFilters',
   'closenessFilters',
   'geoFilters',
+  'stateFilters',
 
   'electorateHighlights',
   'yAxisLabelOverride',

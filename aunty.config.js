@@ -1,23 +1,17 @@
 const path = require('path');
 const fs = require('fs');
 
-const includedDependencies = [/carbon-/, /jtfell-/];
+const includedDependencies = [/carbon-/, /@abcnews\/svelte-scrollyteller/];
 const getLoaderDefinition = (config, testSourceMatch, loaderMatch) =>
   config.module.rules
-    .find(({ test }) => test.source.indexOf(testSourceMatch) > -1)
+    .find(({ test }) => test?.source.indexOf(testSourceMatch) > -1)
     .use.find(({ loader }) => loader.indexOf(loaderMatch || testSourceMatch) > -1);
 
 module.exports = {
   type: 'svelte',
   build: {
-    // extractCSS: true,
     includedDependencies,
-    entry: [
-      "index",
-      "embed",
-      "odyssey",
-      "googledoc"
-    ],
+    entry: ['index']
   },
   webpack: config => {
     // De-dupe svelte
@@ -28,6 +22,8 @@ module.exports = {
 
     // Disable dart-sass warnings
     getLoaderDefinition(config, 'scss', 'sass').options = { sassOptions: { quietDeps: true } };
+
+    // console.log(config);
 
     // Disable svelte warnings when compiling dependencies
     getLoaderDefinition(config, 'svelte').options.onwarn = (warning, handler) => {
@@ -45,18 +41,6 @@ module.exports = {
   deploy: [
     {
       to: '/www/res/sites/news-projects/<name>/<id>'
-    },
-    config => {
-      fs.writeFileSync(
-        path.join(__dirname, 'redirect', 'index.js'),
-        `window.location = String(window.location).replace('/latest/', '/${config.id}/')`
-      );
-
-      return {
-        ...config,
-        from: 'redirect',
-        to: '/www/res/sites/news-projects/<name>/latest'
-      };
     }
   ]
 };
