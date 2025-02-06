@@ -23,9 +23,9 @@
 </script>
 
 <main>
-  <article class={`${$graph.darkModePreview ? 'darkmode' : ''}`}>
+  <article>
     <figure>
-      <ScatterChart isScrolly={false} isOdyssey={false} />
+      <ScatterChart />
     </figure>
   </article>
   <aside>
@@ -47,11 +47,6 @@
     justify-content: center;
     align-items: stretch;
     min-height: 100vh;
-  }
-
-  .darkmode {
-    background: black;
-    color: white;
   }
 
   article {

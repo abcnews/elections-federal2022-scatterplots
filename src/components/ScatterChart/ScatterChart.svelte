@@ -11,8 +11,6 @@
   import ScatterPlot from "./ScatterPlot.svelte";
   import Legend from "./Legend.svelte";
 
-  export let isScrolly: boolean;
-
   let graph = getContext<GraphStore>('graph');
   let data = [];
   let demographics = [];
@@ -37,7 +35,7 @@
   let fetching = false;
   $: {
     fetching = true;
-    fetchDemographicData($graph.dataset).then(d => {
+    fetchDemographicData($graph.resultsYear, $graph.dataset).then(d => {
       fetching = false;
       demographics = d;
     });
@@ -88,7 +86,6 @@
     {xLabel}
     {yLabel}
     {data}
-    {isScrolly}
 
     {xZero}
     xUnit={$graph.xAxisUnitOverride === null ? DATASETS.find(d => d.id === $graph.dataset)?.unit || "" : $graph.xAxisUnitOverride} 
@@ -100,8 +97,6 @@
     trendline={$graph.trendlineEnabled}
     trendlineMethod={$graph.trendlineMethod}
     smoothingBandwidth={$graph.smoothingBandwidth}
-
-    combineStates={$graph.combineStates}
 
     electorateHighlights={$graph.electorateHighlights}
   />

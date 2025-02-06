@@ -74,5 +74,5 @@ whenOdysseyLoaded.then(() => {
 });
 
 if (process.env.NODE_ENV === 'development') {
-  console.debug(`[voice-referendum-scatterplots] public path: ${__webpack_public_path__}`);
+  console.debug(`[federal-election2025-scatterplots] public path: ${__webpack_public_path__}`);
 }

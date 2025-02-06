@@ -8,7 +8,7 @@ import { yAxis } from './model';
 
 const datasets: Record<string, any> = {};
 
-export const fetchDemographicData = async (dataset: string) => {
+export const fetchDemographicData = async (year: string, dataset: string) => {
   if (dataset === '2019results') {
     return fetchErads('2019');
   }
@@ -17,7 +17,7 @@ export const fetchDemographicData = async (dataset: string) => {
   }
 
   if (dataset === 'geo') {
-    return fetchGeo();
+    return fetchGeo(year);
   }
 
   if (dataset === 'zero') {
@@ -33,33 +33,15 @@ export const fetchDemographicData = async (dataset: string) => {
   //   return fetchCampaignVisits();
   // }
 
-  return fetchAbsData(dataset);
+  return fetchAbsData(year, dataset);
 };
 
-const fetchRef = async (dataset: string) => {
-  if (datasets[dataset]) {
-    return datasets[dataset];
+const fetchAbsData = async (year: string, dataset: string) => {
+  if (datasets[`${year}/${dataset}`]) {
+    return datasets[`${year}/${dataset}`];
   }
 
-  const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
-  const parsed = Papa.parse(raw, { header: true }).data;
-  const normalised = parsed.map(row => {
-    const res = { Electorate: row.Electorate };
-    return Object.keys(row)
-      .filter(k => k !== 'Electorate' && k !== 'Total')
-      .reduce((acc, k) => ({ ...acc, [k]: 100 * parseFloat(row[k]) }), res);
-  });
-
-  datasets[dataset] = normalised;
-  return normalised;
-};
-
-const fetchAbsData = async (dataset: string) => {
-  if (datasets[dataset]) {
-    return datasets[dataset];
-  }
-
-  const raw = await fetch(`${__webpack_public_path__ || '/'}${dataset}.csv`).then(r => r.text());
+  const raw = await fetch(`${__webpack_public_path__ || '/'}demographics/${year}/${dataset}.csv`).then(r => r.text());
   const parsed = Papa.parse(raw, { header: true }).data;
   const normalised = parsed.map(row => {
     const res = { Electorate: row.Electorate };
@@ -68,7 +50,7 @@ const fetchAbsData = async (dataset: string) => {
       .reduce((acc, k) => ({ ...acc, [k]: (100 * row[k]) / row.Total }), res);
   });
 
-  datasets[dataset] = normalised;
+  datasets[`${year}/${dataset}`] = normalised;
   return normalised;
 };
 
@@ -133,14 +115,14 @@ const CAPITAL_CITIES = [
   point([-12.4381, 130.8411].reverse())
 ];
 
-const fetchGeo = async () => {
-  if (datasets.geo) {
-    return datasets.geo;
+const fetchGeo = async (year) => {
+  if (datasets[`${year}-geo`]) {
+    return datasets[`${year}-geo`];
   }
 
-  const rawRes = await fetch(`${__webpack_public_path__ || '/'}electorate_geo.json`);
+  const rawRes = await fetch(`${__webpack_public_path__ || '/'}geographics/${year}.json`);
   const rawData = await rawRes.json();
-  datasets.geo = rawData.features.map(e => {
+  datasets[`${year}-geo`] = rawData.features.map(e => {
     const electorateCenter = centroid(e.geometry);
     const nearestCity = nearestPoint(electorateCenter, featureCollection(CAPITAL_CITIES));
     const distanceToCity = Math.max(1, distance(electorateCenter, nearestCity));
@@ -153,5 +135,5 @@ const fetchGeo = async () => {
       'Distance from Canberra': distanceToCanberra
     };
   });
-  return datasets.geo;
+  return datasets[`${year}-geo`];
 };

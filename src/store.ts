@@ -54,10 +54,10 @@ export const INITIAL_GRAPH = {
   chartAuthor: '',
   chartNotes: '',
 
-  dataset: 'votecompass',
+  dataset: 'income',
   resultsYear: '2025',
 
-  yAxisMethod: '',
+  yAxisMethod: '2cpvotelnp',
   yAxisLabelOverride: null,
 
   xAxisFields: [],

@@ -5,18 +5,12 @@ export const MOBILE_BREAKPOINT = 480;
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
 export const DATASETS = [
   {
-    id: 'zero',
-    label: '',
-    sourceLabel: '',
-    canCombine: false,
-    unit: '',
-  },
-  {
     id: '2019results',
     label: 'AEC: 2019 Federal Election Results',
     sourceLabel: '',
     canCombine: false,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: '2022results',
@@ -24,12 +18,15 @@ export const DATASETS = [
     sourceLabel: '',
     canCombine: false,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'zero',
     label: 'Zero',
     sourceLabel: '',
     canCombine: false,
+    unit: '',
+    years: ['2022', '2025'],
   },
   {
     id: 'geo',
@@ -37,6 +34,7 @@ export const DATASETS = [
     sourceLabel: '',
     canCombine: false,
     unit: 'km',
+    years: ['2022', '2025'],
   },
   // {
   //   id: 'campaignvisits',
@@ -51,6 +49,7 @@ export const DATASETS = [
     sourceLabel: 'ABC Vote Compass',
     canCombine: true,
     unit: '%',
+    years: ['2022'],
   },
   {
     id: 'votecompass',
@@ -58,41 +57,15 @@ export const DATASETS = [
     sourceLabel: 'ABC Vote Compass',
     canCombine: false,
     unit: '',
+    years: ['2022'],
   },
-  {
-    id: 'ssm',
-    label: 'AEC: Same sex marriage postal survey',
-    sourceLabel: 'AEC',
-    canCombine: false,
-    unit: '%',
-  },
-  {
-    id: 'republic',
-    label: 'AEC: Republic referendum',
-    sourceLabel: 'AEC',
-    canCombine: false,
-    unit: '%',
-  },
-  // {
-  //   id: 'covid',
-  //   label: 'COVID: Cases',
-  //   sourceLabel: 'https://covidlive.com.au',
-  //   canCombine: false,
-  //   unit: '',
-  // },
-  // {
-  //   id: 'vaccinations',
-  //   label: 'COVID: Vaccinations',
-  //   sourceLabel: 'Federal Department of Health',
-  //   canCombine: false,
-  //   unit: '%',
-  // },
   {
     id: 'ancestry',
-    label: 'ABS: Ancestry 1st Response',
+    label: 'ABS: Ancestry',
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'countryofbirth',
@@ -100,6 +73,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
+    years: ['2022'],
   },
   {
     id: 'indigenousstatus',
@@ -107,6 +81,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'irsd',
@@ -114,6 +89,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022'],
   },
   {
     id: 'religion',
@@ -121,6 +97,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'education',
@@ -128,6 +105,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'age',
@@ -135,6 +113,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'income',
@@ -142,6 +121,7 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
+    years: ['2022', '2025'],
   },
   {
     id: 'languages',
@@ -149,6 +129,23 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
+    years: ['2022'],
+  },
+  {
+    id: 'arrival',
+    label: 'ABS: Year of Arrival in Australia',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
+    unit: '%',
+    years: ['2025'],
+  },
+  {
+    id: 'children',
+    label: 'ABS: Number of children',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
+    unit: '%',
+    years: ['2025'],
   },
 ];
 
@@ -305,18 +302,13 @@ const PARTY_LABEL_COLOURS = {
   GRN: '#508423',
 };
 
-const DEFAULT_PRIMARY_COLOUR = '#6A7382B2'; // grey
+const DEFAULT_PRIMARY_COLOUR = '#664cb3'; // purple
 const DEFAULT_FOCUS_COLOUR = '#E52A00'; // orange
 const TEXT_COLOUR = 'black';
 const BG_COLOUR = 'white';
 
 const AXIS_COLOUR = '#69788C';
 const GRID_COLOUR = '#D6DDE4';
-
-const YES_COLOUR = '#523178'; // purple
-const NO_COLOUR = '#EF5C06'; // orange
-const NO_TEXT_COLOUR = '#CC4E00';
-
 
 export const COLOURS = {
   PARTIES: PARTY_COLOURS,
@@ -327,10 +319,6 @@ export const COLOURS = {
   BG: BG_COLOUR,
   AXIS: AXIS_COLOUR,
   GRID: GRID_COLOUR,
-
-  YES: YES_COLOUR,
-  NO: NO_COLOUR,
-  NO_TEXT: NO_TEXT_COLOUR,
 };
 
 //

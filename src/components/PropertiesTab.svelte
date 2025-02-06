@@ -19,7 +19,7 @@
 
   let datasetFields: string[] = [];
   $: {
-    fetchDemographicData($graph.dataset).then(demographics => {
+    fetchDemographicData($graph.resultsYear, $graph.dataset).then(demographics => {
       datasetFields = Object.keys(demographics[0] || {})
         .filter(d => d !== '' && d !== 'Total' && d !== 'Electorate');
     });
@@ -30,6 +30,14 @@
 <div>
   <Accordion>
     <AccordionItem title="Data" open>
+      <Select
+        labelText="Election year"
+        bind:selected={$graph.resultsYear}
+      >
+        <SelectItem value="2019" text="2019" />
+        <SelectItem value="2022" text="2022" />
+        <SelectItem value="2025" text="2025" />
+      </Select>
       <Select
         labelText="Y Axis Metric"
         bind:selected={$graph.yAxisMethod}
@@ -51,7 +59,7 @@
           }
         }}
       >
-        {#each DATASETS as dataset}
+        {#each DATASETS.filter(f => f.years.indexOf($graph.resultsYear) > -1) as dataset}
           <SelectItem value={dataset.id} text={dataset.label} />
         {/each}
       </Select>
