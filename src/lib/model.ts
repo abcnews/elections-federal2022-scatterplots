@@ -69,11 +69,6 @@ export const calcScatterData = (
       return null;
     }
 
-    // Ignore electorates that were added after (or removed before) this election
-    if ((categories.ExcludeFrom || []).indexOf(resultsYear) !== -1) {
-      return null;
-    }
-
     let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party || '';
     // LNP in QLD maps to LIB for our purposes
     if (winningParty === 'LNP') {
@@ -121,17 +116,6 @@ export const calcScatterData = (
 
       colour = isHighlighted ? COLOURS.FOCUS : COLOURS.PRIMARY;
       labelColour = COLOURS.TEXT;
-    }
-
-    if (result.name === 'Lingiari') {
-      console.log({
-        x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
-        y: yAxis(result, yAxisMethod),
-        electorate: result.name,
-        filtered,
-        colour,
-        labelColour,
-      });
     }
 
     return {
@@ -199,10 +183,6 @@ export const yAxis = (result: any, method: string): number | null => {
   const laborRunners = (result.runners || []).filter(
     p => p.party.code === 'ALP'
   );
-
-  if (result.name === 'Lingiari') {
-    console.log(result, laborRes, laborRunners);
-  }
 
   // Greens included as "non-major" for this measure
   const minorRes = result.swingDial.find(
@@ -294,42 +274,10 @@ const xAxis = (demo: any, xAxisFields: string[]): number | null => {
 //
 // Compute estimated value at each target x coordinate using the
 // source particles (the samples).
-export const calcSmoothedLine = (data, bandwidth: number, method: string) => {
-  if (method === 'log') {
-    const regressionGenerator = regressionLog()
-      .x(d => d.x)
-      .y(d => d.y);
+export const calcSmoothedLine = (data) => {
+  const regressionGenerator = regressionLinear()
+    .x(d => d.x)
+    .y(d => d.y);
 
-    return regressionGenerator(data).map(([x, y]) => ({ x, y }));
-  }
-
-  if (method === 'linear') {
-    const regressionGenerator = regressionLinear()
-      .x(d => d.x)
-      .y(d => d.y);
-
-    return regressionGenerator(data).map(([x, y]) => ({ x, y }));
-  }
-
-  if (method === 'gaussian') {
-    const targets = range(
-      min(data, s => s.x),
-      max(data, s => s.x),
-      0.5
-    );
-    return targets.map(x => {
-      const numerator = sum(data, s => gaussian(s.x, x, bandwidth) * s.y);
-      const denominator = sum(data, s => gaussian(s.x, x, bandwidth));
-
-      return {
-        x,
-        y: numerator / denominator
-      };
-    });
-  }
-};
-
-// https://bl.ocks.org/rpgove/073d6cb996d7de1d52935790139c4240
-const gaussian = (target: number, source: number, bandwidth: number) => {
-  return Math.exp(-Math.pow(target - source, 2) / (2 * bandwidth * bandwidth));
+  return regressionGenerator(data).map(([x, y]) => ({ x, y }));
 };

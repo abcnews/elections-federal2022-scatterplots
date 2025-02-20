@@ -1,4 +1,4 @@
-import { primary, swing, twoCP } from './model';
+import { primary, swing, twoCP, yAxis } from './model';
 import Papa from 'papaparse';
 
 export interface LiveResultsElectorate {
@@ -23,82 +23,43 @@ const liveResultsElectoratesPromises: {
 export const fetchLiveResultsElectorates = (year: string) => {
   let props;
   let url;
-  if (year === '2019') {
-    // Static version of live endpoint saved on 21/06/22 to avoid breakage if news-web change things
-    // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2019';
-    url = `${__webpack_public_path__ || '/'}2019results.json`;
-  } else if (year === '2022') {
+  if (year === '2022') {
     // Static version of live endpoint saved on 21/06/22 to avoid breakage if news-web change things
     // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2022';
-    // url = `${__webpack_public_path__ || '/'}2022results.json`;
+    // url = `${__webpack_public_path__ || '/'}results/2022.json`;
 
     // 20/02/24 - generated a ERADS-like payload using AEC redistribution data
-    url = `${__webpack_public_path__ || '/'}2022results-redistributed.json`;
+    url = `${__webpack_public_path__ || '/'}results/2022-redistributed.json`;
   } else if (year === '2025') {
     // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2025';
-    url = `${__webpack_public_path__ || '/'}2022results.json`;
+    // TODO: Use 2025 data when we have it!
+    url = `${__webpack_public_path__ || '/'}results/2022-redistributed.json`;
   }
 
   if (!liveResultsElectoratesPromises[url]) {
     liveResultsElectoratesPromises[url] = fetch(url)
       .then(response => response.json())
       .then(({ data }) => data.electorates as LiveResultsElectorate[])
-      .then(electorates =>
-        electorates
-          .map(e => ({
-            ...e,
-            name: e.name.replace(/[^a-z \-']/gi, '').trim()
-          }))
-          .sort((a, b) => {
-            if (a.name < b.name) {
-              return -1;
-            }
-            if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          })
-      );
+      .then(electorates => sortByName(
+        electorates.map(e => ({
+          ...e,
+          name: e.name.replace(/[^a-z \-']/gi, '').trim()
+        }))
+      ));
   }
 
   return liveResultsElectoratesPromises[url];
 };
 
-export const calcMeasure = (result: any, method: string): number | null => {
-  //
-  //  Used for intepreting old ERADS election results for x-axis
-  //
-  const coalitionRes = result.swingDial.find(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
-  );
-  const coalitionRunners = (result.runners || []).filter(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
-  );
-
-  const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
-  const laborRunners = (result.runners || []).filter(p => p.party.code === 'ALP');
-
-  if (method === 'laborprimary') {
-    return primary(laborRunners);
-  }
-  if (method === 'swingtolabor') {
-    return swing(laborRes);
-  }
-  if (method === '2cpvotelabor') {
-    return twoCP(laborRes);
-  }
-  if (method === 'lnpprimary') {
-    return primary(coalitionRunners);
-  }
-  if (method === 'swingtolnp') {
-    return swing(coalitionRes);
-  }
-  if (method === '2cpvotelnp') {
-    return twoCP(coalitionRes);
-  }
-
-  return null;
-};
+const sortByName = x => x.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
 
 const datasets = {};
 
@@ -113,10 +74,13 @@ export const fetchErads = async (year: string) => {
   datasets[year] = rawResults.map(e => {
     return {
       Electorate: e.name,
-      'Change in Coalition 2CP Vote': calcMeasure(e, 'swingtolnp'),
-      'Change in Labor 2CP Vote': calcMeasure(e, 'swingtolabor'),
-      'Coalition 2CP Vote': calcMeasure(e, '2cpvotelnp'),
-      'Labor 2CP Vote': calcMeasure(e, '2cpvotelabor')
+      'Change in Coalition 2CP Vote': yAxis(e, 'swingtolnp'),
+      'Coalition 2CP Vote': yAxis(e, '2cpvotelnp'),
+
+      'Change in Labor 2CP Vote': yAxis(e, 'swingtolabor'),
+      'Labor 2CP Vote': yAxis(e, '2cpvotelabor'),
+
+      'Minor parties 2CP Vote': yAxis(e, '2cpminor'),
     };
   });
 

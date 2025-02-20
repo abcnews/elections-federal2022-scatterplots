@@ -26,8 +26,6 @@ export interface Graph {
 
   showSource: boolean;
   trendlineEnabled: boolean;
-  trendlineMethod: string;
-  smoothingBandwidth: number;
 
   heldByFilters: string[];
   closenessFilters: string[];
@@ -57,7 +55,7 @@ export const INITIAL_GRAPH = {
   dataset: 'income',
   resultsYear: '2025',
 
-  yAxisMethod: '2cpvotelnp',
+  yAxisMethod: 'zero',
   yAxisLabelOverride: null,
 
   xAxisFields: [],
@@ -75,8 +73,6 @@ export const INITIAL_GRAPH = {
 
   showSource: false,
   trendlineEnabled: true,
-  trendlineMethod: 'linear',
-  smoothingBandwidth: 2,
 
   heldByFilters: [],
   stateFilters: [],

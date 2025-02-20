@@ -95,8 +95,6 @@
 
     grid={$graph.grid}
     trendline={$graph.trendlineEnabled}
-    trendlineMethod={$graph.trendlineMethod}
-    smoothingBandwidth={$graph.smoothingBandwidth}
 
     electorateHighlights={$graph.electorateHighlights}
   />

@@ -5,12 +5,11 @@ export const MOBILE_BREAKPOINT = 480;
 export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'CLP', 'GRN'];
 export const DATASETS = [
   {
-    id: '2019results',
-    label: 'AEC: 2019 Federal Election Results',
+    id: 'zero',
+    label: 'Zero',
     sourceLabel: '',
     canCombine: false,
-    unit: '%',
-    years: ['2022', '2025'],
+    unit: '',
   },
   {
     id: '2022results',
@@ -18,15 +17,6 @@ export const DATASETS = [
     sourceLabel: '',
     canCombine: false,
     unit: '%',
-    years: ['2022', '2025'],
-  },
-  {
-    id: 'zero',
-    label: 'Zero',
-    sourceLabel: '',
-    canCombine: false,
-    unit: '',
-    years: ['2022', '2025'],
   },
   {
     id: 'geo',
@@ -34,7 +24,6 @@ export const DATASETS = [
     sourceLabel: '',
     canCombine: false,
     unit: 'km',
-    years: ['2022', '2025'],
   },
   // {
   //   id: 'campaignvisits',
@@ -49,7 +38,6 @@ export const DATASETS = [
     sourceLabel: 'ABC Vote Compass',
     canCombine: true,
     unit: '%',
-    years: ['2022'],
   },
   {
     id: 'votecompass',
@@ -57,7 +45,6 @@ export const DATASETS = [
     sourceLabel: 'ABC Vote Compass',
     canCombine: false,
     unit: '',
-    years: ['2022'],
   },
   {
     id: 'ancestry',
@@ -65,15 +52,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: false,
     unit: '%',
-    years: ['2022', '2025'],
-  },
-  {
-    id: 'countryofbirth',
-    label: 'ABS: Country of Birth of Person',
-    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
-    canCombine: false,
-    unit: '%',
-    years: ['2022'],
   },
   {
     id: 'indigenousstatus',
@@ -81,15 +59,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2022', '2025'],
-  },
-  {
-    id: 'irsd',
-    label: 'ABS: Socio-Economic Disadvantage (SA1 Level - Pop-based)',
-    sourceLabel: 'Census of Population and Housing, 2016, TableBuilder',
-    canCombine: true,
-    unit: '%',
-    years: ['2022'],
   },
   {
     id: 'religion',
@@ -97,7 +66,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2022', '2025'],
   },
   {
     id: 'education',
@@ -105,7 +73,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2022', '2025'],
   },
   {
     id: 'age',
@@ -113,7 +80,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2022', '2025'],
   },
   {
     id: 'income',
@@ -121,15 +87,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2022', '2025'],
-  },
-  {
-    id: 'languages',
-    label: 'ABS: Language Spoken At Home',
-    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
-    canCombine: false,
-    unit: '%',
-    years: ['2022'],
   },
   {
     id: 'arrival',
@@ -137,7 +94,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2025'],
   },
   {
     id: 'children',
@@ -145,7 +101,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2025'],
   },
   {
     id: 'rental-affordability',
@@ -153,7 +108,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2025'],
   },
   {
     id: 'mortgage-affordability',
@@ -161,7 +115,6 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2025'],
   },
   {
     id: 'tenure-type',
@@ -169,14 +122,12 @@ export const DATASETS = [
     sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
     canCombine: true,
     unit: '%',
-    years: ['2025'],
   },
   {
     id: 'yougov-feb',
     label: 'YouGov: Feburary 2025 MRP Poll',
     sourceLabel: 'YouGov Feburary 2025 MRP Poll',
     unit: '%',
-    years: ['2025', '2022'],
   },
 ];
 
@@ -326,7 +277,7 @@ export const ELECTORATE_HELD_BY = [
 //
 const PARTY_COLOURS = {
   LIB: '#0A52BF',
-  CLP: '#0A52BF',
+  // CLP: '#0A52BF',
   NAT: '#007056',
   ALP: '#E11F30',
   GRN: '#51A802',

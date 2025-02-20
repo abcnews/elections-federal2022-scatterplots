@@ -34,7 +34,6 @@
         labelText="Election year"
         bind:selected={$graph.resultsYear}
       >
-        <SelectItem value="2019" text="2019" />
         <SelectItem value="2022" text="2022" />
         <SelectItem value="2025" text="2025" />
       </Select>
@@ -59,7 +58,7 @@
           }
         }}
       >
-        {#each DATASETS.filter(f => f.years.indexOf($graph.resultsYear) > -1) as dataset}
+        {#each DATASETS as dataset}
           <SelectItem value={dataset.id} text={dataset.label} />
         {/each}
       </Select>
@@ -214,19 +213,6 @@
       <Checkbox
         bind:checked={$graph.onlyCalledElectorates}
         labelText="Only show electorates that have been called"
-      />
-    </AccordionItem>
-
-
-    <AccordionItem title="Trendline">
-
-      <NumberInput
-        min={1}
-        max={10}
-        step={1}
-        bind:value={$graph.smoothingBandwidth}
-        label="Gaussian Smoothing"
-        disabled={$graph.trendlineMethod !== 'gaussian'}
       />
     </AccordionItem>
 

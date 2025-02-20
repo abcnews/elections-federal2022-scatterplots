@@ -129,8 +129,7 @@
     "Geo": "Outer Metro",
     "Electorate": "Bullwinkel",
     "Closeness": "Marginal",
-    "Held By": "Labor",
-    "ExcludeFrom": ["2019"]
+    "Held By": "Labor"
   },
   {
     "Geo": "Outer Metro",
@@ -440,13 +439,6 @@
   },
   {
     "Geo": "Inner Metro",
-    "Electorate": "Higgins",
-    "Closeness": "Marginal",
-    "Held By": "Liberal",
-    "ExcludeFrom": ["2025"]
-  },
-  {
-    "Geo": "Inner Metro",
     "Electorate": "Hindmarsh",
     "Closeness": "Safe",
     "Held By": "Labor"
@@ -714,13 +706,6 @@
     "Electorate": "Nicholls",
     "Closeness": "Very Safe",
     "Held By": "Nationals"
-  },
-  {
-    "Geo": "Inner Metro",
-    "Electorate": "North Sydney",
-    "Closeness": "Safe",
-    "Held By": "Liberal",
-    "ExcludeFrom": ["2025"]
   },
   {
     "Geo": "Rural",

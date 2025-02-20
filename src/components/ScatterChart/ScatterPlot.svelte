@@ -24,8 +24,6 @@
   export let xUnit: string;
   export let xZero: boolean;
 
-  export let trendlineMethod: string;
-  export let smoothingBandwidth: number;
   export let electorateHighlights: string[];
 
   export let grid: boolean;
@@ -80,7 +78,7 @@
   $: trendlinePath = trendline ? line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y))
-        (calcSmoothedLine(data, smoothingBandwidth, trendlineMethod)) : '';
+        (calcSmoothedLine(data)) : '';
 
   $: selectedPointOnRight = mouseX > width * 0.8;
 </script>
