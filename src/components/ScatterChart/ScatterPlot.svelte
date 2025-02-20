@@ -1,6 +1,6 @@
 <script lang="ts">
   import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
-  import { fade } from 'svelte/transition';
+  // import { fade } from 'svelte/transition';
   import Axis from "./Axis.svelte";
   import Hexagon from "./Hexagon.svelte";
   import Grid from "./Grid.svelte";
@@ -33,12 +33,11 @@
   export let isLog: boolean;
   export let trendline: boolean;
 
-  let selectedPoint;
-  let mouseX, mouseY;
-
-  const setMousePosition = function(event) {
-    mouseX = event.layerX;
-    mouseY = event.layerY;
+  let mouseX, mouseY, selectedPoint;
+  const onMouseOver = function(point, event) {
+    selectedPoint = point;
+    mouseX = event?.layerX;
+    mouseY = event?.layerY;
   }
 
   $: labelOffsetY = -6;
@@ -115,6 +114,8 @@
               colour={point.colour}
               stroke={point.colour}
               opacity={point.filtered ? 0.1 : 0.7}
+              {point}
+              {onMouseOver}
             />
         {/if}
       {/each}
@@ -128,11 +129,11 @@
             colour={point.colour}
             stroke={COLOURS.TEXT}
             strokeWidth={3}
+            {point}
+            {onMouseOver}
           />
         {/if}
       {/each}
-
-
 
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
@@ -164,14 +165,14 @@
     </g>
   </svg>
 
-  {#if selectedPoint != undefined}
+  {#if selectedPoint}
     <!-- align the tooltip to the left of mouse when near the right side of the chart -->
-      <div
-        class="tooltip"
-        style="left: {mouseX + 10}px; top: {mouseY - 10}px; transform: translateX(-{selectedPointOnRight ? 120 : 0}%)"
-      >
-        {selectedPoint.electorate}
-      </div>
+    <div
+      class="tooltip"
+      style="left: {mouseX + 10}px; top: {mouseY - 10}px; transform: translateX(-{selectedPointOnRight ? 120 : 0}%)"
+    >
+      {selectedPoint.electorate}
+    </div>
   {/if}
 
 </main>

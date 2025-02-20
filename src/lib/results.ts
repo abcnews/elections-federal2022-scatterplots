@@ -1,4 +1,5 @@
 import { primary, swing, twoCP } from './model';
+import Papa from 'papaparse';
 
 export interface LiveResultsElectorate {
   name: string;
@@ -29,7 +30,10 @@ export const fetchLiveResultsElectorates = (year: string) => {
   } else if (year === '2022') {
     // Static version of live endpoint saved on 21/06/22 to avoid breakage if news-web change things
     // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2022';
-    url = `${__webpack_public_path__ || '/'}2022results.json`;
+    // url = `${__webpack_public_path__ || '/'}2022results.json`;
+
+    // 20/02/24 - generated a ERADS-like payload using AEC redistribution data
+    url = `${__webpack_public_path__ || '/'}2022results-redistributed.json`;
   } else if (year === '2025') {
     // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2025';
     url = `${__webpack_public_path__ || '/'}2022results.json`;
@@ -39,7 +43,22 @@ export const fetchLiveResultsElectorates = (year: string) => {
     liveResultsElectoratesPromises[url] = fetch(url)
       .then(response => response.json())
       .then(({ data }) => data.electorates as LiveResultsElectorate[])
-      .then(electorates => electorates.map(e => ({ ...e, name: e.name.replace(/[^a-z \-']/gi, '').trim() })));
+      .then(electorates =>
+        electorates
+          .map(e => ({
+            ...e,
+            name: e.name.replace(/[^a-z \-']/gi, '').trim()
+          }))
+          .sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          })
+      );
   }
 
   return liveResultsElectoratesPromises[url];
@@ -50,16 +69,14 @@ export const calcMeasure = (result: any, method: string): number | null => {
   //  Used for intepreting old ERADS election results for x-axis
   //
   const coalitionRes = result.swingDial.find(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
   const coalitionRunners = (result.runners || []).filter(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
 
   const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
-  const laborRunners = (result.runners || []).filter(
-    p => p.party.code === 'ALP'
-  );
+  const laborRunners = (result.runners || []).filter(p => p.party.code === 'ALP');
 
   if (method === 'laborprimary') {
     return primary(laborRunners);
@@ -94,7 +111,6 @@ export const fetchErads = async (year: string) => {
 
   // Convert results to a normalised form so it can be used as an x-axis dataset
   datasets[year] = rawResults.map(e => {
-
     return {
       Electorate: e.name,
       'Change in Coalition 2CP Vote': calcMeasure(e, 'swingtolnp'),

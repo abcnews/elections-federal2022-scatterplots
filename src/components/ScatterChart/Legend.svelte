@@ -4,8 +4,8 @@
 
   export let variant: string;
 
-  const OFFSET_Y = 14;
-  const OFFSET_X = 12;
+  const OFFSET_Y = 7;
+  const OFFSET_X = 5;
   const SCALE = 1.6;
 </script>
 

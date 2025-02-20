@@ -2,7 +2,7 @@ import ELECTORATES from './electorate_categories.json';
 
 export const MOBILE_BREAKPOINT = 480;
 
-export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'GRN'];
+export const MAJOR_PARTY_CODES = ['LIB', 'LNP', 'NAT', 'ALP', 'CLP', 'GRN'];
 export const DATASETS = [
   {
     id: '2019results',
@@ -147,6 +147,37 @@ export const DATASETS = [
     unit: '%',
     years: ['2025'],
   },
+  {
+    id: 'rental-affordability',
+    label: 'ABS: Rental affordability',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
+    unit: '%',
+    years: ['2025'],
+  },
+  {
+    id: 'mortgage-affordability',
+    label: 'ABS: Mortgage affordability',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
+    unit: '%',
+    years: ['2025'],
+  },
+  {
+    id: 'tenure-type',
+    label: 'ABS: Housing tenure type',
+    sourceLabel: 'Census of Population and Housing, 2021, TableBuilder',
+    canCombine: true,
+    unit: '%',
+    years: ['2025'],
+  },
+  {
+    id: 'yougov-feb',
+    label: 'YouGov: Feburary 2025 MRP Poll',
+    sourceLabel: 'YouGov Feburary 2025 MRP Poll',
+    unit: '%',
+    years: ['2025', '2022'],
+  },
 ];
 
 export const Y_AXIS_METHODS = [
@@ -225,6 +256,11 @@ export const Y_AXIS_METHODS = [
     label: 'Primary vote for combined minor parties (incl. Greens)',
   },
   {
+    id: '2cpminor',
+    isSwing: false,
+    label: '2CP vote for combined minor parties (incl. Greens)',
+  },
+  {
     id: 'minorprimaryswing',
     isSwing: true,
     label: 'Change in combined primary vote for minor parties (incl. Greens)',
@@ -290,6 +326,7 @@ export const ELECTORATE_HELD_BY = [
 //
 const PARTY_COLOURS = {
   LIB: '#0A52BF',
+  CLP: '#0A52BF',
   NAT: '#007056',
   ALP: '#E11F30',
   GRN: '#51A802',

@@ -28,6 +28,10 @@ export const fetchDemographicData = async (year: string, dataset: string) => {
     return datasets.zero;
   }
 
+  if (dataset === 'yougov-feb') {
+    return fetchPoll('feb', 'yougov');
+  }
+
   // Only have 2022 data so far... Someone may track this...
   // if (dataset === 'campaignvisits') {
   //   return fetchCampaignVisits();
@@ -36,12 +40,31 @@ export const fetchDemographicData = async (year: string, dataset: string) => {
   return fetchAbsData(year, dataset);
 };
 
+const fetchPoll = async (month: string, dataset: string) => {
+  if (datasets[`${month}/${dataset}`]) {
+    return datasets[`${month}/${dataset}`];
+  }
+
+  const raw = await fetch(`${__webpack_public_path__ || '/'}poll/${dataset}-${month}.csv`).then(r => r.text());
+  const parsed = Papa.parse(raw, { header: true }).data;
+  const normalised = parsed.map(row => {
+    const res = { Electorate: row.Electorate };
+    return Object.keys(row)
+      .filter(k => k !== 'Electorate' && k !== 'Total')
+      .reduce((acc, k) => ({ ...acc, [k]: row[k] }), res);
+  });
+
+  datasets[`${month}/${dataset}`] = normalised;
+  return normalised;
+};
+
 const fetchAbsData = async (year: string, dataset: string) => {
   if (datasets[`${year}/${dataset}`]) {
     return datasets[`${year}/${dataset}`];
   }
 
-  const raw = await fetch(`${__webpack_public_path__ || '/'}demographics/${year}/${dataset}.csv`).then(r => r.text());
+  // const raw = await fetch(`${__webpack_public_path__ || '/'}demographics/${year}/${dataset}.csv`).then(r => r.text());
+  const raw = await fetch(`${__webpack_public_path__ || '/'}demographics/2025/${dataset}.csv`).then(r => r.text());
   const parsed = Papa.parse(raw, { header: true }).data;
   const normalised = parsed.map(row => {
     const res = { Electorate: row.Electorate };

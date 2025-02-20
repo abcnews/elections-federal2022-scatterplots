@@ -129,8 +129,8 @@
     "Geo": "Outer Metro",
     "Electorate": "Bullwinkel",
     "Closeness": "Marginal",
-    "Held By": "-",
-    "ExcludeFrom": ["2019", "2022"]
+    "Held By": "Labor",
+    "ExcludeFrom": ["2019"]
   },
   {
     "Geo": "Outer Metro",

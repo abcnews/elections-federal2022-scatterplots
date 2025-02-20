@@ -58,6 +58,7 @@ export const calcScatterData = (
   let i = 0;
 
   const electorates = results.map(result => {
+
     // Get the demographic data for the electorate
     const demo = demographics.find(d => d.Electorate === result.name);
     // Get the categories for the electorate
@@ -67,6 +68,7 @@ export const calcScatterData = (
     if (!demo || xAxisFields.length === 0 || !categories) {
       return null;
     }
+
     // Ignore electorates that were added after (or removed before) this election
     if ((categories.ExcludeFrom || []).indexOf(resultsYear) !== -1) {
       return null;
@@ -84,7 +86,6 @@ export const calcScatterData = (
     if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
       winningParty = 'OTH';
     }
-
 
     // Apply filters
     let filtered = false;
@@ -104,6 +105,7 @@ export const calcScatterData = (
       }
     }
 
+
     let colour = COLOURS.PRIMARY;
     let labelColour = COLOURS.TEXT;
 
@@ -119,6 +121,17 @@ export const calcScatterData = (
 
       colour = isHighlighted ? COLOURS.FOCUS : COLOURS.PRIMARY;
       labelColour = COLOURS.TEXT;
+    }
+
+    if (result.name === 'Lingiari') {
+      console.log({
+        x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
+        y: yAxis(result, yAxisMethod),
+        electorate: result.name,
+        filtered,
+        colour,
+        labelColour,
+      });
     }
 
     return {
@@ -176,10 +189,10 @@ export const yAxis = (result: any, method: string): number | null => {
   }
 
   const coalitionRes = result.swingDial.find(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
   const coalitionRunners = (result.runners || []).filter(
-    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP'
+    p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
 
   const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
@@ -187,7 +200,14 @@ export const yAxis = (result: any, method: string): number | null => {
     p => p.party.code === 'ALP'
   );
 
+  if (result.name === 'Lingiari') {
+    console.log(result, laborRes, laborRunners);
+  }
+
   // Greens included as "non-major" for this measure
+  const minorRes = result.swingDial.find(
+    p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
+  );
   const minorRunners = (result.runners || []).filter(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
@@ -233,6 +253,9 @@ export const yAxis = (result: any, method: string): number | null => {
   //
   if (method === 'minorprimary') {
     return primary(minorRunners);
+  }
+  if (method === '2cpminor') {
+    return twoCP(minorRes);
   }
   if (method === 'minorprimaryswing') {
     return primarySwing(minorRunners);

@@ -7,11 +7,23 @@
   export let stroke: string | undefined;
   export let strokeWidth = 1.5;
   export let opacity = 0.7;
+
+  export let point;
+  export let onMouseOver: any = () => ({});
 </script>
 
-<g class="hex" transform={`translate(${x}, ${y}) scale(0.55)`}>
+<g
+  class="hex"
+  transform={`translate(${x - 5}, ${y - 5}) scale(0.55)`}
+>
   <path
-    class="scatter-dot"
+
+    on:mouseover={(event) => onMouseOver(point, event)}
+    on:mouseout={() => onMouseOver(null, null)}
+    on:blur={() => ({})}
+    on:focus={() => ({})}
+
+    class="scatter-hex"
     d="M0.303711 13.5V4.5L8.10771 0L15.9117 4.5V13.5L8.10771 18L0.303711 13.5Z"
     fill={colour}
     stroke={stroke || colour}
