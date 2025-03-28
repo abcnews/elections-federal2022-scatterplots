@@ -1,6 +1,6 @@
 {
 	"name": "elections-federal2025-scatterplots",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A project generated from aunty's svelte project template.",
 	"license": "MIT",
 	"private": true,
