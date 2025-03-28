@@ -1,17 +1,18 @@
 <script lang="ts">
-  import Accordion from 'carbon-components-svelte/src/Accordion/Accordion.svelte';
-  import AccordionItem from 'carbon-components-svelte/src/Accordion/AccordionItem.svelte';
-  import MultiSelect from 'carbon-components-svelte/src/MultiSelect/MultiSelect.svelte';
-  import Select from 'carbon-components-svelte/src/Select/Select.svelte';
-  import SelectItem from 'carbon-components-svelte/src/Select/SelectItem.svelte';
+  import {
+    Accordion,
+    AccordionItem,
+    MultiSelect,
+    Select,
+    SelectItem,
+    Checkbox,
+    NumberInput,
+    TextInput
+  } from 'carbon-components-svelte';
 
-  import Checkbox from 'carbon-components-svelte/src/Checkbox/Checkbox.svelte';
-  import NumberInput from 'carbon-components-svelte/src/NumberInput/NumberInput.svelte';
-  import TextInput from 'carbon-components-svelte/src/TextInput/TextInput.svelte';
-
-  import { fetchDemographicData } from '../lib/demographics';
-  import { determineXAxisLabel } from '../lib/model';
-  import { DATASETS, Y_AXIS_METHODS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../constants';
+  import { fetchDemographicData } from '../../lib/demographics';
+  import { determineXAxisLabel } from '../../lib/model';
+  import { DATASETS, Y_AXIS_METHODS, COLOUR_METHODS, ELECTORATE_GEO, ELECTORATE_CLOSENESS, ELECTORATE_HELD_BY, HIGHLIGHT_OPTS } from '../../constants';
 
   import { getContext } from 'svelte';
   import type { GraphStore } from '../store';
@@ -49,9 +50,10 @@
       <Select
         labelText="Dataset"
         selected={$graph.dataset}
-        on:change={e => {
-          if (e.detail !== $graph.dataset) {
-            $graph.dataset = e.detail;
+        onchange={e => {
+          const { value } = e.target;
+          if (value !== $graph.dataset) {
+            $graph.dataset = value;
             $graph.xAxisFields = [];
             $graph.xAxisLabelOverride = '';
             datasetFields = [];
@@ -80,10 +82,11 @@
           selected={$graph.xAxisFields[0]}
           disabled={datasetFields.length === 0}
           invalid={datasetFields.length > 0 && !$graph.xAxisFields[0]}
-          on:change={e => {
-            if (e.detail && e.detail !== $graph.xAxisFields[0]) {
-              $graph.xAxisFields = [e.detail];
-          } else if (e.detail === '' && $graph.xAxisFields[0]) {
+          onchange={e => {
+            const { value } = e.target;
+            if (value && value !== $graph.xAxisFields[0]) {
+              $graph.xAxisFields = [value];
+            } else if (value === '' && $graph.xAxisFields[0]) {
               $graph.xAxisFields = [];
             }
           }}
@@ -150,15 +153,6 @@
         bind:value={$graph.xAxisUnitOverride}
         labelText="X Axis Unit"
       />
-
-      <Select
-        labelText="Method"
-        bind:selected={$graph.trendlineMethod}
-      >
-        <SelectItem value="linear" text="Linear Regression" />
-        <SelectItem value="log" text="Logarithmic Regression" />
-        <SelectItem value="gaussian" text="Gaussian Smoothing" />
-      </Select>
 
       <Checkbox
         bind:checked={$graph.xAxisUseLog}

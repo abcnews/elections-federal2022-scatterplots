@@ -1,24 +1,26 @@
-$css--font-face: false;
-$css--helpers: true;
-$css--body: true;
-$css--use-layer: true;
-$css--reset: false;
-$css--default-type: true;
-$css--plex: false;
+// $css--font-face: false;
+// $css--helpers: true;
+// $css--body: true;
+// $css--use-layer: true;
+// $css--reset: false;
+// $css--default-type: true;
+// $css--plex: false;
 
-@import 'carbon-components/scss/globals/scss/_css--helpers.scss';
-@import 'carbon-components/scss/globals/scss/_css--body.scss';
+// @import 'carbon-components/scss/globals/scss/_css--helpers.scss';
+// @import 'carbon-components/scss/globals/scss/_css--body.scss';
+//
+// @import 'carbon-components/scss/components/accordion/accordion';
+// @import 'carbon-components/scss/components/button/button';
+// @import 'carbon-components/scss/components/select/select';
+// @import 'carbon-components/scss/components/multi-select/multi-select';
+// @import 'carbon-components/scss/components/code-snippet/code-snippet';
+// @import 'carbon-components/scss/components/copy-button/copy-button';
+// @import 'carbon-components/scss/components/number-input/number-input';
+// @import 'carbon-components/scss/components/text-input/text-input';
+// @import 'carbon-components/scss/components/tabs/tabs';
+// @import 'carbon-components/scss/components/tag/tag';
 
-@import 'carbon-components/scss/components/accordion/accordion';
-@import 'carbon-components/scss/components/button/button';
-@import 'carbon-components/scss/components/select/select';
-@import 'carbon-components/scss/components/multi-select/multi-select';
-@import 'carbon-components/scss/components/code-snippet/code-snippet';
-@import 'carbon-components/scss/components/copy-button/copy-button';
-@import 'carbon-components/scss/components/number-input/number-input';
-@import 'carbon-components/scss/components/text-input/text-input';
-@import 'carbon-components/scss/components/tabs/tabs';
-@import 'carbon-components/scss/components/tag/tag';
+@import "carbon-components-svelte/css/white.css";
 
 :root {
   --primary: #0f62fe;
@@ -32,11 +34,11 @@ $css--plex: false;
   text-align: left;
 }
 
-.scrollyteller .panel ,
-.scrollyteller .st-panel {
-  -webkit-font-smoothing: initial;
-  -moz-osx-font-smoothing: initial;
-}
+// .scrollyteller .panel ,
+// .scrollyteller .st-panel {
+//   -webkit-font-smoothing: initial;
+//   -moz-osx-font-smoothing: initial;
+// }
 
 // @media (min-width: 76rem) {
 //   .scrollyteller .panel ,
@@ -47,16 +49,16 @@ $css--plex: false;
 // }
 
 
-@media (min-width: 96rem) {
-  .st-panel {
-    margin-right: 55% !important;
-    max-width: 40vw !important;
-  }
-}
-
-.st-panel {
-  width: 61.25rem !important;
-}
+// @media (min-width: 96rem) {
+//   .st-panel {
+//     margin-right: 55% !important;
+//     max-width: 40vw !important;
+//   }
+// }
+//
+// .st-panel {
+//   width: 61.25rem !important;
+// }
 
 // @media only screen and (min-width: 1023px) {
 //   .right {

@@ -112,6 +112,7 @@
               colour={point.colour}
               stroke={point.colour}
               opacity={point.filtered ? 0.1 : 0.7}
+              chartWidth={width}
               {point}
               {onMouseOver}
             />

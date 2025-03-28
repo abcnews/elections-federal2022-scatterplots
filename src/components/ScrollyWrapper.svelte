@@ -11,7 +11,7 @@
 
   // Initialise with default state
   const graph = createGraphStore({});
-  export let scrollyData: any;
+  export let panels: any;
 
   // Setup room state
   setContext('graph', graph);
@@ -32,10 +32,11 @@
   });
 </script>
 
-{#if !!scrollyData}
+{#if !!panels || !panels.length}
   <Scrollyteller
-    panels={scrollyData.panels}
+    panels={panels}
     onMarker={updateState}
+    layout={{ align: 'left', resizeInteractive: true }}
   >
     <div class="wrapper">
       <ScatterChart />
@@ -46,28 +47,18 @@
 
 <style lang="scss">
   .wrapper {
-    margin: 0 auto;
-    padding: 1rem 0 0;
-    width: calc(100% - 2rem);
-    max-width: 40rem;
-  }
+    /* position: absolute; */
+    /* left: 0; */
+    /* top: 0; */
+    /* width: 100%; */
+    /* height: 100%; */
 
-  @media (min-width: 96rem) {
-   .wrapper {
-      margin-left: 50%;
-      padding: 7.5vw 0 0;
-      max-width: 26.67vw;
-    }
-
-    :global(.st-panel:before) {
-      background: none !important;
-    }
-    :global(.st-panel > *) {
-      color: black !important;
-    }
-
-    :global(.st-panel::before) {
-      opacity: 0;
+    /* aspect-ratio: 1; */
+    height: 100%;
+    width: unset;
+    @container (max-aspect-ratio:16/9) {
+      width: 100%;
+      height: auto;
     }
   }
 </style>

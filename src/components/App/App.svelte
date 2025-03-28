@@ -1,19 +1,25 @@
 <script lang="ts">
-  import Tabs from 'carbon-components-svelte/src/Tabs/Tabs.svelte';
-  import Tab from 'carbon-components-svelte/src/Tabs/Tab.svelte';
-  import TabContent from 'carbon-components-svelte/src/Tabs/TabContent.svelte';
+  import {
+    Tabs,
+    Tab,
+    TabContent
+  } from 'carbon-components-svelte';
 
-  import MarkersTab from '../MarkersTab.svelte';
-  import PropertiesTab from '../PropertiesTab.svelte';
+  import MarkersTab from '../Builder/MarkersTab.svelte';
+  import PropertiesTab from '../Builder/PropertiesTab.svelte';
   import ScatterChart from '../ScatterChart/ScatterChart.svelte';
 
   import { createGraphStore } from '../../store';
   import { graphToUrlQuery, urlQueryToPartialGraph } from '../../lib/encode';
   import { setContext } from 'svelte';
 
+  import '../../global.scss';
+
   const initialPartialGraph = urlQueryToPartialGraph(String(window.location.search));
   const graph = createGraphStore(initialPartialGraph);
   setContext('graph', graph);
+
+  $: console.log('here');
 
   $: history.replaceState(
      { graph: $graph },

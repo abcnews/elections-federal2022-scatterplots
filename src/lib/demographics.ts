@@ -9,9 +9,6 @@ import { yAxis } from './model';
 const datasets: Record<string, any> = {};
 
 export const fetchDemographicData = async (year: string, dataset: string) => {
-  if (dataset === '2019results') {
-    return fetchErads('2019');
-  }
   if (dataset === '2022results') {
     return fetchErads('2022');
   }

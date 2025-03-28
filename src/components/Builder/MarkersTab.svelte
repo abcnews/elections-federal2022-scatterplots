@@ -18,13 +18,18 @@
 
 <script lang="ts">
   import { getContext } from 'svelte';
-  import Button from 'carbon-components-svelte/src/Button/Button.svelte';
-  import CodeSnippet from 'carbon-components-svelte/src/CodeSnippet/CodeSnippet.svelte';
-  import InlineNotification from 'carbon-components-svelte/src/Notification/InlineNotification.svelte';
+  import {
+    Button,
+    CodeSnippet,
+    InlineNotification,
+  } from 'carbon-components-svelte';
+  // import Button from 'carbon-components-svelte/src/Button/Button.svelte';
+  // import CodeSnippet from 'carbon-components-svelte/src/CodeSnippet/CodeSnippet.svelte';
+  // import InlineNotification from 'carbon-components-svelte/src/Notification/InlineNotification.svelte';
 
-  import type { GraphStore } from '../store';
-  import { alternatingCaseToPartialGraph, graphToAlternatingCase } from '../lib/encode';
-  import { generateFallback } from '../lib/fallbacks';
+  import type { GraphStore } from '../../store';
+  import { alternatingCaseToPartialGraph, graphToAlternatingCase } from '../../lib/encode';
+  import { generateFallback } from '../../lib/fallbacks';
 
   let graph = getContext<GraphStore>('graph');
 
