@@ -153,7 +153,7 @@
         {/if}
       {/each}
 
-      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top}>
+      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top - 10}>
         {yLabel}
       </text>
       {#if !xZero}

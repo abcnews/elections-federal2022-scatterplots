@@ -1,7 +1,7 @@
-
 import { whenDOMReady, whenOdysseyLoaded } from '@abcnews/env-utils';
 import acto from '@abcnews/alternating-case-to-object';
 import { getMountValue, selectMounts } from '@abcnews/mount-utils';
+import { proxy } from '@abcnews/dev-proxy';
 import type { Mount } from '@abcnews/mount-utils';
 import { mount } from 'svelte';
 import { loadScrollyteller } from '@abcnews/svelte-scrollyteller';
@@ -17,7 +17,7 @@ let appMountEl2;
 let appMountEl: Mount;
 let appProps;
 
-whenOdysseyLoaded.then(() => {
+Promise.all([whenOdysseyLoaded, proxy('elections-federal2025-scatterplots')]).then(() => {
 
   const MARKER_NAME = 'scrollyscatter';
   const mounts = selectMounts(MARKER_NAME);
