@@ -12,6 +12,13 @@ export const DATASETS = [
     unit: '',
   },
   {
+    id: '2025results',
+    label: 'AEC: 2025 Federal Election Results',
+    sourceLabel: '',
+    canCombine: false,
+    unit: '%',
+  },
+  {
     id: '2022results',
     label: 'AEC: 2022 Federal Election Results',
     sourceLabel: '',

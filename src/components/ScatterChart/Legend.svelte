@@ -79,7 +79,7 @@
     letter-spacing: 0em;
 
     position: absolute;
-    bottom: -50px;
+    /* bottom: -50px; */
 
     width: 100%;
     display: flex;

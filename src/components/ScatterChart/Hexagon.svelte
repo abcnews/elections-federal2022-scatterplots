@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { innerWidth, innerHeight } from 'svelte/reactivity/window';
-  // import { fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   export let x: number;
   export let y: number;

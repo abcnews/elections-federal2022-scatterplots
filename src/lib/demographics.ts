@@ -12,6 +12,9 @@ export const fetchDemographicData = async (year: string, dataset: string) => {
   if (dataset === '2022results') {
     return fetchErads('2022');
   }
+  if (dataset === '2025results') {
+    return fetchErads('2025');
+  }
 
   if (dataset === 'geo') {
     return fetchGeo(year);
@@ -28,11 +31,6 @@ export const fetchDemographicData = async (year: string, dataset: string) => {
   if (dataset === 'yougovfeb') {
     return fetchPoll('feb', 'yougov');
   }
-
-  // Only have 2022 data so far... Someone may track this...
-  // if (dataset === 'campaignvisits') {
-  //   return fetchCampaignVisits();
-  // }
 
   return fetchAbsData(year, dataset);
 };
@@ -74,54 +72,6 @@ const fetchAbsData = async (year: string, dataset: string) => {
   return normalised;
 };
 
-// Data from:
-//
-// https://github.com/abcnews/elections-federal2022-campaign-heatmap/blob/master/src/components/App/index.tsx
-// const fetchCampaignVisits = async () => {
-//   if (datasets.visits) {
-//     return datasets.visits;
-//   }
-//
-//   const parties = [
-//     { id: 'LNP', name: 'Coalition', colour: 'ptyblue', leaders: ['Scott Morrison', 'Barnaby Joyce'] },
-//     { id: 'ALP', name: 'Labor', colour: 'ptyred', leaders: ['Anthony Albanese', 'Richard Marles'] }
-//   ];
-//   const ZERO_VISITS = {
-//     'Visits by Labor': 0,
-//     'Visits by Coalition': 0,
-//     'Visits by Anthony Albanese': 0,
-//     'Visits by Scott Morrison': 0,
-//     'Visits by Barnaby Joyce': 0,
-//     'Visits by Richard Marles': 0
-//   };
-//
-//   const raw = await fetch(`${__webpack_public_path__ || '/'}campaignvisits.txt`).then(r => r.text());
-//   const rows = raw
-//     .trim()
-//     .split('\n')
-//     .map(line => line.split('\t'));
-//
-//   const visits = rows.reduce((acc, row) => {
-//     if (row.length !== 3) {
-//       return acc;
-//     }
-//
-//     const [date, leader, electorate] = row;
-//     const party = parties.find(party => party.leaders.includes(leader))?.name;
-//
-//     acc[electorate] = acc[electorate] || { ...ZERO_VISITS };
-//     acc[electorate][`Visits by ${party}`] += 1;
-//     acc[electorate][`Visits by ${leader}`] += 1;
-//     return acc;
-//   }, {});
-//
-//   datasets.visits = ELECTORATE_CATEGORIES.map(({ Electorate }) => ({
-//     Electorate,
-//     ...ZERO_VISITS,
-//     ...visits[Electorate]
-//   }));
-//   return datasets.visits;
-// };
 
 const CANBERRA = point([-35.2931, 149.1269].reverse());
 const CAPITAL_CITIES = [

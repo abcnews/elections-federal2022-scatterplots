@@ -1,6 +1,6 @@
 <script lang="ts">
   import { extent, scaleLinear, scaleLog, line, min, max } from "d3";
-  // import { fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import Axis from "./Axis.svelte";
   import Hexagon from "./Hexagon.svelte";
   import Grid from "./Grid.svelte";
@@ -82,7 +82,8 @@
       .y((d) => yScale(d.y))
         (calcSmoothedLine(data)) : '';
 
-  $: selectedPointOnRight = mouseX > width * 0.8;
+  $: nonHighlighted = data.filter(p => electorateHighlights.indexOf(p.electorate) === -1 && p.y !== null && p.x !== null);
+  $: highlighted = data.filter(p => electorateHighlights.indexOf(p.electorate) > -1 && p.y !== null && p.x !== null);
 </script>
 
 <main class="graphic">
@@ -106,8 +107,9 @@
         <path class="trendline" stroke="#737373" d={trendlinePath} />
       {/if}
 
-      {#each data as point (point.electorate)}
-        {#if electorateHighlights.indexOf(point.electorate) === -1 && point.y !== null && point.x !== null}
+      {#each nonHighlighted as point (point.electorate)}
+        {#key point.electorate}
+          <g transition:fade|global>
             <Hexagon
               x={xScale(point.x)}
               y={yScale(point.y)}
@@ -118,43 +120,47 @@
               {point}
               {onMouseOver}
             />
-        {/if}
+          </g>
+        {/key}
       {/each}
 
       <!-- Put the highlighted points after the non-highlighted so they sit on top -->
-      {#each data as point (point.electorate)}
-        {#if electorateHighlights.indexOf(point.electorate) > -1}
-          <Hexagon
-            x={xScale(point.x)}
-            y={yScale(point.y)}
-            colour={point.colour}
-            stroke={COLOURS.TEXT}
-            strokeWidth={3}
-            chartWidth={width}
-            {point}
-            {onMouseOver}
-          />
-        {/if}
-      {/each}
-
-      {#each data as point (point.electorate)}
-        {#if electorateHighlights.indexOf(point.electorate) > -1}
+      {#each highlighted as point (point.electorate)}
+        {#key point.electorate}
           {@const isNearRight = (innerWidth - xScale(point.x)) < 0.9}
-          <g
-            id={`${point.electorate}-label`}
-            class="dot-label-wrapper {point.x}"
-            style={`transform: translate(${xScale(point.x) + (isNearRight ? leftLabelOffsetX : labelOffsetX)}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
-          >
-            <text class="dot-label"
-              fill="black"
-              x={0}
-              y={0}
-              text-anchor={(isNearRight ? "end" : "middle")}
+
+          <g transition:fade|global>
+            <Hexagon
+              x={xScale(point.x)}
+              y={yScale(point.y)}
+              colour={point.colour}
+              stroke={COLOURS.TEXT}
+              strokeWidth={3}
+              chartWidth={width}
+              {point}
+              {onMouseOver}
+            />
+
+            <g
+              id={`${point.electorate}-label`}
+              class="dot-label-wrapper {point.x}"
+              style={`
+              transform: translate(
+                ${xScale(point.x) + (isNearRight ? leftLabelOffsetX : labelOffsetX)}px,
+                ${yScale(point.y) + labelOffsetY || 0}px
+              )`}
             >
-              {point.electorate}
-            </text>
+              <text class="dot-label"
+                fill="black"
+                x={0}
+                y={0}
+                text-anchor={(isNearRight ? "end" : "middle")}
+              >
+                {point.electorate}
+              </text>
+            </g>
           </g>
-        {/if}
+        {/key}
       {/each}
 
       <text style={`fill: #767676`} class="axis-label-y" x={10} y={margin.top - 20}>
