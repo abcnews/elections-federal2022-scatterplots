@@ -74,7 +74,7 @@
     letter-spacing: 0em;
     padding-top: 0.5rem;
     font-family: var(--dls-font-stack-sans);
-    color: #737373;
+    color: #767676;
   }
 
   :global(.axis.bottom > .tick > text) {

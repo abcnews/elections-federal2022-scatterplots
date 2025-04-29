@@ -7,7 +7,7 @@
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
 
-  const margin = { top: 15, bottom: 25, left: 35, right: 15 };
+  const margin = { top: 25, bottom: 25, left: 35, right: 10 };
 
   // Responsively sized dimensions (1:1 on mobile, 2:3 on desktop)
   export let width: number;
@@ -127,8 +127,6 @@
       <!-- Put the highlighted points after the non-highlighted so they sit on top -->
       {#each highlighted as point (point.electorate)}
         {#key point.electorate}
-          {@const isNearRight = (innerWidth - xScale(point.x)) < 0.9}
-
           <g transition:fade|global>
             <Hexagon
               x={xScale(point.x)}
@@ -140,8 +138,15 @@
               {point}
               {onMouseOver}
             />
+          </g>
+        {/key}
+      {/each}
 
+      {#each highlighted as point (point.electorate)}
+        {#key point.electorate}
+          {@const isNearRight = (innerWidth - xScale(point.x)) < 0.9}
             <g
+              transition:fade|global
               id={`${point.electorate}-label`}
               class="dot-label-wrapper {point.x}"
               style={`
@@ -159,15 +164,14 @@
                 {point.electorate}
               </text>
             </g>
-          </g>
         {/key}
       {/each}
 
-      <text style={`fill: #767676`} class="axis-label-y" x={10} y={margin.top - 20}>
+      <text style={`fill: currentColor`} class="axis-label-y" x={0} y={margin.top - 30}>
         {yLabel}
       </text>
       {#if !xZero}
-        <text style={`fill: #767676`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+        <text style={`fill: currentColor`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
           {xLabel}
         </text>
       {/if}
@@ -237,6 +241,7 @@
     font-family: var(--dls-font-stack-sans);
     font-size: 12px;
     font-weight: 400;
+    color: black;
 
     line-height: 135%;
     letter-spacing: 0%;
