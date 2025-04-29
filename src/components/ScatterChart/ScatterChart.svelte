@@ -120,7 +120,7 @@
 
 <style>
   .wrapper {
-    font-family: ABCSans, Helvetica, sans-serif;
+    font-family: var(--dls-font-stack-sans);
     width: 100%;
     margin-top: 0.5rem;
   }
@@ -132,7 +132,7 @@
   }
 
   .scatter-desc {
-    font-family: ABCSans, Helvetica, sans-serif;
+    font-family: var(--dls-font-stack-sans);
     font-size: 1rem;
     line-height: 24px;
   }

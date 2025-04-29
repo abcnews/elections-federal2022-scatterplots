@@ -19,8 +19,6 @@
   const graph = createGraphStore(initialPartialGraph);
   setContext('graph', graph);
 
-  $: console.log('here');
-
   $: history.replaceState(
      { graph: $graph },
      document.title,

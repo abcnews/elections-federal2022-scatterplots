@@ -1,95 +1,13 @@
-// $css--font-face: false;
-// $css--helpers: true;
-// $css--body: true;
-// $css--use-layer: true;
-// $css--reset: false;
-// $css--default-type: true;
-// $css--plex: false;
-
-// @import 'carbon-components/scss/globals/scss/_css--helpers.scss';
-// @import 'carbon-components/scss/globals/scss/_css--body.scss';
-//
-// @import 'carbon-components/scss/components/accordion/accordion';
-// @import 'carbon-components/scss/components/button/button';
-// @import 'carbon-components/scss/components/select/select';
-// @import 'carbon-components/scss/components/multi-select/multi-select';
-// @import 'carbon-components/scss/components/code-snippet/code-snippet';
-// @import 'carbon-components/scss/components/copy-button/copy-button';
-// @import 'carbon-components/scss/components/number-input/number-input';
-// @import 'carbon-components/scss/components/text-input/text-input';
-// @import 'carbon-components/scss/components/tabs/tabs';
-// @import 'carbon-components/scss/components/tag/tag';
-
 @import "carbon-components-svelte/css/white.css";
 
 :root {
   --primary: #0f62fe;
   --tint: #f4f4f4;
 
-  font-family: ABCSans, Helvetica, sans-serif;
+  font-family: var(--dls-font-stack-sans);
   font-size: 15px;
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0em;
   text-align: left;
 }
-
-// .scrollyteller .panel ,
-// .scrollyteller .st-panel {
-//   -webkit-font-smoothing: initial;
-//   -moz-osx-font-smoothing: initial;
-// }
-
-// @media (min-width: 76rem) {
-//   .scrollyteller .panel ,
-//   .scrollyteller .st-panel {
-//     margin-left: 55% !important;
-//     max-width: 40vw !important;
-//   }
-// }
-
-
-// @media (min-width: 96rem) {
-//   .st-panel {
-//     margin-right: 55% !important;
-//     max-width: 40vw !important;
-//   }
-// }
-//
-// .st-panel {
-//   width: 61.25rem !important;
-// }
-
-// @media only screen and (min-width: 1023px) {
-//   .right {
-//     margin-right: calc(30% - 24.75rem) !important;
-//     width: 49.5rem !important;
-//   }
-//
-//   .left {
-//     margin-left: calc(30% - 24.75rem) !important;
-//     width: 49.5rem !important;
-//   }
-// }
-//
-// @media only screen and (max-width: $breakpoint) {
-//   .base {
-//     padding-top: 1.5rem;
-//     padding-bottom: 1.5rem;
-//
-//     margin-right: auto !important;
-//     margin-left: auto !important;
-//
-//     width: 100% !important;
-//
-//     &::before {
-//       width: calc(83.3333% + 0.75rem);
-//     }
-//
-//     p {
-//       width: 83.333333%;
-//       font-size: 1.125rem;
-//       line-height: 1.555555556;
-//     }
-//   }
-// }

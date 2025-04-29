@@ -2,7 +2,7 @@
   --primary: #0f62fe;
   --tint: #f4f4f4;
 
-  font-family: ABCSans, Helvetica, sans-serif;
+  font-family: var(--dls-font-stack-sans);
 }
 
 .scrollyteller .panel ,

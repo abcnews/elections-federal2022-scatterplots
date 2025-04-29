@@ -25,7 +25,7 @@ export const fetchDemographicData = async (year: string, dataset: string) => {
     return datasets.zero;
   }
 
-  if (dataset === 'yougov-feb') {
+  if (dataset === 'yougovfeb') {
     return fetchPoll('feb', 'yougov');
   }
 
@@ -42,7 +42,7 @@ const fetchPoll = async (month: string, dataset: string) => {
     return datasets[`${month}/${dataset}`];
   }
 
-  const raw = await fetch(`${__webpack_public_path__ || '/'}poll/${dataset}-${month}.csv`).then(r => r.text());
+  const raw = await fetch(`${__webpack_public_path__ || '/'}poll/${dataset}${month}.csv`).then(r => r.text());
   const parsed = Papa.parse(raw, { header: true }).data;
   const normalised = parsed.map(row => {
     const res = { Electorate: row.Electorate };

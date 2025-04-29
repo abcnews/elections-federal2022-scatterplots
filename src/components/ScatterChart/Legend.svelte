@@ -71,7 +71,7 @@
   }
 
   .scatter-key {
-    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    font-family: var(--dls-font-stack-sans);
     color: #4D4D4D;
     font-size: 14px;
     font-weight: 400;

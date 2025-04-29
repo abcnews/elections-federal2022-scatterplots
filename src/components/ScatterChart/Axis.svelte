@@ -73,7 +73,7 @@
     line-height: 15px;
     letter-spacing: 0em;
     padding-top: 0.5rem;
-    font-family: ABC Sans Nova, Helvetica, sans-serif;
+    font-family: var(--dls-font-stack-sans);
     color: #737373;
   }
 

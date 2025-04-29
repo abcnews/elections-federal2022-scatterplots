@@ -118,6 +118,7 @@ export const calcScatterData = (
       labelColour = COLOURS.TEXT;
     }
 
+    // console.log(result, yAxisMethod);
     return {
       x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),
@@ -133,7 +134,7 @@ export const calcScatterData = (
 };
 
 export const swing = (res) => {
-  if (!res) {
+  if (!res || !res.predicted2CP) {
     return null;
   }
 
@@ -141,7 +142,7 @@ export const swing = (res) => {
 };
 
 export const twoCP = (res) => {
-  if (!res) {
+  if (!res || !res.predicted2CP) {
     return null;
   }
 
@@ -235,6 +236,9 @@ export const yAxis = (result: any, method: string): number | null => {
     return primary(minorRunners);
   }
   if (method === '2cpminor') {
+    if (!minorRes) {
+      return null;
+    }
     return twoCP(minorRes);
   }
   if (method === 'minorprimaryswing') {

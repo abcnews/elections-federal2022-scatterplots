@@ -7,7 +7,7 @@
   import { COLOURS, MOBILE_BREAKPOINT, Y_AXIS_METHODS } from '../../constants';
   import { calcSmoothedLine } from '../../lib/model';
 
-  const margin = { top: 15, bottom: 25, left: 35, right: 35 };
+  const margin = { top: 15, bottom: 25, left: 35, right: 15 };
 
   // Responsively sized dimensions (1:1 on mobile, 2:3 on desktop)
   export let width: number;
@@ -38,8 +38,10 @@
     mouseY = event?.layerY;
   }
 
-  $: labelOffsetY = -6;
-  $: labelOffsetX = 5;
+  $: labelOffsetY = -8;
+  $: labelOffsetX = 0;
+  $: leftLabelOffsetX = 8;
+
   $: isSwing = Y_AXIS_METHODS.find(m => m.id === yAxisMethod)?.isSwing || false;
   $: numTicks = Math.max(innerWidth / 100, 6);
 
@@ -128,6 +130,7 @@
             colour={point.colour}
             stroke={COLOURS.TEXT}
             strokeWidth={3}
+            chartWidth={width}
             {point}
             {onMouseOver}
           />
@@ -136,16 +139,17 @@
 
       {#each data as point (point.electorate)}
         {#if electorateHighlights.indexOf(point.electorate) > -1}
+          {@const isNearRight = (innerWidth - xScale(point.x)) < 0.9}
           <g
             id={`${point.electorate}-label`}
-            class="dot-label-wrapper"
-            style={`transform: translate(${xScale(point.x) + labelOffsetX || 0}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
+            class="dot-label-wrapper {point.x}"
+            style={`transform: translate(${xScale(point.x) + (isNearRight ? leftLabelOffsetX : labelOffsetX)}px, ${yScale(point.y) + labelOffsetY || 0}px)`}
           >
             <text class="dot-label"
               fill="black"
               x={0}
               y={0}
-              text-anchor={isZero ? "left" : "middle"}
+              text-anchor={(isNearRight ? "end" : "middle")}
             >
               {point.electorate}
             </text>
@@ -153,11 +157,11 @@
         {/if}
       {/each}
 
-      <text style={`fill:${COLOURS.TEXT}`} class="axis-label-y" x={10} y={margin.top - 10}>
+      <text style={`fill: #767676`} class="axis-label-y" x={10} y={margin.top - 20}>
         {yLabel}
       </text>
       {#if !xZero}
-        <text style={`fill:${COLOURS.TEXT}`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+        <text style={`fill: #767676`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
           {xLabel}
         </text>
       {/if}
@@ -222,20 +226,33 @@
     stroke-width: 1px;
   }
 
-  .axis-label-x {
-    font-family: ABC Sans Nova, Helvetica, sans-serif;
+  .axis-label-x,
+  .axis-label-y {
+    font-family: var(--dls-font-stack-sans);
     font-size: 12px;
     font-weight: 400;
-    line-height: 15px;
-    letter-spacing: 0em;
+
+    line-height: 135%;
+    letter-spacing: 0%;
+
+    text-shadow:
+      -1.25px -1.25px 0 #fff,
+      0 -1.25px 0 #fff,
+      1.25px -1.25px 0 #fff,
+      1.25px 0 0 #fff,
+      1.25px 1.25px 0 #fff,
+      0 1.25px 0 #fff,
+      -1.25px 1.25px 0 #fff,
+      -1.25px 0 0 #fff;
+  }
+
+  .axis-label-x {
     text-anchor: end;
   }
   .axis-label-y {
-    font-family: ABC Sans Nova, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
-    letter-spacing: 0em;
     text-anchor: start;
+  }
+
+  @media screen (min-width: 62rem) {
   }
 </style>
