@@ -61,7 +61,7 @@ function determineWinningParty(electorate) {
   }
 
   const winner = leadingCandidate || (
-    swingDial[0].predicted2CP > swingDial[1].predicted2CP ? swingDial[0] : swingDial[1]
+    swingDial[0]?.predicted2CP?.votes > swingDial[1]?.predicted2CP?.votes ? swingDial[0] : swingDial[1]
   );
 
   let res = winner.party.code;
@@ -69,6 +69,8 @@ function determineWinningParty(electorate) {
   if (res === 'LNP' || res === 'NAT') {
     res = 'LIB';
   }
+
+  // console.log(electorate, res, winner);
 
   // if (res && MAJOR_PARTY_CODES.indexOf(res) === -1) {
   //   res = 'OTH';
