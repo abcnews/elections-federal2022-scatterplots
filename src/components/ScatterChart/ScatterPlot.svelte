@@ -84,6 +84,7 @@
 
   $: nonHighlighted = data.filter(p => electorateHighlights.indexOf(p.electorate) === -1 && p.y !== null && p.x !== null);
   $: highlighted = data.filter(p => electorateHighlights.indexOf(p.electorate) > -1 && p.y !== null && p.x !== null);
+  $: selectedPointOnRight = mouseX > width * 0.8;
 </script>
 
 <main class="graphic">
@@ -170,10 +171,22 @@
       <text style={`fill: currentColor`} class="axis-label-y" x={0} y={margin.top - 30}>
         {yLabel}
       </text>
+
       {#if !xZero}
-        <text style={`fill: currentColor`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
-          {xLabel}
-        </text>
+        {#if xLabel.length < 60}
+          <text style={`fill: currentColor`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+            {xLabel}
+          </text>
+        {:else}
+          {@const wordsInLabel = xLabel.split(' ')}
+          {@const numWordsInLabel = Math.floor(wordsInLabel.length / 2)}
+          <text style={`fill: currentColor`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10 - 15}>
+            {wordsInLabel.slice(0, numWordsInLabel).join(' ')}
+          </text>
+          <text style={`fill: currentColor`} class="axis-label-x" x={innerWidth - 5} y={innerHeight - 10}>
+            {wordsInLabel.slice(numWordsInLabel).join(' ')}
+          </text>
+        {/if}
       {/if}
     </g>
   </svg>

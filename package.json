@@ -33,7 +33,7 @@
 		"@abcnews/mount-utils": "^2.0.0",
 		"@abcnews/svelte-scrollyteller": "github:abcnews/svelte-scrollyteller#feature/future-news",
 		"@turf/turf": "^6.5.0",
-		"carbon-components-svelte": "^0.88.4",
+		"carbon-components-svelte": "^0.89.2",
 		"d3": "^7.4.4",
 		"d3-axis": "^3.0.0",
 		"d3-regression": "^1.3.10",

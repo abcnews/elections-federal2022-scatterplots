@@ -118,7 +118,6 @@ export const calcScatterData = (
       labelColour = COLOURS.TEXT;
     }
 
-    // console.log(result, yAxisMethod);
     return {
       x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
       y: yAxis(result, yAxisMethod),

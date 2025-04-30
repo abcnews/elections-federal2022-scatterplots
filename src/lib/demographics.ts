@@ -65,7 +65,7 @@ const fetchAbsData = async (year: string, dataset: string) => {
     const res = { Electorate: row.Electorate };
     return Object.keys(row)
       .filter(k => k !== 'Electorate' && k !== 'Total')
-      .reduce((acc, k) => ({ ...acc, [k]: (100 * row[k]) / row.Total }), res);
+      .reduce((acc, k) => ({ ...acc, [k]: (100 * row[k]) / (row.Total || 100) }), res);
   });
 
   datasets[`${year}/${dataset}`] = normalised;
