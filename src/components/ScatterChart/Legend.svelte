@@ -73,7 +73,7 @@
   .scatter-key {
     font-family: var(--dls-font-stack-sans);
     color: #4D4D4D;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 19px;
     letter-spacing: 0em;
@@ -85,5 +85,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  @media (min-width: 72rem) {
+    .scatter-key {
+      font-size: 14px;
+    }
   }
 </style>

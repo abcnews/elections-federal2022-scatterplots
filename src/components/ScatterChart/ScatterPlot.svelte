@@ -230,7 +230,7 @@
 
   }
 
-  .dot-label-wrapper{
+  .dot-label-wrapper {
     transition-property: transform;
     transition-duration: 2s;
   }
@@ -278,6 +278,13 @@
     text-anchor: start;
   }
 
-  @media screen (min-width: 62rem) {
+  @media (min-width: 72rem) {
+    .axis-label-x,
+    .axis-label-y {
+      font-size: 14px;
+    }
+    .dot-label {
+      font-size: 14px;
+    }
   }
 </style>
