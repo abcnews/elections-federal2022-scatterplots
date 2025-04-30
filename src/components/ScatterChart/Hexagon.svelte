@@ -28,9 +28,9 @@
 
 <g
   class="hex"
-  transform={`
-    translate(${x - 5}, ${y - 5}) scale(${scaleMultiplier})
-  `}
+  style="
+    transform: translate({x - 5}px, {y - 5}px) scale({scaleMultiplier});
+  "
 >
   <path
     role="figure"
@@ -56,9 +56,4 @@
     transition-duration: 2s;
   }
 
-  /* @media screen and (min-width: 600px) { */
-  /*   .hex { */
-  /*     transform: scale(1); */
-  /*   } */
-  /* } */
 </style>
