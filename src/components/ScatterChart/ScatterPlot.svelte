@@ -47,8 +47,9 @@
 
   $: isZero = xLabel === ' ' || xLabel === '';
 
+  $: xExtent = extent(data, (d) => d.x);
   $: xScale = (isLog ? scaleLog() : scaleLinear())
-    .domain(extent(data, (d) => d.x))
+    .domain(isLog ? xExtent : [xExtent[0] - 2, xExtent[1] + 2])
     .range(xAxisInverse ? [innerWidth, 0] : [0, innerWidth]);
 
   // Ensure that the 0% or 50% line is always in the middle
@@ -74,7 +75,7 @@
   }
 
   $: yScale = scaleLinear()
-    .domain([yMin, yMax])
+    .domain([yMin - 4, yMax])
     .range([innerHeight, 0]);
 
   $: trendlinePath = trendline ? line()

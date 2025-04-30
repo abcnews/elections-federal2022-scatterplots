@@ -54,11 +54,17 @@ export const fetchLiveResultsElectorates = (year: string) => {
 };
 
 function determineWinningParty(electorate) {
+  const { status, leadingCandidate, swingDial } = electorate;
+
   if (electorate.status === 'IN DOUBT') {
     return null;
   }
 
-  let res = (electorate.leadingCandidate || electorate.swingDial[0]).party.code;
+  const winner = leadingCandidate || (
+    swingDial[0].predicted2CP > swingDial[1].predicted2CP ? swingDial[0] : swingDial[1]
+  );
+
+  let res = winner.party.code;
   // LNP in QLD maps to LIB for our purposes
   if (res === 'LNP' || res === 'NAT') {
     res = 'LIB';
