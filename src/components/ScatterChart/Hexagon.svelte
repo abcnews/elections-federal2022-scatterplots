@@ -42,8 +42,8 @@
 
     class="scatter-hex"
     d="M0.303711 13.5V4.5L8.10771 0L15.9117 4.5V13.5L8.10771 18L0.303711 13.5Z"
-    fill={colour}
-    stroke={stroke || colour}
+    fill={colour || 'white'}
+    stroke={stroke || colour || 'black'}
     stroke-width={strokeWidth || 1.5}
     fill-opacity={opacity || 0.7}
     stroke-opacity={opacity || 1}

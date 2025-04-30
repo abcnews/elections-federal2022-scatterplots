@@ -7,6 +7,7 @@
   // import { fetchDemographicData } from '../lib/demographics';
   import { fetchErads } from '../lib/results';
   import { actoObjectToPartialGraph } from '../lib/encode';
+  import { applyColourToPanels } from './App/inlineHighlights';
   import ScatterChart from './ScatterChart/ScatterChart.svelte';
 
   // Initialise with default state
@@ -34,7 +35,7 @@
 
 {#if !!panels || !panels.length}
   <Scrollyteller
-    panels={panels}
+    panels={applyColourToPanels(panels)}
     onMarker={updateState}
     layout={{ align: 'left', resizeInteractive: true }}
   >

@@ -296,6 +296,9 @@ const PARTY_COLOURS = {
   ALP: '#E11F30',
   GRN: '#51A802',
   OTH: '#757575',
+  IND: '#757575',
+
+  ONP: "#e5660b",
 };
 
 // Some parties need supplementary colours when used as labels

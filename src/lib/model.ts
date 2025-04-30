@@ -4,7 +4,6 @@ import { regressionLog, regressionLinear } from 'd3-regression';
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
-import PARTIES from '../party.json';
 
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
   if (xAxisLabelOverride) {
@@ -69,18 +68,7 @@ export const calcScatterData = (
       return null;
     }
 
-    let winningParty = PARTIES.find(p => p.Electorate === result.name)?.Party || '';
-    // LNP in QLD maps to LIB for our purposes
-    if (winningParty === 'LNP') {
-      winningParty = 'LIB';
-    }
-
-    // If not major party (incl. greens), set it to OTH
-    //
-    // This will catch IND, UAP, ONP, CA
-    if (winningParty && MAJOR_PARTY_CODES.indexOf(winningParty) === -1) {
-      winningParty = 'OTH';
-    }
+    const winningParty = result.winningParty;
 
     // Apply filters
     let filtered = false;
@@ -99,7 +87,6 @@ export const calcScatterData = (
         filtered = true;
       }
     }
-
 
     let colour = COLOURS.PRIMARY;
     let labelColour = COLOURS.TEXT;

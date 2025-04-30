@@ -5,6 +5,7 @@ export interface LiveResultsElectorate {
   name: string;
   code: string;
   counted: string;
+  status: string;
   leadingCandidate?: {
     party: {
       code: string;
@@ -43,13 +44,32 @@ export const fetchLiveResultsElectorates = (year: string) => {
       .then(electorates => sortByName(
         electorates.map(e => ({
           ...e,
-          name: e.name.replace(/[^a-z \-']/gi, '').trim()
+          name: e.name.replace(/[^a-z \-']/gi, '').trim(),
+          winningParty: determineWinningParty(e),
         }))
       ));
   }
 
   return liveResultsElectoratesPromises[url];
 };
+
+function determineWinningParty(electorate) {
+  if (electorate.status === 'IN DOUBT') {
+    return null;
+  }
+
+  let res = (electorate.leadingCandidate || electorate.swingDial[0]).party.code;
+  // LNP in QLD maps to LIB for our purposes
+  if (res === 'LNP' || res === 'NAT') {
+    res = 'LIB';
+  }
+
+  // if (res && MAJOR_PARTY_CODES.indexOf(res) === -1) {
+  //   res = 'OTH';
+  // }
+
+  return res;
+}
 
 const sortByName = x => x.sort((a, b) => {
     if (a.name < b.name) {
