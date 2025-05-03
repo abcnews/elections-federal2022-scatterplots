@@ -32,9 +32,8 @@ export const fetchLiveResultsElectorates = (year: string) => {
     // 20/02/25 - generated a ERADS-like payload using AEC redistribution data
     url = `${__webpack_public_path__ || '/'}results/2022-redistributed.json`;
   } else if (year === '2025') {
-    // url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2025';
-    // TODO: Use 2025 data when we have it!
-    url = `${__webpack_public_path__ || '/'}results/2025-preview.json`;
+    url = 'https://www.abc.net.au/news-web/api/syndicate/storylab/elections/federal/2025';
+    // url = `${__webpack_public_path__ || '/'}results/2025-preview.json`;
   }
 
   if (!liveResultsElectoratesPromises[url]) {
