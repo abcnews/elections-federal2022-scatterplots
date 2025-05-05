@@ -163,12 +163,12 @@ export const yAxis = (result: any, method: string): number | null => {
   const coalitionRes = result.swingDial.find(
     p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
-  const coalitionRunners = (result.runners || []).filter(
+  const coalitionRunners = [...result.runners, ...result.ghosts].filter(
     p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
   );
 
   const laborRes = result.swingDial.find(p => p.party.code === 'ALP');
-  const laborRunners = (result.runners || []).filter(
+  const laborRunners = [...result.runners, ...result.ghosts].filter(
     p => p.party.code === 'ALP'
   );
 
@@ -176,7 +176,7 @@ export const yAxis = (result: any, method: string): number | null => {
   const minorRes = result.swingDial.find(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
-  const minorRunners = (result.runners || []).filter(
+  const minorRunners = [...result.runners, ...result.ghosts].filter(
     p => MAJOR_PARTY_CODES.indexOf(p.party.code) === -1 || p.party.code === 'GRN'
   );
 
