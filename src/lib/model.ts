@@ -4,7 +4,7 @@ import { regressionLog, regressionLinear } from 'd3-regression';
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
-import RES_2022 from '../../public/results/2022-redistributed.json';
+import RES_2022 from '../../public/results/2022-original.json';
 
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
   if (xAxisLabelOverride) {
@@ -201,8 +201,6 @@ export const yAxis = (result: any, method: string): number | null => {
       ?.find(x => x.name === result.name)
       ?.swingDial.find(p => p.party.code === 'ALP');
 
-    // console.log(res22, laborRes);
-    // console.log(swing(res22), swing(laborRes));
     if (!res22 || !laborRes) {
       return null;
     }
