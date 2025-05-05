@@ -143,6 +143,12 @@ export const DATASETS = [
     sourceLabel: 'YouGov Feburary 2025 MRP Poll',
     unit: '%',
   },
+  {
+    id: 'solar',
+    label: 'Clean Energy Regulator: Solar density',
+    sourceLabel: 'Clean Energy Regulator',
+    unit: '%',
+  },
 ];
 
 export const Y_AXIS_METHODS = [
