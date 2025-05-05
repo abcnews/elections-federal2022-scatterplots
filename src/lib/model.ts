@@ -106,9 +106,21 @@ export const calcScatterData = (
       labelColour = COLOURS.TEXT;
     }
 
+    let y: null | number = 0;
+
+    const res22 = RES_2022.data.electorates
+      ?.find(x => x.name === result.name)
+
+    if (yAxisMethod === 'swingtolnp2019' && !!res22) {
+      y = (yAxis(res22, 'lnpprimaryswing') || 0) + (yAxis(result, 'lnpprimaryswing') || 0);
+    } else if (yAxisMethod === 'swingtolabor2019' && !!res22) {
+      y = (yAxis(res22, 'laborprimaryswing') || 0) + (yAxis(result, 'laborprimaryswing') || 0);
+    } else {
+      y = yAxis(result, yAxisMethod);
+    }
     return {
       x: (xAxisFields.indexOf('zero') > -1 || xAxisFields[0] === '') ? 0 : xAxis(demo, xAxisFields),
-      y: yAxis(result, yAxisMethod),
+      y,
       electorate: result.name,
       filtered,
       colour,
@@ -196,17 +208,6 @@ export const yAxis = (result: any, method: string): number | null => {
   if (method === 'swingtolabor') {
     return swing(laborRes);
   }
-  if (method === 'swingtolabor2019') {
-    const res22 = RES_2022.data.electorates
-      ?.find(x => x.name === result.name)
-      ?.swingDial.find(p => p.party.code === 'ALP');
-
-    if (!res22 || !laborRes) {
-      return null;
-    }
-
-    return swing(laborRes) + swing(res22);
-  }
   if (method === '2cpvotelabor') {
     return twoCP(laborRes);
   }
@@ -222,18 +223,6 @@ export const yAxis = (result: any, method: string): number | null => {
   }
   if (method === 'swingtolnp') {
     return swing(coalitionRes);
-  }
-  if (method === 'swingtolnp2019') {
-    const res22 = RES_2022.data.electorates
-      ?.find(x => x.name === result.name)
-      ?.swingDial.find(
-        p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
-      );
-
-    if (!res22 || !coalitionRes) {
-      return null
-    }
-    return swing(coalitionRes) + swing(res22);
   }
   if (method === '2cpvotelnp') {
     return twoCP(coalitionRes);

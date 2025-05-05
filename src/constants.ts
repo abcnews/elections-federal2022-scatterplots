@@ -178,7 +178,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'swingtolnp2019',
     isSwing: true,
-    label: 'Change in Coalition 2CP vote since 2019',
+    label: 'Change in Coalition primary vote since 2019',
   },
   {
     id: 'lnpprimary',
@@ -188,7 +188,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'lnpprimaryswing',
     isSwing: true,
-    label: 'Change in Coalition primary vote',
+    label: 'Change in Coalition primary vote since 2022',
   },
 
   //
@@ -211,7 +211,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'swingtolabor2019',
     isSwing: true,
-    label: 'Change in Labor 2CP vote since 2019',
+    label: 'Change in Labor primary vote since 2019',
   },
   {
     id: 'laborprimary',
@@ -221,7 +221,7 @@ export const Y_AXIS_METHODS = [
   {
     id: 'laborprimaryswing',
     isSwing: true,
-    label: 'Change in Labor primary vote',
+    label: 'Change in Labor primary vote since 2022',
   },
 
   //
