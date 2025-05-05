@@ -4,6 +4,7 @@ import { regressionLog, regressionLinear } from 'd3-regression';
 import type { Graph } from '../store';
 import { Y_AXIS_METHODS, COLOURS, MAJOR_PARTY_CODES } from '../constants';
 import ELECTORATE_CATEGORIES from '../electorate_categories.json';
+import RES_2022 from '../../public/results/2022-redistributed.json';
 
 export const determineXAxisLabel = (xAxisLabelOverride, xAxisFields) => {
   if (xAxisLabelOverride) {
@@ -195,6 +196,19 @@ export const yAxis = (result: any, method: string): number | null => {
   if (method === 'swingtolabor') {
     return swing(laborRes);
   }
+  if (method === 'swingtolabor2019') {
+    const res22 = RES_2022.data.electorates
+      ?.find(x => x.name === result.name)
+      ?.swingDial.find(p => p.party.code === 'ALP');
+
+    // console.log(res22, laborRes);
+    // console.log(swing(res22), swing(laborRes));
+    if (!res22 || !laborRes) {
+      return null;
+    }
+
+    return swing(laborRes) + swing(res22);
+  }
   if (method === '2cpvotelabor') {
     return twoCP(laborRes);
   }
@@ -210,6 +224,18 @@ export const yAxis = (result: any, method: string): number | null => {
   }
   if (method === 'swingtolnp') {
     return swing(coalitionRes);
+  }
+  if (method === 'swingtolnp2019') {
+    const res22 = RES_2022.data.electorates
+      ?.find(x => x.name === result.name)
+      ?.swingDial.find(
+        p => p.party.code === 'LIB' || p.party.code === 'NAT' || p.party.code === 'LNP' || p.party.code === 'CLP'
+      );
+
+    if (!res22 || !coalitionRes) {
+      return null
+    }
+    return swing(coalitionRes) + swing(res22);
   }
   if (method === '2cpvotelnp') {
     return twoCP(coalitionRes);

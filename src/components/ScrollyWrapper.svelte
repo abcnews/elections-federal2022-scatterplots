@@ -62,4 +62,8 @@
       height: auto;
     }
   }
+
+  :global(.viz--resized) {
+    top: 20px !important;
+  }
 </style>

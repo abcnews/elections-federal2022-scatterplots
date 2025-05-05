@@ -57,8 +57,8 @@
   let yMax: number;
   $: {
     if (yAxisMethod === 'zero') {
-      yMin = 0;
-      yMax = 0;
+      yMin = -105;
+      yMax = 100;
     } else if (isSwing) {
       yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 1;
       yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 1;
@@ -146,7 +146,7 @@
 
       {#each highlighted as point (point.electorate)}
         {#key point.electorate}
-          {@const isNearRight = (innerWidth - xScale(point.x)) < 0.9}
+          {@const isNearRight = (innerWidth - xScale(point.x)) < 30}
             <g
               transition:fade|global
               id={`${point.electorate}-label`}
@@ -163,7 +163,7 @@
                 y={0}
                 text-anchor={(isNearRight ? "end" : "middle")}
               >
-                {point.electorate}
+              {point.electorate}
               </text>
             </g>
         {/key}

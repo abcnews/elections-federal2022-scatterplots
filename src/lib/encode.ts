@@ -44,7 +44,7 @@ export const actoObjectToPartialGraph = (actoObject: any): Partial<Graph> =>
     }
 
     if (ARRAY_FIELDS.indexOf(inputName) > -1) {
-      graph[inputName] = decode(actoObject[actoKey]).split(',');
+      graph[inputName] = decode(String(actoObject[actoKey])).split(',');
     } else if (ENCODED_FIELDS.indexOf(inputName) > -1) {
       graph[inputName] = decode(actoObject[actoKey]);
     } else if (BOOL_FIELDS.indexOf(inputName) > -1) {

@@ -95,7 +95,10 @@ const fetchGeo = async (year) => {
   datasets[`${year}-geo`] = rawData.features.map(e => {
     const electorateCenter = centroid(e.geometry);
     const nearestCity = nearestPoint(electorateCenter, featureCollection(CAPITAL_CITIES));
-    const distanceToCity = Math.max(1, distance(electorateCenter, nearestCity));
+    let distanceToCity = Math.max(1, distance(electorateCenter, nearestCity));
+    if (e.properties.Elect_div === 'Sydney') {
+      distanceToCity = 1;
+    }
     const distanceToCanberra = Math.max(1, distance(electorateCenter, CANBERRA));
 
     return {
