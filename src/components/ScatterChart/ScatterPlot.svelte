@@ -63,11 +63,15 @@
       yMin = Math.min(min(data, d => d.y), max(data, d => d.y) * -1) - 1;
       yMax = Math.max(max(data, d => d.y), min(data, d => d.y) * -1) + 1;
     } else if (!isSwing) {
-      const negDiff = 50 - min(data, d => d.y);
-      const posDiff = max(data, d => d.y) - 50;
+      // const negDiff = 50 - min(data, d => d.y);
+      // const posDiff = max(data, d => d.y) - 50;
 
-      yMax = 50 + Math.max(posDiff, negDiff) + 1;
-      yMin = 50 - Math.max(posDiff, negDiff) - 1;
+      // yMax = 50 + Math.max(posDiff, negDiff) + 1;
+      // yMin = 50 - Math.max(posDiff, negDiff) - 1;
+
+      const yExtent = extent(data, (d) => d.y);
+      yMax = yExtent[1] + 3;
+      yMin = yExtent[0] - 3;
     } else {
       yMin = 0;
       yMax = max(data, d => d.y) + 0.5;
@@ -146,7 +150,12 @@
 
       {#each highlighted as point (point.electorate)}
         {#key point.electorate}
-          {@const isNearRight = (innerWidth - xScale(point.x)) < 30}
+        {@const isNearRight =
+          (innerWidth - xScale(point.x)) < 30 ||
+          (point.electorate === 'Gorton' && width < 400) ||
+          (point.electorate === 'Calwell' && width < 400) ||
+          (point.electorate === 'New England' && width < 400)
+        }
             <g
               transition:fade|global
               id={`${point.electorate}-label`}
