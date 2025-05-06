@@ -43,12 +43,12 @@
     </svg>
     <span>Labor</span>
 
-    <svg viewBox="0 0 20 20">
-      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
-        <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.GRN} x={10} y={10} />
-      </g>
-    </svg>
-    <span>Greens</span>
+    <!-- <svg viewBox="0 0 20 20"> -->
+    <!--   <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})"> -->
+    <!--     <Hexagon strokeWidth={0.1} colour={COLOURS.PARTIES.GRN} x={10} y={10} /> -->
+    <!--   </g> -->
+    <!-- </svg> -->
+    <!-- <span>Greens</span> -->
 
     <svg viewBox="0 0 20 20">
       <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
@@ -56,6 +56,14 @@
       </g>
     </svg>
     <span>Others</span>
+
+    <svg viewBox="0 0 20 20">
+      <g transform="translate(-{OFFSET_X}, -{OFFSET_Y}) scale({SCALE})">
+        <Hexagon strokeWidth={1} colour={"white"} stroke="black" x={10} y={10} />
+      </g>
+    </svg>
+    <span>In doubt</span>
+
   {/if}
 
 </div>
