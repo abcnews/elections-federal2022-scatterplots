@@ -49,7 +49,7 @@
 
   $: xExtent = extent(data, (d) => d.x);
   $: xScale = (isLog ? scaleLog() : scaleLinear())
-    .domain(isLog ? xExtent : [xExtent[0] - 2, xExtent[1] + 2])
+    .domain(isLog ? xExtent : [xExtent[0], xExtent[1] + 2])
     .range(xAxisInverse ? [innerWidth, 0] : [0, innerWidth]);
 
   // Ensure that the 0% or 50% line is always in the middle
